@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795854481;
-	b=mI1nMomJrdz+RTm5ilvK/h3WtG29KgzXEqbvKcwHmApzHKnKgpKDOx4Ig/9vqVtgv0hc
-	 8gQPV0iU0daB0s4H+/iNHKIHwtzeTB8iMcfSQbF5r09bqmAFPAWBmBvxyJ+rwNalyIDab
-	 z2nwAh3UN1aamtAzp/YCrUV0etMnHxEdGfzxx/SO9E4FV6jGTlwHcC/vhqXkRvOD6klTQ
-	 0YRoP5kU33KKdUeFmcnOgvk1HPoJm/PAeFem7mS4LIJZgPfQXMVl4u1xdMIpJTl3udWJs
-	 r/NpMH6h4ESXm3zRsJnw05mB+LZtAm0k3GOOmQiSue7GbwrkwBBbUS8VqXSMfc6F5sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795854481;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=;
-	b=YL157frSrTcuVGr6xmrioatqAJiNcAYsuRc+m7qxqJvAzdGtoiSR+K+IWVx+Q0Bxbv6b
-	 /5+qAmRnoCp9+m02aQkE+sEpGGFoP6zGbC7MKVKzqq2Ocbbu+RO2tBgQLIqd2KWpE4hJC
-	 +nPJyz2t0F69jto/SuwygxdP4prrGGTYCclZFsDwF98vt1L4f8C+vKUbiWZzTP3/mtdS7
-	 Z6lJZ3udTE6Q/DktdywspjiVMWJf3DBDn8hFXR8/jZvgbicAXGTQgLdxq7dNMsiq/NvsV
-	 jegXlA7ju8JmvEB4ZUdLBa2qpobXotVghx5qo6JYXaj4MiubwiO7nmQJKFEgaMp5uIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aOKBJJL9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795856126;
+	b=j9PJNR6PAvpQOVQ0dnp+jKUrwBQlRtd/yoTxIXl5aimz6wkBbhAbZ9Jd5p5mmKVLn5pm
+	 fB5a+umlreKv7rTvxWUCggqPf1ITQ4mNk+Bv7AW53vGyaMkdN3gz3/JWZzqBa0irzU8aS
+	 0vUkzv1QthKozayFQz6R0DD4+jyOtuh89aaAWHLype1B2yAd/wwUieMQPmSXBmcvNDfJH
+	 uSvEW0mrnQcKWJnDi5g1seEqPiTVqSmVyESqvyuuB9nUE4KZn/LBXkFZ1XiAdp+uLIX/V
+	 CTx/NSgh59wNJ3b7Fq0/ONAvEpXsjkjUrZj8AqCTX680vPzamKtbV/Wz77gJzEr1u0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795856126;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pT/Ty5tDobukfZnRUpr1Lr4sCBOaNehiDx5qlqzSLeI=;
+	b=QirWoE0lPzw9/kWtzfU+XeN5RbaOmHtT4FKeaCktLAOkCYLvEQGDaggB8F0tll4RAcqn
+	 VwsTYgWckJw9Vp57hlO4s5r1YrnZsMdLq36nRwubh5d/Cdcgl1GAPlmNbvWJAP+Sbt/+o
+	 /ITYf80oL/Cyo0Gou7KnIdGqUM0uJoBN7W1CluKqpU8nBOuk30HTxfKUc2wDVp2JnbAAG
+	 v9UU3S+JI9h1ggAS147QQVeamcmnLjU4Ua+2Fi9kXWG5+LXOpnv3JmB+NVRX54vh9kEzU
+	 4hSQQMNrQ5lkn7xW6t9t3p7MZ24BKTZydrYbsTFmWAwuqpNwUO4QABTynBaKT1H5U7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a82/5EW2";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7DC606A31C;
-	Sat, 28 Nov 2026 08:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB7DC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF011606A321;
+	Sat, 28 Nov 2026 08:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aOKBJJL9
-ARC-Seal: i=1; a=rsa-sha256; t=1795854459; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lge2V1phD4GvM4gQNB8EGK7dF7ynTy2agpPqUcb1/lNKxUXH9y9xNedU/Pfi9zRYJKymsFWsPNkSHuAoFbpfUzWvC+16K7/VeUgdAw6DkglmBZeyegwdhgPtJR1Wh8cPKbaKHEoHmrmGER5YIIXMjJXOQ0ya+R9dgRFlGG5Ibkg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795854459; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=; 
-	b=dzTEpYfKssUTQtUU2BScP5VlOQwhmEApCQ1RBo4LRSkLQQe2rcAkVuWo2c9mwZeOMGNxnOuYDtpqAkXtHIrJnr40Gd60GTwgEo1WtWKeBroz0nTOpIny+dgTv+K4tgi2NKB3kYuUaseSw0oOV8tHfMiB49DF7AUKHu4LWQct9sU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=aOKBJJL9WEa0777gV9mFC04irkZOzoLx63WhnmTojZtyJW8wV69m2ULPbupODrLl9+NOLTLTrPyTgHI2xvBmKlzRp4UQyoqJkJ2U/6+KCrlis3VuXdqvrtRbZcS5y9bE2kmrk9ziTnhl3psZwudSY3+iFbqfUoRIDhYN469iZSs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795854456395164.46153556574347;
-	Sat, 28 Nov 2026 00:27:36 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 28 Nov 2026 09:27:07 +0100
-Subject: [PATCH] drm/sched: Sanitise wqueue_start/wqueue_stop/is_stopped
- interleavings
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a82/5EW2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A991F00898;
+	Sat, 28 Nov 2026 08:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795856126;
+	bh=pT/Ty5tDobukfZnRUpr1Lr4sCBOaNehiDx5qlqzSLeI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a82/5EW2OfNfsbisNQy+guLQbVhsz1qVvMs9F/Ys2r1NWSxIjxVbgPNIiLIyTxawm
+	 63d26N+kWSNTDaBQegZGajx2fig+KoU4kZ6MJFXA8xTGp5jZQuqLJcVzWeUN6NMd68
+	 gJEgbBgVvqFDeLfePo5ijOI5qMds/3InSMZ2LRJ8xdXF8u4ktAUYNxB/odGZzEjJIX
+	 VPKS/iasFIp+DR9UFQif07K/JL7CsGKiY4SS5NZSFz2WIJgqSgI3sGfEex1In37MPf
+	 IDTTVTRJQB7nCush8kTC4mSsgfF5xkIEtZ8BzlkdzXW0eZYIpMO2XvMT+Qab2tjfUv
+	 Uz67ViBQU+w5g==
+Message-ID: <0d77ebaa-fba4-4047-a43a-18b3c1ae242b@kernel.org>
+Date: Sat, 28 Nov 2026 08:55:20 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,223 +51,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] media: venus: use dma_iova_size() to check the
+ reserved IOVA size
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Honglei Huang
+ <honghuan@amd.com>, prakash.gupta@oss.qualcomm.com,
+ Alex Williamson <alex@shazbot.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org
+References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
+ <CGME20261127115859eucas1p1ae20b01eec39080daf19dbd71aba10e9@eucas1p1.samsung.com>
+ <20261127115849.2780625-2-m.szyprowski@samsung.com>
+ <nohVXMHveO5nQuD8sOn0QoENkIUC-GQzMCh8HTX6v2eezbtW6OM5gX5JwJ7_MSwfWj3bC4Zmfz1CrxTDKJeFGg==@protonmail.internalid>
+ <20261127142912.GK114472@nvidia.com>
+ <dcc8689e-41bc-4a18-87fc-2fa76e11eab1@kernel.org>
+ <1MLPCyQ6FzkBIjdEja1y1xlc1P6WofGan08C2FN5E6caYBo9uKTCVFZXVujGWTLFgNm4nIXZGke0kdpRd8Z_BA==@protonmail.internalid>
+ <20261127172626.GQ114472@nvidia.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261127172626.GQ114472@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261128-drm-sched-fini-race-v1-1-9803ee8aa8b4@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNwQ6CMBBEf4Xs2Y22Jqj8iuHQbhdZk4J2izEh/
- LtF9DYvmXkzg3ISVmiqGRK/RGUcCphdBdS74cYooTDYg62NsUcMKaJSzwE7GQSTI8YLmWDd2Xt
- /qqEsH4k7eX+t13ZjnfydKa+qXyPxcyp3eauBd8pIY4ySm2o9iaK0/wfcfO2yfAC6GHh5sgAAA
- A==
-X-Change-ID: 20261123-drm-sched-fini-race-9c1d2a8bbb76
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luben Tuikov <luben.tuikov@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, stable@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
 
-drm_sched_wqueue_stop() will WRITE_ONCE 1 to the sched's pause_submit
-member. This member is checked (with READ_ONCE) in every
-drm_sched_run_job_queue() and drm_sched_run_free_queue() invocation,
-which is how the two work items drm_sched_wqueue_stop() cancels would
-usually get re-armed.
+On 27/11/2026 17:26, Jason Gunthorpe wrote:
+>> It would be possible to reserve this IOVA range in DT so given what you've
+>> highlighted I think this and the Iris commit should be reverted and the DT
+>> constraint implemented.
+> That was the other thread, obviously using DT to describe a hardware
+> issue is the correct choice. But there was some problem where they
+> also wanted to split the SID space using DT and then the DT mechansim
+> doesn't work because the whole thing becomes too hacky :\
+> 
+> Jason
 
-However, this is of little consequence on SMP systems, where the effect
-of WRITE_ONCE is not guaranteed to be ordered with READ_ONCE calls on
-other CPUs. As a consequence, during drm_sched_fini(), a work item may
-become re-armed after its call to drm_sched_wqueue_stop(), and run into
-a sched->sched_rq that is now NULL, dereferencing a NULL pointer.
+Actually I've been looking for some resolution on this.
 
-To fix this, add a pause_lock mutex which prevents queue starts and
-stops from interleaving. This lock also guarantees that the wqueue
-remains stopped during the drm_sched_fini() teardown.
+https://lore.kernel.org/linux-media/d0e76f09-a360-4c1d-bfab-c5658f2a69e0@kernel.org
 
-Additionally, use disable_work_sync during wqueue stopping to ensure
-that no previously stopped work item can be re-queued during the process
-of stopping the wqueue. work_tdr in drm_sched_fini() is also disabled
-rather than cancelled, so that no stray work timeouts can trigger
-anything of concern during teardown.
+There's been radio silence on the method from the iommu maintainers so I 
+haven't merged the DT that would come to depend on it.
 
-Finally, use the smp stores/loads to set and read the pause_submit
-member, so that drm_sched_is_stopped() will observe the results of a
-start or stop operation in a properly ordered fashion, so that drivers
-which use this function don't need to worry about unexpected
-interleavings.
+If its mergable with changes then grand, if not then the approach needs 
+to be rolled back.
 
-The drm_sched_run_job_queue() and drm_sched_run_free_queue() functions
-consequently no longer need the (racey) drm_sched_is_stopped() check, as
-the work disabling achieves this in an atomic manner immune to TOCTOU
-bugs.
+Either way several series in limbo and now this rollback.
 
-Fixes: a6149f039369 ("drm/sched: Convert drm scheduler to use a work queue rather than kthread")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
-We've been told of a NULL pointer deref stack trace in
-drm_sched_run_job_work() on systems running panthor during teardown of a
-GPU context. The affected customer reported that by disabling the work
-items in drm_sched_fini(), rather than cancelling them through
-drm_sched_wqueue_stop(), the crash would go away. The reason was that a
-job could persist beyond the wqueue_stop, since they can be re-armed by
-one of the other work items being processed on a different CPU.
-
-Upon looking at the code I realised that drm_sched_wqueue_stop() was
-actually broken in several subtle ways that go beyond just changing
-which function of the workqueue APIs should be used.
-
-While I was tempted to get rid of drm_sched_is_stopped(), several
-drivers do use it. I think it's a potential TOCTOU footgun unless the
-driver itself makes sure that no start/stop is issued between the check
-and the code that is subsequently run to act on its result. But now it's
-at least sequentially consistent as well.
----
- drivers/gpu/drm/scheduler/sched_main.c | 52 +++++++++++++++++++++++++++-------
- include/drm/gpu_scheduler.h            |  1 +
- 2 files changed, 42 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 99252674e266..4662f024ad88 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -138,8 +138,7 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-  */
- static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
- {
--	if (!drm_sched_is_stopped(sched))
--		queue_work(sched->submit_wq, &sched->work_run_job);
-+	queue_work(sched->submit_wq, &sched->work_run_job);
- }
- 
- /**
-@@ -148,8 +147,7 @@ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
-  */
- static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
- {
--	if (!drm_sched_is_stopped(sched))
--		queue_work(sched->submit_wq, &sched->work_free_job);
-+	queue_work(sched->submit_wq, &sched->work_free_job);
- }
- 
- /**
-@@ -1153,6 +1151,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- 	init_waitqueue_head(&sched->job_scheduled);
- 	INIT_LIST_HEAD(&sched->pending_list);
- 	spin_lock_init(&sched->job_list_lock);
-+	mutex_init(&sched->pause_lock);
- 	atomic_set(&sched->credit_count, 0);
- 	INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
- 	INIT_WORK(&sched->work_run_job, drm_sched_run_job_work);
-@@ -1190,6 +1189,20 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
- 	}
- }
- 
-+static void drm_sched_wqueue_stop_locked(struct drm_gpu_scheduler *sched)
-+{
-+	lockdep_assert_held(&sched->pause_lock);
-+
-+	disable_work_sync(&sched->work_run_job);
-+	disable_work_sync(&sched->work_free_job);
-+
-+	/*
-+	 * Anything that observes pause_submit will also want to see the effects
-+	 * of any of the previous memory operations.
-+	 */
-+	smp_store_release(&sched->pause_submit, true);
-+}
-+
- /**
-  * drm_sched_fini - Destroy a gpu scheduler
-  *
-@@ -1212,13 +1225,15 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
- {
- 	int i;
- 
--	drm_sched_wqueue_stop(sched);
-+	/* Guarantee queue is paused for the entirety of the teardown */
-+	guard(mutex)(&sched->pause_lock);
-+	drm_sched_wqueue_stop_locked(sched);
- 
- 	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
- 	wake_up_all(&sched->job_scheduled);
- 
- 	/* Confirm no work left behind accessing device structures */
--	cancel_delayed_work_sync(&sched->work_tdr);
-+	disable_delayed_work_sync(&sched->work_tdr);
- 
- 	/* Avoid memory leaks if supported by the driver. */
- 	if (sched->ops->cancel_job)
-@@ -1303,9 +1318,9 @@ EXPORT_SYMBOL(drm_sched_wqueue_ready);
-  */
- void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched)
- {
--	WRITE_ONCE(sched->pause_submit, true);
--	cancel_work_sync(&sched->work_run_job);
--	cancel_work_sync(&sched->work_free_job);
-+	guard(mutex)(&sched->pause_lock);
-+
-+	drm_sched_wqueue_stop_locked(sched);
- }
- EXPORT_SYMBOL(drm_sched_wqueue_stop);
- 
-@@ -1320,9 +1335,19 @@ EXPORT_SYMBOL(drm_sched_wqueue_stop);
-  */
- void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched)
- {
--	WRITE_ONCE(sched->pause_submit, false);
-+	guard(mutex)(&sched->pause_lock);
-+
-+	enable_work(&sched->work_run_job);
-+	enable_work(&sched->work_free_job);
-+
- 	queue_work(sched->submit_wq, &sched->work_run_job);
- 	queue_work(sched->submit_wq, &sched->work_free_job);
-+
-+	/*
-+	 * Anything that observes pause_submit will also want to see the effects
-+	 * of any of the previous memory operations.
-+	 */
-+	smp_store_release(&sched->pause_submit, false);
- }
- EXPORT_SYMBOL(drm_sched_wqueue_start);
- 
-@@ -1334,7 +1359,12 @@ EXPORT_SYMBOL(drm_sched_wqueue_start);
-  */
- bool drm_sched_is_stopped(struct drm_gpu_scheduler *sched)
- {
--	return READ_ONCE(sched->pause_submit);
-+	/*
-+	 * Ensure drm_sched_wqueue_{stop,start}() && drm_sched_is_stopped()
-+	 * gives a consistent view to any observer that ensures no concurrent
-+	 * starting or stopping operation is ongoing.
-+	 */
-+	return smp_load_acquire(&sched->pause_submit);
- }
- EXPORT_SYMBOL(drm_sched_is_stopped);
- 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 3b0978fa8cf0..259960fd584a 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -627,6 +627,7 @@ struct drm_gpu_scheduler {
- 	bool				free_guilty;
- 	bool				pause_submit;
- 	bool				own_submit_wq;
-+	struct mutex			pause_lock;
- 	struct device			*dev;
- };
- 
+I would like to do the right thing _once_ to resolve.
 
 ---
-base-commit: bf57105b00e32d37b666c029c8c6b8708391da20
-change-id: 20261123-drm-sched-fini-race-9c1d2a8bbb76
-
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
+bod
