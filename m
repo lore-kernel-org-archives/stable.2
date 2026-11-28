@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795847949;
-	b=iZn40GJvX881Z5Gu/dP0NYkMoYGX77bhvnS2s28u0fNNcZYv+4PaobSELh3yg4GGMaEz
-	 GmmxV4ZC73evb/LoQLYkqElGGQYZfah4uRisrbYZeyGLpFaGyfcKjGL2b2gKjZDyw7IiS
-	 bXnR/1LA/6arpqGW/qm3vsqtVP4ma3mWYtlhZwDfmEBpQRl7spt7RyOsM7A3E7cJ5soiz
-	 /nmS87u0mLVP6IlTFTsGNdMS9i9b883N4pMF+zvYMAKDHh9CfYYstaNCJRQidxM/+dx0W
-	 qZtYLP7kbZP4gFgzwNfHYM/NiQA5JSNWkZ8ry+cPzFapwI+fngCu1YH56U+W5oRVTtQ==
+	t=1795847953;
+	b=RijAcRVFNtrKOw9VmSHnsx5yfDGhwR8x5uFuuBdBO6AdPJ1jqkB0LLWtfWVUtxZaL1B5
+	 mc2bnRoQsKBYqFy9FdzAc27DZCwfa3GHCyNpu4mDpMtKYmTa7TZtu4ODMCsMkafcGsaXa
+	 lmgATN81nclJfICai/jpl4FH88E3QgZjS2YHNffSdT97ga3+veLRD4y0Iywgs34SYGeZk
+	 HS35lx5/b/RITp5GAL73+K4JnuXQhE9QuHERbs+sEiHvIupRzRw5E1evplTu9KSHP2fqk
+	 fBAPkPZHGv4wZJ9VrAdaroBT5Bj3o3whIYcb99O+xcmxdiTFD/FgE7mTesPI3OG/4kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795847949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795847953;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=7/KIItuSkOccTTrf3OQEivNTHfzC9rlU/LCr+peVUCg=;
-	b=Y9UYBetIRs8GQE4MnCXMn303TfXW1rVs22/X24Hu2r2gXD/DOsILQY0i/lvPrSb9HiLd
-	 drwXh/oySFDBmtdsJKbysIa9JWhcdK9wx5oGzWTIqyRX+bmOqhS/8SyeT7gKHdmjb/L3j
-	 NJ12r9MWji0nxXxm5ZQ7jFIh1Uo/GuoUhn1GVIWKE/io2c2A1+ezgmtYLm5nFElNtY/Rv
-	 Z7rYVBYla0EVCAzvLZ2xfD/jHC2MNUcExON3vZdeLzwz1MwRmVSX564T47fRx1n1YYRnw
-	 uV8O14iir+IaWqjD9nHidtZewIozZWH9s6jJqwWQmMChtU17aUI2OXjl0YwpQg5612A==
+	bh=o9eubjqyEqSUf1SnweeCwXHyF/MyfNmZC7QvIQ6aTX4=;
+	b=mEYdGhE0tcl0yhiy+spbquAHoIKCurvCPEg8xDIlPLJHTTFE3djA8orbNEpDraL/AXsJ
+	 mYH6irxqSpjLAZcESM8VK3AVzIyySOo01yOVcgilH7JUHv7LZ3UrMtcJyVqGjFAPnQg7L
+	 9UrrijCQdfKaJv3AWD+DekBCA0zGwVEcpoYjFpn285gs0rsh+YhmZ7LFLfIsU5dUJG5fb
+	 lDaqiS9qSELQSTL66pt2v+S36jEmHez2nwo/ahQWq751RP/DT5B/dP7JDB93A01gV7+ET
+	 AeedTctT8k3DxjYwmux4gqvMAIepBDUX2EAUGnvxvrWTtYdfLmtFtu1U+h0+MJB/XEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=furiosa.ai;
 	spf=none smtp.mailfrom=furiosa.ai;
-	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=GzW6jTTx;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=DveYEf03;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F987606A327
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 06:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F987606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7D5606A323
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 06:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB7D5606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=GzW6jTTx
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b5c3288e6cso3511009b3a.3
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 22:39:09 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=DveYEf03
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8d1aec63541so986468b3a.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 22:39:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1795847949; x=1796452749; darn=vger.kernel.org;
+        d=furiosa.ai; s=google; t=1795847952; x=1796452752; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7/KIItuSkOccTTrf3OQEivNTHfzC9rlU/LCr+peVUCg=;
-        b=GzW6jTTxAsDEHPyOt7QcsgxdP7JhrH3ErUG1ai2DNjJGexk5iPsJP7lrRvBo9+ONFw
-         Sfe+G81irh9UiFr/vLw5RUUUfMz/JJKuG6JYp24rIdXR8u/zewBVZ1mAaz+9G2miH/Ux
-         nv2a64LYYMqjhBm4Bkje83DynyKqMbngOSxTs=
+        bh=o9eubjqyEqSUf1SnweeCwXHyF/MyfNmZC7QvIQ6aTX4=;
+        b=DveYEf03UdRFqSA72iitCoAvJkzkywIaMvL8lKlJoeuj5W+NJmm+3cE5wK8/XPqH3a
+         cVQTIrdCVMJlLrSrGViTqs8hKf7C4reqhDM09Uk6DV/ALAlwYK+SOggutxvwJ33wKt4D
+         8eFS/enJc8b7niEZ4Mv+cPHpqxvwYGR/0Jee8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795847949; x=1796452749;
+        d=1e100.net; s=20260707; t=1795847952; x=1796452752;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7/KIItuSkOccTTrf3OQEivNTHfzC9rlU/LCr+peVUCg=;
-        b=fpTa83VtAMccY2WJd23Z3pXBEiphWO3b1rAdWjtKpKUkry03OK5bV15iEb+Tq88glj
-         4t2E3TJo26W7yy8qi1eMRQcnFTK+5lBs7sapwc0PGrMTwMGRXgd0EpG7gz+mbkQ7rKOt
-         R/HbC88+Ueu2k/LhKbGcRXxwDcjL7xu1K8z7eQ8u0crz3uVgNsxsNeRjA1qDiCtuvKx5
-         IuowqnLW7FNMbC1iMipcR/Jic2l8KiAByXwqGm+n9+5TaBVrphKCKpBRMMBPjifYw+yD
-         OcRcC0eUdexupQNOMWTf3tLPXFot/ZqBLf3Nzxqwg8mEFpIPYyBLRm49HYaPBb/izq57
-         PuyQ==
-X-Forwarded-Encrypted: i=1; AL+hErEJdFut0gZpD9PT+DqILGIzyQUL+Qm9FfiW+JDnc40sltoCFtv7C4yeVZzFACX5csFcmT+qz9w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W33MUKe5l+Kesa37vA7K0hGN7CigHeyOSdepIhAskXcWq7JqM
-	dmge7uAyn5+BmH2dZl/JCQVN/aS1TTYtA+UwpDByDhUxgQBF+Yi/1SVW+zKadB6CLS8=
-X-Gm-Gg: AZFdTZeP+X6feYh+KvDwjyp5P2BBpb0Wt1N2liFEaCVBNkJTvfpXfWSW1XsdK7dCXUo
-	aYzwCTRPEJoSbgw3h+rqqYkueU/T53Ct3xKTtyqZGRbe9XjwMTYWG4BCO9LRyFtzh0yV/2KgURW
-	+cCYQUZcg+pM5xbi0FQrstF5Radux8LnS6SZYdogTiO3SM3Fj5JpvCNC9NgLtY4yI8mGdGvzgWu
-	lhIjyqcpcRQadj6YYXuI9PvKe/E7Pu+7LXgpLn6Y3J0yabirFklzuGnnP1+X42da7Orld0hAt/K
-	Y1UdtHTKWZodyM/KbVAPUrPpJcx0QLygln1l6PHmUeuTOnsE2FLZtmIGjTOd1xCBTBu0gms65GI
-	fcOVHDEFjq16R05cvfB7OiK7IcriYdS3j21xHV4LuQhXDIcB3HUmIy2yEous1lxsEiBB9rHGG5u
-	4HWBkJ/gwUB+/227udiNaPddePzbYbV95frL3y1mEjXzINuNGGUoXy1MyqOb/YqXtCV8IYTUnfg
-	/nw0yRB/Xp/QNBWY/ctyp5cWDVONojFine/z3LrOZMKyhmiJqAmOhMf0u9DoC3bGGgWeCu/sLI4
-	iENL1PuOcJgpNV/zSoMOC88aF7MkGOEgzLGeGBFm+0MN++kGtWQoDonaHxsnEq++S5Vdj4TyBrD
-	eEnKjEaym/7hy
-X-Received: by 2002:a05:6300:278a:10b0:3f9:797f:385a with SMTP id adf61e73a8af0-407235c3a0cmr11591887637.15.1795847948803;
-        Fri, 27 Nov 2026 22:39:08 -0800 (PST)
+        bh=o9eubjqyEqSUf1SnweeCwXHyF/MyfNmZC7QvIQ6aTX4=;
+        b=IB5qiX9r9WxLmMb+wf/0OSV7uNA1ebDxngM9CE8Iji4xgKMV6JkW5wc1Qbc86MhbYN
+         kYp0hnq8QQIQQ78LNonizQXKw3MzfdJoLL+GAM8mCe2wjbFF5EpbtZxgh0GBV6zE+/pS
+         SWx4pFyZsDVgv1HRYhuVHUULxymPHcNCEYgCMyHpLv8UPjc7YWZ0Leb+sw+UcutKQGci
+         +qOk9K5Rpi3jwb+d7zDeSTvaatm/VbIjKQiDSjlLJ18gtSzK4BgbRMP3Vy+NO4UelMdr
+         bh+xS1CzK87VowSiylSY4vaInzvAm26kY8t7RnbPsF9bb5D9BRpB4JvGiHrV6ZLvN1Ow
+         Vk7w==
+X-Forwarded-Encrypted: i=1; AL+hErE6bL4gqi9vv9KgtS12zLCFwgKNpQvoAT6o/PwAwMoyAhB7Wt2Z4tjd1arKI9bo8ycI60e4Jdg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rQ1+qdsyVhCCigHOWxvZ65pd/n8j53WrPlppUdLYgYaZtwZ7d
+	ZzuC9NhFc+KmgNs1k0xx7Xygow0ZXw3qAQ0ZY/3Y88P0FZ2H67vJXw0ixh+xEt7/NhL2eqwKTuN
+	IRJU96Nk=
+X-Gm-Gg: AZFdTZe8i1PRhhMDt5O4/fT3drjAozdBuzAXjHzJdETNpvld2NR3zWyEKoPm+lwilfb
+	IvrT6SguxtFlQ4m+i9oMkKLDy6q83S2YwzU+Xu2NRC8FQoWSy442F7FFp9xbuUclWCXGMoq5sbs
+	jO/3XbNiCqMJrLFclD+35J/yPYUxqBohCMnQATku02rEzwL5+9SvIenkdade0EvvXr1z4eYoyqi
+	ECnizgv8DPk0IksvhDp0GBUQjZSrexVqQD78zq/HcvGuOfQNcn/swOBREeIT5qfCxQkdce9AGDU
+	t1BFi6vPQ2JCOMB4K4sX8TIqvDAuoO0TeMoE8frpUJxnOOnTaQOJB6TAa1xjQgtUV5/o/lRaXP9
+	C1vGRhf62UofDgigkix3a789eB0gXkYIdHohD0fOkZkJwnv26E6LFEFSsuIfaqYIZBq5iXLmTFq
+	CFjJqljsOWcQltMmShcc9CMHMeBAimfWxf55NluOI4/45uGve/5eomvCN38OD2XSUKUej/+6AsO
+	3C7FG2V7qxRpgYd8Hnf5a8jMTFnvTaOLNjhp/kVqeetvoK2RYFa1sjHenrqOdMqVYxKz6Rg80uZ
+	nbQJxK5YPts/DNOjCk2d8SxvWM+Lay7AoEFf76RH361gqDaGAXAJ5zlR340LdF1NUzbEoHVgAcK
+	fzkJZIqN9jLJGz1tCxfP3Sy/6Qc5aftAxsg==
+X-Received: by 2002:a05:6a00:3403:b0:8a0:3307:c46c with SMTP id d2e1a72fcca58-8c87cb4678fmr24975744b3a.36.1795847952011;
+        Fri, 27 Nov 2026 22:39:12 -0800 (PST)
 Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87077944bsm13939838b3a.2.2026.11.27.22.39.06
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87077944bsm13939838b3a.2.2026.11.27.22.39.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 22:39:08 -0800 (PST)
+        Fri, 27 Nov 2026 22:39:11 -0800 (PST)
 From: Sidong Yang <sidong.yang@furiosa.ai>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>
@@ -87,9 +88,9 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	linux-kernel@vger.kernel.org,
 	Sidong Yang <sidong.yang@furiosa.ai>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/4] accel/rocket: Fix iommu_map_sgtable() return handling in create_bo
-Date: Sat, 28 Nov 2026 15:38:42 +0900
-Message-ID: <20261128063844.1537615-3-sidong.yang@furiosa.ai>
+Subject: [PATCH 3/4] accel/rocket: Skip CPU cache sync when prep_bo wait fails
+Date: Sat, 28 Nov 2026 15:38:43 +0900
+Message-ID: <20261128063844.1537615-4-sidong.yang@furiosa.ai>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261128063844.1537615-1-sidong.yang@furiosa.ai>
 References: <20261128063844.1537615-1-sidong.yang@furiosa.ai>
@@ -104,83 +105,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iommu_map_sgtable() returns ssize_t, not int. Storing its return value
-in int ret truncates any mapping of 2 GiB or larger (reachable via the
-__u32 args->size) to a negative value. The error path then removes the
-drm_mm node without calling iommu_unmap(), leaking the IOMMU mapping and
-causing subsequent allocations at the same IOVA to fail.
+rocket_ioctl_prep_bo() calls dma_sync_sgtable_for_cpu() unconditionally,
+even when dma_resv_wait_timeout() fails with -ETIMEDOUT, -EBUSY, or
+-ERESTARTSYS.
 
-In addition, if iommu_map_sgtable() ever returns a short mapping, the
-error path fails to unmap the already mapped range, and the drm_mm node
-was sized from the unaligned args->size rather than gem_obj->size.
+When the wait fails, the NPU may still be performing DMA on the buffer.
+Syncing the scatter-gather table for CPU access while the device still
+owns the buffer violates DMA ownership rules and can corrupt in-flight
+DMA data.
 
-Store the return value of iommu_map_sgtable() in ssize_t, size the
-drm_mm node from gem_obj->size, propagate negative errors directly, and
-unmap partial mappings before returning -ENOMEM.
+Only sync the buffer for CPU access when the wait succeeds.
 
-Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
+Fixes: 525ad89dd904 ("accel/rocket: Add IOCTLs for synchronizing memory accesses")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
 ---
- drivers/accel/rocket/rocket_gem.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/accel/rocket/rocket_gem.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
-index 9f3d85e3dd30..e52fc6ea7cf0 100644
+index e52fc6ea7cf0..dddaf9d2fbc8 100644
 --- a/drivers/accel/rocket/rocket_gem.c
 +++ b/drivers/accel/rocket/rocket_gem.c
-@@ -67,6 +67,7 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
- 	struct rocket_vm *vm;
- 	struct sg_table *sgt;
- 	size_t size = PAGE_ALIGN((size_t)args->size);
-+	ssize_t mapped;
- 	int ret;
+@@ -171,9 +171,11 @@ int rocket_ioctl_prep_bo(struct drm_device *dev, void *data, struct drm_file *fi
+ 	else if (ret > 0)
+ 		ret = 0;
  
- 	if (!size)
-@@ -81,7 +82,7 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
- 
- 	vm = rocket_vm_get(rocket_priv);
- 	rkt_obj->vm = vm;
--	rkt_obj->size = args->size;
-+	rkt_obj->size = gem_obj->size;
- 	rkt_obj->offset = 0;
- 
- 	sgt = drm_gem_shmem_get_pages_sgt(shmem_obj);
-@@ -98,19 +99,27 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
- 	if (ret)
- 		goto err;
- 
--	ret = iommu_map_sgtable(vm->domain,
--				rkt_obj->mm.start,
--				shmem_obj->sgt,
--				IOMMU_READ | IOMMU_WRITE);
--	if (ret < 0 || ret < args->size) {
--		drm_err(dev, "failed to map buffer: size=%d request_size=%u\n",
--			ret, args->size);
-+	mapped = iommu_map_sgtable(vm->domain,
-+				   rkt_obj->mm.start,
-+				   shmem_obj->sgt,
-+				   IOMMU_READ | IOMMU_WRITE);
-+	if (mapped < 0) {
-+		drm_err(dev, "failed to map buffer: err=%zd request_size=%zu\n",
-+			mapped, gem_obj->size);
-+		ret = mapped;
-+		goto err_remove_node;
+-	shmem_obj = &to_rocket_bo(gem_obj)->base;
+-
+-	dma_sync_sgtable_for_cpu(dev->dev, shmem_obj->sgt, DMA_BIDIRECTIONAL);
++	if (!ret) {
++		shmem_obj = &to_rocket_bo(gem_obj)->base;
++		dma_sync_sgtable_for_cpu(dev->dev, shmem_obj->sgt,
++					 DMA_BIDIRECTIONAL);
 +	}
-+	if ((size_t)mapped < gem_obj->size) {
-+		drm_err(dev, "failed to map buffer: size=%zd request_size=%zu\n",
-+			mapped, gem_obj->size);
-+		if (mapped)
-+			iommu_unmap(vm->domain, rkt_obj->mm.start, mapped);
- 		ret = -ENOMEM;
- 		goto err_remove_node;
- 	}
  
- 	/* iommu_map_sgtable might have aligned the size */
--	rkt_obj->size = ret;
-+	rkt_obj->size = mapped;
- 	args->offset = drm_vma_node_offset_addr(&gem_obj->vma_node);
- 	args->dma_address = rkt_obj->mm.start;
+ 	drm_gem_object_put(gem_obj);
  
 -- 
 2.53.0
