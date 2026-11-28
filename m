@@ -1,80 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795836346;
-	b=f9PrzPkLFklH9z31rIgJOpkrT2FPY64+QJh/sGECV3diLZjX1rtR13cDCdkj1AcgqGsi
-	 Nz6hg412c7emCBno3NSNhCqDE+Sz6jmhDi4srrTC2jgZlRG5JVpFCvxsiBwu8X2B8c0+P
-	 +cAJ6FxV9aojR2i3b0N9zgQ0t8T9U6u/aiNiNfpqpt+bFg8mwJmkQdewBJTmlDOxOsWcU
-	 Larv7m7FSDxJOSxNYcbyzMcoM060A9Mbpi90hNSazC3KBJEw6Ca0GMWZj5xYwpg11Kt11
-	 kQc1ChNeziL8zJcmnCEly8aQeQwroLU8RnoQqTGPhSqMwaBH9mEFaHCNiuFbLFcwGlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795836346;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:In-Reply-To:References:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=nzpsLzqXf6sPFfruIMYHCD9191WrOb+tGRiWAlSoemk=;
-	b=v0bfjlTK/DrhT1JK2e6g2Qvn8MvQI3+1vT46grcw3tORsSYMl4CGFEwciKBDsFV8q/z/
-	 icfhATctw1ctp5rmEnyd/46/XLdq8pleP88f7cI5EGncXX6EFb0hn/OSuifumwzufKG4V
-	 S9RPgp88xCSk7o4yP9/AUHM9LUoeLGCnVafi5A0pj3EsB34fdHrBfVFog3n8lhe9fucWR
-	 9lUyjA5yWGv+LCo5WAwAqtQiZkHkVIabgAq68NtdBtO71mqeSBVymQZbCkxyo9Tk0kGbD
-	 wgy0HyEsPACjPVMYMIAGugaO/ggJZ/739nah8OOAtufbsc51XNf1NrNd/8rh0CgDQIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnrImfpi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2B5606A31C;
-	Sat, 28 Nov 2026 03:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnrImfpi
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795836345;
-	b=3ixcphRu08AxJnZeyn9PLmJG2gVaAGlmhw8Tuo8giRV41VnQCZLORnENQ3Xw2cTRqfFo
-	 rZRl8zYEyuSl8gU8nxkcDx+0cePy14NYY5XBZTrtmfuGWw0nLiiMnFeyYT4MoK2G5wzQw
-	 Wy7zJVssVfy97yQDw39HtWe6kPCfLCJWYZuMe7kwyXvMmnXATwT4l5ENWyC2uxk5dMwVy
-	 mcrlI4SJT14Wml25MASUjAfWqEgAMps3gxP3DjYRdZSHF+0IGXHdjpLJleeifvfGHqbmb
-	 Ffv8XwVNotj+VMlu4o1Y6ZjZw4RknKezFG3OupV+FvUw/RnUWm8d78BCkLbJNveXvhQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795836345;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:
-	 In-Reply-To:References:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=nzpsLzqXf6sPFfruIMYHCD9191WrOb+tGRiWAlSoemk=;
-	b=KzzabviFjvAeWIXO6a+IxL7EyMg//PLgE0uMBkrfOs2yHBX2b1vrVQyUSCiSt3dOBr0b
-	 dty6ulgwY6IJbrNIArdWe7EIPeB0Dx6TgqE+2gK7YU0Fettu6DcmsM+wOC6XN+TnX5ikV
-	 5TGXZKMo+4C5ahzTDSbzgCymJ77sGiJ+cVYziFx4aCPp9i7l/5r6uOv1n1AqtuaGbnOn1
-	 XRE/cnlcdBRvctYadJ6vA1o2OcBRECvjDIVfREdUSJIDTgimzXPEwERWzzxduIDZaL0Q8
-	 GMp50pG7bbZTgwIygupIFJZebws/NNS5Fu7NEfx8I86TQkCy6MsS+i6tilyUcezgVKw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795836975;
+	b=qbYVzuDsqcjncC9Kl56zf8zgfCudlgwbeUi/uD7GigskWY2GqmimJAfTDuUZwNtRSGpl
+	 m5JKBdKet0LarwpDyWO3hYkKkpXtDO6N1wWb28EfST6HKefjzELFCM6D2a6gvWWnESVVw
+	 DIEwU1fSfHEF+yWRbMr20qOb7tl8NNz/CA+ydq71HbLu74QJn7Hj0MxiFcAC7lwvaQu9l
+	 NVyMcGv59pKK3qEwbu9fWGU7xxSkT9nEKvsyxe9Y+9z4NcST0QJGcuGjzDvhJ9t9eofzg
+	 yO2uJRkpJ8CEQn2SRvNuQnGmE2NMkmdfmJFRVoXKsKNloh8LeJNZqxuugv77pm3vYnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795836975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zpen4d1kkqo7HxjfJn3mlnlDWjSkeh8lYu4nl7L7jCU=;
+	b=exs7x+QasnYAXW+wjwz82GK9NeEetfTNtVSQ/BqLWqiGLCXxswkRUtuoF2x1CExaTjWP
+	 1e8PKfgY+T2qUjNk4LVe6tmZrd2ZQEb6vQfaHMkSiD1PPOIa0xqJ2idjOvLIwdjTr687A
+	 gmUOnGUB/zuOpRDkm6RcGUaPbezFJipuXNQtGcF9fR3evMgrLH836pUFzBrQ9ZBja/LjK
+	 WkR2QhgrWpn6hZPSZbU6/Wqe2T0L6hPy21P2YtD6EMxnSmSxmHL4hJp5swiz91RJ5umS0
+	 UAVaHBx1FYEfjkaYV5kwDKR/2C4DveYCZQwBv3qUnNwPBYshmdcXJo0f1yzwcGHenpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grJoWkjR;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0E5331F000C1;
-	Sat, 28 Nov 2026 03:25:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795836345;
-	bh=nzpsLzqXf6sPFfruIMYHCD9191WrOb+tGRiWAlSoemk=;
-	h=From:Date:Subject:In-Reply-To:References:To:Cc:Reply-To;
-	b=mnrImfpifAQIwHQJSWDcqIIovyf/X3mkOMJfYnqJOsvWOVcYALnrJ9AtnEZJZN9X+
-	 xQnn3RQq8mAoA8mE8gxbovuQ9Utu9KvFo2iUEoQBiKYK3YzNcVS3VZaTPmf3rzj6o1
-	 IpCfl7EtIGHINJ8pG90a3Y/mq4R1iiWbV1UcmtVyrC8EEmpIYvZXlfDboGHLxIKlvZ
-	 lRPPWdXeADY/7MhtiKDWcTHJfySzZilyGyQ0q21iokR+CUq1J9K7vO3C/JUlVApjt0
-	 YgFczZ0lKSt6rRmZwy0XuXNFJN4vqV8pxxSyIear1ulLH+DEftp3b4IGgWn3eR1hP1
-	 8m1YxNsQ7Si3A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6A06E4DF5A;
-	Sat, 28 Nov 2026 03:25:44 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Sat, 28 Nov 2026 03:20:19 +0000
-Subject: [PATCH 6.1.y] iio: frequency: admv1013: fix NULL pointer
- dereference on str
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C58606A31E
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 03:36:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6C58606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grJoWkjR
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b546061d58so20369766c88.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:36:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795836974; x=1796441774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zpen4d1kkqo7HxjfJn3mlnlDWjSkeh8lYu4nl7L7jCU=;
+        b=grJoWkjROdHFwhnP7DYe2eHRpWDyKsyWAmEBV4wgSBiy/r6+1wUx4M9gHG4uG+KDlY
+         62vdweFhtIafSHfPS8Z4TZIHcNK/GHkoGW0fvOS/oqln/2czexKSGtN7rGTtqAMW4XRX
+         8bpTFjwECr2h+cE+ZkaNuAgA4KQmTJCLAv4w311b8XHsmtfuMLfTDu8ly3xrrXoSIxeZ
+         4GVckzkrRBaOI/f5T8+ht8TpHDISkCQiK6BGj3/AmN2V522lrQK8y2QJ1JgEV58ucfxH
+         UlEdm5Tc/VXol4FGpLOb74YHBDO4xdEBDrQjY3p/NW4O3cRpuMB7OKc2D/4Nz9TcynqG
+         8WkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795836974; x=1796441774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zpen4d1kkqo7HxjfJn3mlnlDWjSkeh8lYu4nl7L7jCU=;
+        b=vEYznQCOxxa9F0hBCe15ml2HLuncjKyYDa5NDVqS6cfp20nSyDjE0P/FZXPgZ0bV03
+         M45mjkAlA2Fr8Y0ijewVio+am+dnWGOg365VFSDXZzcvYc/pi6Bt4IiSg11V58cDEr6j
+         N2WEauoIiU6ZRhV0yUIfUk4gJrWEXKRs1DARMv3BEYuPttPW+CwrdsI0ESP6D04eOZ6p
+         LkwX+D8YRmEmwts/yYwy4WsmxWrZlDHJEGPPlr8YDSe+aWziM2/4pTK5jUaoArS8wyL2
+         54gOAKTEnDrnEDEKUWk6xzqgjTaOJf5B93rQt23WE7CxA/hfgoxeuWG5TnsR9EKii236
+         tLQA==
+X-Forwarded-Encrypted: i=1; AL+hErEHe8JV9qBLMpGCzc2qsiwHbU8jxEWPsJ/j8Tv0g35n7Mr17Y1dzuamLSMpFuAnpbCZoTE946c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x+BI+5+p/qduDSpnAY3RD44OHAQc1vwKV0iMVnBkRkSQ7uKVW
+	MOigkNYNY2jQxtLguRsG7v4CaO51pg576ypDIKpxJd2+mEPnlSCATTTE
+X-Gm-Gg: AZFdTZfVSjLBytci2ysaf/ydFG+B/zqVJxqQt25Y/e7QG+YzyqBIisP5xJR0O5rqNNF
+	dbOplTjtiSnjD9ENmKZYfoW4uRqUfG2SdOfctH1rIHx3e1UkCrWrWytvbH1LkZSzMPgeZJSedcM
+	zcWynboUORgnq4IAP2yx39AYhKhGCRdDrucT9wZscACGgCEF+fWVhOXzel3Aj266dQx4EMzum/+
+	BKTFhQLmkXzxtflUSqVOEfL0DavTHC/9ChWKBtTlhPmCKFssUSKf/9ZUamB06KkPHPfsmW/We7R
+	RrRFy635x3fwOXONQfJb7oIzynFAzlvhtjwgDGxiPf8n8tPEmmXIHKfRnMulgsU+vVYhctONqM5
+	JxSS5xFM0mUz6g8YERR2QCKKlGQqz/MTW7xHUvv+vs6WilbtrBC/xioZJI83AFs2ANpl6mSYlsB
+	vLJZ/yVqDzeCEVFHsiyirdI2n7qpT/5mrnmyf1P7oWN0bnJWlUrgDy69WNyGdSRlbICMHUAWGae
+	ko5UY0/+duvUtXKSZQ/vOUcq9s0yyKUPX+TIeHXnKm8O7DyK2dcvplyBooPNWoBPBC1QUnJnz2A
+	sIQ0OIDYPbgP+LC4f+mdnY5NmjfQW75GmjmKnnn4ZzEF4B8DBbqhkKfmxIGFdwKnPKE8qNx+4qG
+	Ngd5i0dgnAFZp4Z1fzPswoNOtcQfKBoHC/U29DhFhFAhRKZIlzg==
+X-Received: by 2002:a05:701b:4308:b0:165:aced:1fde with SMTP id a92af1059eb24-1b56f87a910mr17234011c88.0.1795836973825;
+        Fri, 27 Nov 2026 19:36:13 -0800 (PST)
+Received: from localhost.localdomain ([2601:646:4300:d042:5070:1d3d:1d30:e241])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55682d301sm62036381c88.10.2026.11.27.19.36.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 27 Nov 2026 19:36:13 -0800 (PST)
+From: Ozgun Kultekin <ozgunkultekin@gmail.com>
+To: colyli@fygo.io,
+	kent.overstreet@linux.dev
+Cc: linux-bcache@vger.kernel.org,
+	Ozgun Kultekin <ozgunkultekin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] bcache: don't read more than the buffer holds for a btree node or the uuids
+Date: Fri, 27 Nov 2026 19:36:09 -0800
+Message-ID: <20261128033609.42213-1-ozgunkultekin@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,115 +97,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261128-admv1013-61b-v1-1-c9c20290b9be@certik.com>
-X-B4-Tracking: v=1; b=H4sIAHJICmsC/02NSQ7CMBAEvxLNGQePiczyFcTBy5gYgR15QgSK8
- ndiuHDsUnf1DEwlEsOpmaHQFDnmtAbcNOB6k64kol8zKKk0ojoI4x8TStwJjVaoEI4obeg6vYd
- 1MhQK8fXVnUG32L7h8sP8tDdyY1XVojVMwhaTXF8RU/JjzndR+fb/ApblA6Mm9zqkAAAA
-X-Change-ID: 20261128-admv1013-61b-2ff910bf4467
-In-Reply-To: <2026050125-bullfrog-earring-0c74@gregkh>
-References: <2026050125-bullfrog-earring-0c74@gregkh>
-To: stable@vger.kernel.org
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, 
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-iio@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795836018; l=3298;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=acstfVNnYL2yFV1bAV5V3kbzxfSp/mALpENhHosfVzE=;
- b=/75Jkk946WcbJgqEtH/uIbE1Ldg/SYaSC2V5alserJC0uMI7+rNaWiG+45XE3FRmC8MKUukEc
- 4jjb8FZk/HjAnFgmejOirpt4FBDI/HF3SjceV0N88VLHlX+87eAAUTS
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
 
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+bch_btree_node_read() sets the bio size to KEY_SIZE(&b->key) << 9 and
+maps it onto the node buffer, which is PAGE_SIZE << b->keys.page_order
+bytes.  page_order is ilog2(KEY_SIZE / PAGE_SECTORS), so it rounds
+down, and nothing checks that the key fits in the buffer.  For example
+a 1023 sector btree pointer in a 1024 sector bucket passes
+__bch_btree_ptr_invalid(), gets a 256 KiB buffer, and the read runs
+past the end of it.
 
-commit aac0a51b16700b403a55b67ba495de021db78763 upstream.
+__ptr_invalid() also skips the bucket_size check for pointers whose
+device index is >= MAX_CACHES_PER_SET, while bch_submit_bbio() always
+reads from c->cache.  Such a key can be up to 65535 sectors, which is
+larger than both the node buffer and the bvecs of the bbio.
 
-When device_property_read_string() fails, str is left uninitialized
-but the code falls through to strcmp(str, ...), dereferencing a garbage
-pointer. Replace manual read/strcmp with
-device_property_match_property_string() and consolidate the SE mode
-enums into a single sequential enum, mapping to hardware register
-values via a switch consistent with other bitfields in the driver.
+uuid_io() has the same shape: it reads KEY_SIZE(k) << 9 bytes of
+jset->uuid_bucket into c->uuids, which is one meta bucket.
 
-Several cleanup patches have been applied to this driver recently so
-this will need a manual backport.
+The btree root and uuid keys are read from the journal, so a corrupted
+on-disk key makes these reads overrun their buffers before any node
+checksum is checked.
 
-Fixes: da35a7b526d9 ("iio: frequency: admv1013: add support for ADMV1013")
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-[ adapted to 6.1.y: keep strcmp() parsing, fall back on unknown values ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+Reject a btree pointer larger than a bucket regardless of its device
+index, fail a node read whose key is larger than the node buffer or
+the bbio, and reject a uuid pointer larger than a meta bucket.  Keys
+that bcache writes itself are btree_pages * PAGE_SECTORS and
+meta_bucket_pages() * PAGE_SECTORS sectors on device 0, so they are
+not affected.
+
+Fixes: cafe56359144 ("bcache: A block layer cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ozgun Kultekin <ozgunkultekin@gmail.com>
 ---
-This failed to apply to 6.1.y, which still has the older property
-parsing and the original register encodings. Rather than pulling in the
-enum rework and device_property_match_property_string(), this keeps the
-read_string()/strcmp() code and only looks at str when the read
-succeeded. As upstream, an unknown value now falls back to the default
-mode (IQ, and differential for adi,quad-se-mode) instead of failing the
-probe.
+ drivers/md/bcache/btree.c   | 13 +++++++++++++
+ drivers/md/bcache/extents.c |  7 +++++++
+ drivers/md/bcache/super.c   |  4 +++-
+ 3 files changed, 23 insertions(+), 1 deletion(-)
 
-Tested on 6.1.193: W=1 build of admv1013.o, base vs patched, no new
-warnings, and the patched kernel boots under QEMU. I don't have the
-hardware, so the probe path was checked in the source.
-
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
----
- drivers/iio/frequency/admv1013.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iio/frequency/admv1013.c b/drivers/iio/frequency/admv1013.c
-index 5238dfdb1de5..a274576bc8f3 100644
---- a/drivers/iio/frequency/admv1013.c
-+++ b/drivers/iio/frequency/admv1013.c
-@@ -536,26 +536,24 @@ static int admv1013_properties_parse(struct admv1013_state *st)
- 	ret = device_property_read_string(&spi->dev, "adi,input-mode", &str);
- 	if (ret)
- 		st->input_mode = ADMV1013_IQ_MODE;
--
--	if (!strcmp(str, "iq"))
-+	else if (!strcmp(str, "iq"))
- 		st->input_mode = ADMV1013_IQ_MODE;
- 	else if (!strcmp(str, "if"))
- 		st->input_mode = ADMV1013_IF_MODE;
- 	else
--		return -EINVAL;
-+		st->input_mode = ADMV1013_IQ_MODE;
+diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
+index 27a129d47d0a..bbff98661494 100644
+--- a/drivers/md/bcache/btree.c
++++ b/drivers/md/bcache/btree.c
+@@ -248,6 +248,19 @@ static void bch_btree_node_read(struct btree *b)
  
- 	ret = device_property_read_string(&spi->dev, "adi,quad-se-mode", &str);
- 	if (ret)
- 		st->quad_se_mode = ADMV1013_SE_MODE_DIFF;
--
--	if (!strcmp(str, "diff"))
-+	else if (!strcmp(str, "diff"))
- 		st->quad_se_mode = ADMV1013_SE_MODE_DIFF;
- 	else if (!strcmp(str, "se-pos"))
- 		st->quad_se_mode = ADMV1013_SE_MODE_POS;
- 	else if (!strcmp(str, "se-neg"))
- 		st->quad_se_mode = ADMV1013_SE_MODE_NEG;
- 	else
--		return -EINVAL;
-+		st->quad_se_mode = ADMV1013_SE_MODE_DIFF;
+ 	trace_bcache_btree_read(b);
  
- 	st->reg = devm_regulator_get(&spi->dev, "vcm");
- 	if (IS_ERR(st->reg))
-
----
-base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
-change-id: 20261128-admv1013-61b-2ff910bf4467
-
-Best regards,
---  
-Dickson Wu <dickson.wu@certik.com>
-
++	/*
++	 * KEY_SIZE() comes from disk.  Don't read more than the node buffer
++	 * holds, or than a bbio has bvecs for.
++	 */
++	if (KEY_SIZE(&b->key) > PAGE_SECTORS << b->keys.page_order ||
++	    KEY_SIZE(&b->key) > meta_bucket_pages(&b->c->cache->sb) * PAGE_SECTORS) {
++		set_btree_node_io_error(b);
++		bch_cache_set_error(b->c, "btree node too big at bucket %zu: %llu sectors",
++				    PTR_BUCKET_NR(b->c, &b->key, 0),
++				    KEY_SIZE(&b->key));
++		return;
++	}
++
+ 	closure_init_stack(&cl);
+ 
+ 	bio = bch_bbio_alloc(b->c);
+diff --git a/drivers/md/bcache/extents.c b/drivers/md/bcache/extents.c
+index d626ffcbecb9..9ddc90049623 100644
+--- a/drivers/md/bcache/extents.c
++++ b/drivers/md/bcache/extents.c
+@@ -153,6 +153,13 @@ bool __bch_btree_ptr_invalid(struct cache_set *c, const struct bkey *k)
+ 	if (!KEY_PTRS(k) || !KEY_SIZE(k) || KEY_DIRTY(k))
+ 		goto bad;
+ 
++	/*
++	 * __ptr_invalid() skips pointers to a device index >= MAX_CACHES_PER_SET,
++	 * but btree nodes and uuids are always read from c->cache.
++	 */
++	if (KEY_SIZE(k) > c->cache->sb.bucket_size)
++		goto bad;
++
+ 	if (__ptr_invalid(c, k))
+ 		goto bad;
+ 
+diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+index 97d9adb0bf96..fd35e4b76fca 100644
+--- a/drivers/md/bcache/super.c
++++ b/drivers/md/bcache/super.c
+@@ -458,7 +458,9 @@ static char *uuid_read(struct cache_set *c, struct jset *j, struct closure *cl)
+ {
+ 	struct bkey *k = &j->uuid_bucket;
+ 
+-	if (__bch_btree_ptr_invalid(c, k))
++	/* c->uuids and the bbio hold one meta bucket */
++	if (__bch_btree_ptr_invalid(c, k) ||
++	    KEY_SIZE(k) > meta_bucket_pages(&c->cache->sb) * PAGE_SECTORS)
+ 		return "bad uuid pointer";
+ 
+ 	bkey_copy(&c->uuid_bucket, k);
+-- 
+2.39.5
 
