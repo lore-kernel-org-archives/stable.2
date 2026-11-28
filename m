@@ -1,52 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795824160;
-	b=liy8mMXnyD1uwjwgqfHcPbqFJO2jWtXzYeeVdYNFaCG5PWfxZTFJ3QP8B+7iICPfqeZZ
-	 GBWrWhRAD94HpjT8DeWoYFyw348bwiP56rBHFPi4PKlJ7cQtHZ1j2voKnc9bOe0Rcn6Jg
-	 ZJZhoyrIXn3O1UODvRtIQx3rPK0dzEnGleRzxuUmeejVJl6RCemGt7xQI3pKj5yZNcDxi
-	 n3ux7KSpEZZeYGRoA2iPXMfGqAk3vedcXc2Bi9EzsXAsMYyAlSdLqycLq+bGvcfjjJTy5
-	 MHhgQMFt+aiEx/E+3SKhEr+hB02fh3hiBUkKZAu6V9rXKiMpwPPpF0RLiTh61zPR8GQ==
+	t=1795824557;
+	b=TfJKgA7DkaTr2izMseQZ0HrQTlLNQXkwRTDqA/7c5zadAn8VZGY2AYbLWzSKTbxndhHN
+	 4cvhswqNRI7lMp7gez/2C6M6TxiursQkEymvhOucewg2UOG9YKQ9IY8ZzxIT9Irw/ZS6o
+	 E91tYYIUq0xPR9yLSddK/DLuWb4qnhr8TAnUkU6zDdxoiVRZq7W9yLxgVKBQqDfg4BnUH
+	 ayMHYiwtqm0bE4j5Zu2opPkdLO2nGmuHDjd3tvL8LZJj4083uTPg2zMbb+kYxHABeH8FQ
+	 4WbQzjM1NI4hOQO0issODtNOrbUZ1WwfvjUjUXs1aONvj8r2VCEoTK3PS5QSwBqILXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795824160;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=4ZLS6a32u2SsroRYbtW4gJwlixCmphvsqZgeXv5FA2w=;
-	b=R0wrQ0PwNFNj0IoUpXnR+T2CAztWrI8AbrG+2l50Jy+9wvudMASaQZOb3WevrwbJ+F6j
-	 O01Ab2sxGtrdZwhSW1LUgAGmYkkbCg/XSdQ7IzdPb5hPbSLUt2bf/jP/3gJCnVXn0sJgn
-	 ptsXZ+pEMGcCukFkGZznyIcGGTL849YTgeo2hy1DuI2nQFcIraDOU2EbyRXhqktXRJolx
-	 TnL8oMH7PchcHn4v59oCXB6qDaj9H4lrPYVma1EhJV2rwMRYpcRqw5dx088CXryHSr9f0
-	 TN6XArJfVpDdBUfVCWtiZQJmqd2ZfiKovzPy9HiqDtRL2ZYwa+m2eqYjC6APv/DudEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795824557;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Sa8dy2gzyUZnZppsvzVqeOCYAx4nZ2Xu/h/+7vp+Af8=;
+	b=5kIfK+09jHVM6yx22ipw5Pzwr7L2prULD9sF8qjXZsRocumYSXQHW82THb4DIwSRqZiD
+	 VOCZ80MoRrmYy9fZR8nnBTM9rXp5No6mtBxnHFXyTO1srKYibcIubnBvo9LKHpbf9Gg06
+	 yGVyZagd/8vjIHi/CRzamjY6iBGWvZpoXctGactt34j5LPmOQoZJF4TAjS06qx0HO5QPf
+	 nU39kSXkj5gwd6v0zBhGO5wKW//4+ET8ckLWzfH7g9cytXDQ9xlP2HfrM0CRRd1HUIdUO
+	 bAzuSCe+lcTiiUAUemIv/fFz+WWQJmcJ/2AR6hUPyQGWrz/uZRlr2hT16qMKG7Lb1iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="YLK82nT/";
-	arc=none smtp.remote-ip=95.215.58.249
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=T1A6FV5B;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KsPPcN4F;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB839606A31E
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 00:02:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB839606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FC8606A31F
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 00:09:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FC8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YLK82nT/
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/suaZrbhY33p54vbc3ZqMcQPDilQeSKhEa+pO35DDfU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795824156; v=1; x=1796428956;
- b=YLK82nT/IFLWAuOOxJc81HEj+gAznVwamjVFg4M26Pnxme/0dcbUCOYPS0Tkt+AMGaLl9cwz
- sJJVzkvSwwdpuwdGAWz5N3upl8plku8594f3atr5KUj59KxXFbOLFDn/6YQAyAmx7gtT2z5YPzN
- hpcvIur9345SUFsjS/4tNySk=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id caa90b19f0d4129a;
-	Sat, 28 Nov 2026 00:02:36 +0000
-X-Mizu-Trace-ID: caa90b19f0d4129a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=T1A6FV5B;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KsPPcN4F
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0B0107A04BA
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:09:16 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 27 Nov 2026 19:09:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795824554; x=1795910954; bh=Sa8dy2gzyUZnZppsvzVqe
+	OCYAx4nZ2Xu/h/+7vp+Af8=; b=T1A6FV5B9ZAmuOF4r4uY0pi7oKYPnWUS6tOMK
+	ZoaHBLtWHKjqztaeijKJALQwo00kEdnFotcBMvaS+iGDamPAYcLvIvhbvRJeO9UG
+	BkaLNd0y7NT9mCkStagbE+W199IvIc2E5Tv1NEug7tv0uHJxQ/ZE4kLZYVtRz1Ke
+	ph2Hcet6GvwE1iRjij7FH4/AjXT78ShXCLUQypKg6esp/D3Yor0VCzlWu9xxZjZp
+	5XU33NSV2FP4+DeE+jJu/mEjzMhbUo6kYateOvRutelHlVklDWewyRsk0jyRJqFi
+	5s2PnIil8StrQcoPr+pUiJLxrDY7tH9jGDfG6FrgPmjsexEIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795824554; x=1795910954; bh=Sa8dy2gzyUZnZppsvzVqeOCYAx4nZ2Xu/h/
+	+7vp+Af8=; b=KsPPcN4Ftu177Wdlyh3eC13g/rINfz3wxf/IEmHscMb2yANlBur
+	Hq7mDUBmsYpeoquV0r/Hbn1BBdkDrFXKZO6hu+linSEQbundPhkIQzScZwmZjIOm
+	DoC6vAiaFRWPV3+Yw2LwrrUo9U9U7IRkAM8Ne9pnLJn7QvjrazT18IxgiXbMYRCq
+	7JfJnfCzp8+OOHR0cpoYkewKKrT9hGZzdDvQzMehocittTFCxKMqmJ9Jcx/qgQYu
+	RLBsvJP7IAQ33oH6WHST2WW+NASt40agxnvILmW6e7Yu6ROXpT3L25/xkq4RRg8i
+	fhz0MHiU9Iwf42Coofi5MjvlDf1ZhcOnlHQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795824554; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:KseracThGiZSR8OJuf2MjOWSUKPNu+Kl29VIHlXKYpFVeh+
+	i49isU+nD78WAaXYkCIb4dcKkIQ9j2i5KVsKLVEWtGlNX4fDAqZIjdIRuOL5/Jxg
+	BQikUSQsucTITyRacyOetjlc16MuXaCy3O2lc84FG9uXXeX79WAJAcLF28ZVp/YF
+	yrMClLXNkvkFUxd+GKOQhZIyFDahENWfi5/wGnZg8zrOTd3E4Xx1bxmZNVyx/tqx
+	Z//W4wkwPveY4k+L5chmjjazJDWZMQcSRXbccPIFrFuitKpIDmN+Qcs4f7mqCjBK
+	nPLVau62Lz8zBb/iAUjXXIDdYlCfT6ifagtwIJg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:lNaQgS6PKRWq5XvjYVXhUvc0+WTrpRPDbe7BAWW76iI=:g1eBuwrI6oQrhEZUM8JEaFdGfWjWgiARQ1oL20oR+0A=;
+X-ME-Sender: <xms:qhsKa2uaMsM71cxKI30vOCYsvHX2IJqY4Jg_fZE7dh_Ho0ezxVNHyw>
+    <xme:qhsKa3ffo5icje0kBrEQT_C8zM1vBnVAssc0nH2V9WI-UFal7fXqQ4dClFltCs1SN
+    CIO623VnIohm6F8uzZV0Y0ENg2zUm6WPhQClw0UBQE4Ix6bQYaA-PGg>
+X-ME-Received: <xmr:qhsKaz9gAu-ZYgz8wNCvOxRY9zhD4GSh_5i68FvGohYHUKd-dpJUcaBkLlWyHAmo>
+X-ME-Proxy-Cause: dmFkZTFrh38SLvK3uQebmd7Gos4B4RHRqfcOE0APprEz5Fhl2rY5GR+9NC3Rh/mg72Y7v1
+    xvn6UOimGhtPeBv995mtrFKXFZrl84I6m7Wr2YYiUrRTrj6L6fI0Dhdqp0t6UGoBuTPB0j
+    1bbNdyHSdthr3L5IWMAruGT7vHPoHbUuLPJcXkIoWvjSKTYsVpKljPV5XcrA7ydZKGXb8K
+    rnpYIvI2dD4tg+8XzEiF6uTLOPwKAB4dnYsqw2rEc5dZ5OlRfA41whLxPPIAFsfAX2Nl2Z
+    2eK2JPIVtz4pcwHND3u21b/nfY56WB6lCOZhcjWHH4CFYvYvRVgjmC4K9RCJhani7Y/IJx
+    CozCeSvP9frNjeAuHkY7gLiOtJab6dTzKx6Fp/3QZUcT19HnIMbBp9lFuie5fGyw+FVqWA
+    NRfPNfxaf9aCG8/C1RciADhmJQIfOmYi2GMVEgmjVlR3LmtjBaT7wP4agydGAzLw38j6W4
+    Bo4uykpP0DmIh+QEd/FnA95nrMpRQx3Yo8joXfD3jC4ryW2+ApBmmTEejvdGIR94MxmiK/
+    N81lcg/FZXO8e9mLOspIjCsrD2njWxAB5lpYBGq+qyk75B1/XDSnP/5MTjSGZJghkUZjy7
+    HjfiXmrz7C1SwRoEXXI/tGk5JGYbk7Ud1s4CM48o90/67HWrF3bL/5kR0Oqw
+X-ME-Proxy: <xmx:qhsKayR1Q3Ves7iurqehfycGvdFLKYzyRVHf1RwpceMzWrDkbEMntQ>
+    <xmx:qhsKa0oNRUX_K3jiXB_re-W2f1p4Lcrh-ScYwn9yw4RKlBR1ZYbY1w>
+    <xmx:qhsKa_nZGwL4uwAqVeXkqOa5-DsDpQwZS0X8OrNjVoS7Gk2ACWkipQ>
+    <xmx:qhsKa9e0vUzmOi7AsUwF2qo3OWvFq04gH54cnQnRRlVbTuUfXnWdlA>
+    <xmx:qhsKa32uhsrUpooiHN2dWPc_pKETo_UYHxetT0riRbUpnuoYFBLYuX6x>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Nov 2026 19:09:13 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: don't take an existing file's attributes from an open request
+Date: Fri, 27 Nov 2026 18:09:06 -0600
+Message-ID: <20261128000906.1677969-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,137 +126,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 28 Nov 2026 00:02:32 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: gang.yan@linux.dev
-Message-ID: <46df7273bf182ac9e1666c706d3f56d3af8d0b59@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH mptcp-net v10 1/2] mptcp: pm: in-kernel: fullmesh: skip
- closed subflows
-To: "Abdul Wasey" <w453y.me@gmail.com>, mptcp@lists.linux.dev
-Cc: "Matthieu Baerts" <matttbe@kernel.org>, "Mat Martineau"
- <martineau@kernel.org>, "Geliang Tang" <geliang@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
- stable@vger.kernel.org
-In-Reply-To: <20261127213756.4154872-2-w453y.me@gmail.com>
-References: <20261127213756.4154872-1-w453y.me@gmail.com>
- <20261127213756.4154872-2-w453y.me@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-November 28, 2026 at 5:37 AM, "Abdul Wasey" <w453y.me@gmail.com mailto:w4=
-53y.me@gmail.com?to=3D%22Abdul%20Wasey%22%20%3Cw453y.me%40gmail.com%3E > =
-wrote:
+When smb2_open() opens an existing file that has no other open handle,
+it sets the cached attributes of the file from the FileAttributes field
+of the request. MS-FSA uses that field only when a file is created or
+overwritten. Any other open of an existing file ignores it.
 
+The cached attributes are shared by all handles to the file. So the
+client that first opens an existing file decides the attributes that
+the other clients see while its handle is open. Stored DOS attributes
+replace them only on a share that stores DOS attributes and only if
+the file has them. If the DOS attributes are written while the handle
+is open, the attributes from the request are stored and stay after the
+last close. ksmbd also bases its own checks on the cached attributes.
 
->=20
->=20With fullmesh endpoints, if the endpoint used by the initial subflow =
-is
-> removed and then added back, no new subflow is created from it: the
-> connection never uses this local address again.
->=20
->=20The initial subflow is kept in the conn_list once closed. If it was
-> still established when closed, it keeps the local ID 0, which is also
-> the ID used by the re-added endpoint, and
-> fill_remote_addresses_fullmesh() then marks its remote ID as
-> unavailable. If it was already in TCP_CLOSE, e.g. after a reset, it is
-> disconnected and its context is reset: the 'closing' flag and the remot=
-e
-> ID are cleared, and its destination port is zeroed. It is then picked a=
-s
-> a remote address, with the port 0 and the ID 0, which also marks the
-> remote ID 0 as unavailable. In both cases, when the peer has a single
-> address, all subflows use the remote ID 0, and no valid remote address
-> is left.
->=20
->=20Skip the subflows being closed or in TCP_CLOSE state, both when looki=
-ng
-> for the remote IDs already in use and when picking the remote addresses=
-.
-> __mptcp_subflow_active() cannot be used here: subflows still being
-> established have to keep their remote ID marked as in use, to avoid
-> creating duplicated subflows.
->=20
->=20When no subflow is left to take the remote ID 0 address from, e.g. wh=
-en
-> the initial subflow was the only one, use fill_remote_addr(), as for
-> non-fullmesh endpoints: it takes the remote address of the MPTCP socket=
-.
-> Before, re-adding the initial endpoint created no subflow in this case
-> either, and another endpoint only worked by picking the closed initial
-> subflow.
->=20
->=20Without the fullmesh flag, the remote address is taken from the MPTCP
-> socket, so this issue is specific to fullmesh endpoints.
->=20
->=20Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
-> ---
->  net/mptcp/pm_kernel.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->=20
->=20diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
-> index 88610aed45a2..f1e1576fb375 100644
-> --- a/net/mptcp/pm_kernel.c
-> +++ b/net/mptcp/pm_kernel.c
-> @@ -199,6 +199,13 @@ fill_remote_addr(struct mptcp_sock *msk, struct mp=
-tcp_addr_info *local,
->  return 1;
->  }
->=20=20
->=20+static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *su=
-bflow)
-> +{
-> + struct sock *ssk =3D mptcp_subflow_tcp_sock(subflow);
-> +
-> + return subflow->closing || inet_sk_state_load(ssk) =3D=3D TCP_CLOSE;
-> +}
-> +
->  static unsigned int
->  fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
->  struct mptcp_addr_info *local,
-> @@ -216,11 +223,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock =
-*msk,
->  * already created by incoming ADD_ADDR
->  */
->  bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
-> - mptcp_for_each_subflow(msk, subflow)
-> + mptcp_for_each_subflow(msk, subflow) {
-> + if (mptcp_subflow_is_closed(subflow))
-> + continue;
-> +
->  if (READ_ONCE(subflow->local_id) =3D=3D local->id)
->  __set_bit(subflow->remote_id, unavail_id);
-> + }
->=20=20
->=20 mptcp_for_each_subflow(msk, subflow) {
-> + if (mptcp_subflow_is_closed(subflow))
-> + continue;
-> +
->  ssk =3D mptcp_subflow_tcp_sock(subflow);
->  mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
->  addrs[i].id =3D READ_ONCE(subflow->remote_id);
-> @@ -243,6 +257,11 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *=
-msk,
->  break;
->  }
->=20=20
+Take the attributes from the request only for a new file. An open of an
+existing file starts from the attributes that the inode implies, and
+the stored DOS attributes are read as before. An overwrite still takes
+the attributes from the request.
 
-Hi=20Abdul,
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+Tested on ksmbd-for-next 3dcffd93d4da with KASAN, on a share that
+stores DOS attributes. One user opened a file that had no stored DOS
+attributes, with FILE_READ_ATTRIBUTES access and FileAttributes set to
+FILE_ATTRIBUTE_READONLY, and kept the handle. On the base a second user
+saw the attribute and could not set delete pending. A creation time set
+by the second user stored the attribute, and the file was still
+read-only after the last close. With the patch the attribute does not
+appear. Stored attributes, the attributes of a new file, and attributes
+set by an overwrite are reported as on the base. smbtorture gives the
+same results as on the base.
 
-Thanks for the new version.
+This patch was developed with LLM assistance.
 
-Reviewed-by: Gang Yan <yangang@kylinos.cn>
+ fs/smb/server/smb2pdu.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 28fb77bcd3dc..c375d5c71231 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -5484,9 +5484,15 @@ int smb2_open(struct ksmbd_work *work)
+ 	fp->change_time = ksmbd_UnixTimeToNT(stat.ctime);
+ 	fp->allocation_size = S_ISDIR(stat.mode) ? 0 :
+ 		(alloc_size ?: stat.blocks << 9);
+-	if (created || fp->f_ci->m_fattr == 0)
++	/*
++	 * The requested attributes are for a new file. An open of an existing
++	 * file does not change its attributes, except for an overwrite below.
++	 */
++	if (created)
+ 		fp->f_ci->m_fattr =
+ 			cpu_to_le32(smb2_get_dos_mode(&stat, le32_to_cpu(req->FileAttributes)));
++	else if (fp->f_ci->m_fattr == 0)
++		fp->f_ci->m_fattr = cpu_to_le32(smb2_get_dos_mode(&stat, 0));
+ 
+ 	if (!created)
+ 		smb2_update_xattrs(tcon, &path, fp);
 
-> + /* If the initial subflow is closed, use fill_remote_addr */
-> + if (!test_bit(0, unavail_id) && i < addrs_size &&
-> + msk->pm.extra_subflows < limit_extra_subflows)
-> + i +=3D fill_remote_addr(msk, local, &addrs[i]);
-> +
->  return i;
->  }
->=20=20
->=20--=20
->=202.43.0
->
+base-commit: 3dcffd93d4da3b3231cbb845993194342fdd2150
+-- 
+2.47.3
+
