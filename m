@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795853591;
-	b=HuT6iGLwMQovGopKyzQJcCGsoTOZnpGBVp2oDkZdOYdiJWqMRV1CyEv2nYtFIntCKiLP
-	 IG7ablLPWioTgnVSyzSRiafk40SZfBEE8Usnvxej+xBhS+eExhAN+8FgIsXDQljVrvOm8
-	 RCIra9UxR/64+SMdIsSUu/4KWX+nEAf8ma+U2kiIEfImtFkI0cBaigMXmRSuuDD5NixXk
-	 zGY/IRaoxkNuGqVuElOysNFdLo33luWEoYKoIi/v2Vgp6nK6Sz0BefjPiGyq+hrjlJncj
-	 3mFa95vIMaZZfyZBt8mwu6UMapxkai8I9ztup1Okjdnf4tVtiKwTnpJxv8FUHlbgdjQ==
+	t=1795854481;
+	b=mI1nMomJrdz+RTm5ilvK/h3WtG29KgzXEqbvKcwHmApzHKnKgpKDOx4Ig/9vqVtgv0hc
+	 8gQPV0iU0daB0s4H+/iNHKIHwtzeTB8iMcfSQbF5r09bqmAFPAWBmBvxyJ+rwNalyIDab
+	 z2nwAh3UN1aamtAzp/YCrUV0etMnHxEdGfzxx/SO9E4FV6jGTlwHcC/vhqXkRvOD6klTQ
+	 0YRoP5kU33KKdUeFmcnOgvk1HPoJm/PAeFem7mS4LIJZgPfQXMVl4u1xdMIpJTl3udWJs
+	 r/NpMH6h4ESXm3zRsJnw05mB+LZtAm0k3GOOmQiSue7GbwrkwBBbUS8VqXSMfc6F5sg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795853591;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795854481;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
-	b=XqjOEBmWeSENGpfSLvF1U9+QyNnSkceBl9TRN0HUSHvLfS71tKVJ2A1lb6NnNeMKlepi
-	 RjQ/Pow22XZ/JGufA/13SMy6g9TCPu+qzvZ+04RwC+/9wY1aQl8qMO0DdGaEyNBinDWTb
-	 6z97yug4zIzoz2VOp5NAg/F8l2B+AH7AQzew9GI+DRdsm6RyZE/pM7FeBO7sBYFppXr3B
-	 T1hzdC6b6mxDQ2OXB+aPUqeFxXheyzsM7cfOEBgl1ZX6/H5HZMTHuuOHpulBI9zDdfMAK
-	 7G/w9clNQceuBIqvAORyuQlX+Mz2wTcg7DV8YAu3CWtVZ0yfpryJGlwsyrDrmrznOMw==
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=;
+	b=YL157frSrTcuVGr6xmrioatqAJiNcAYsuRc+m7qxqJvAzdGtoiSR+K+IWVx+Q0Bxbv6b
+	 /5+qAmRnoCp9+m02aQkE+sEpGGFoP6zGbC7MKVKzqq2Ocbbu+RO2tBgQLIqd2KWpE4hJC
+	 +nPJyz2t0F69jto/SuwygxdP4prrGGTYCclZFsDwF98vt1L4f8C+vKUbiWZzTP3/mtdS7
+	 Z6lJZ3udTE6Q/DktdywspjiVMWJf3DBDn8hFXR8/jZvgbicAXGTQgLdxq7dNMsiq/NvsV
+	 jegXlA7ju8JmvEB4ZUdLBa2qpobXotVghx5qo6JYXaj4MiubwiO7nmQJKFEgaMp5uIw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+WEAXCg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E91606A31F
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 08:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+WEAXCg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795853591;
-	b=k9HG8OqtAymflkXKSxHq45TXXKKBHyzeQcr7XAGOwHTkq3TcpXI3kpKSPVu5zX4mOMwq
-	 B8h7GjrBvfwRnhFpjkHtB01DblV+dSDCjNWfr3oxlPYegucCf9lbeGOnPDQx5s/6mXFuH
-	 C+Pq/iNmkDDAtJVGKIPOuXDYWxPyFNOjMdJiBdJLsMlidtNkSb+5tr3DMXlquoh1ZaWky
-	 QjTlVC/6k6NcWfANx5cWL74D5Tj/8HZvIN4tK5EgAvna0EDxXPEvMeIQLuOIUU2eCHUAK
-	 n/aFBeGFq3DalioXSyKNsrqmcy39UMHO8prZBu85Ou8AxQhTG5B2APyvsdvDf8Vu/VQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795853591;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
-	b=e2vnfhghuqeiVzOvkmzKq2RCJFIBXadA+qamGcEx/b9kJRCaZMfg3Dh85a4rpIzU+Zl1
-	 Tf8MybPjKpT+vhLGN0hH0ZkBwK3GRsbhBFgyzL6XiWXKze4FiqAHFXUpxzdfwKtHKRl/8
-	 7FITliNaer1rOQkUORAtVgpYdc4J8OqrPPkgh2oIuUc0RkgMN50HdkKWZ3HpTIbd1qOXt
-	 uV3fJNc7GGxTNeG4OcMIOOXlKTJRh+j69Woqsq2naZutNXNFDSuZrTqXd9xZloj+fJlt9
-	 UsESwBtHBSnrcH9ORRQ71i6dprkB18t3TUQav73kdOTxK1iyx05tNlZeFE9cwh10H/Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aOKBJJL9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
+Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E08261F00893;
-	Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795853591;
-	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=J+WEAXCgXaOnWN0apGtL38OtcelhoCtNZZ4uJbaL0KxS0d/1Tiijj0z28gQX+EG1H
-	 5QoCmMueaeIdxcvLnT5JukMEwQqZStE5zTkOBr8zoWh9kQZtjii2Dwm1FtKV26ij9p
-	 sqgGMVzq1ZQvWa1NgVelIqogTT6cX9bJp+GtQNYsM0ck5eMznH8G6bIikb3YYLTLoF
-	 VVuWKexs6EFy465torEVWw5U0KBmWCeknIEPZXe3AJdrXP5b9rArh5eBbCEeSoXJXU
-	 ScKjbTNitAitQSeLR4AlVxDhEbEVOEKdBrsxV9u6R9bJQcFjBV+f3uttRXhtGQn9bJ
-	 xlaba3b6qnT6Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 746FE4E02D;
-	Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Sat, 28 Nov 2026 08:10:35 +0000
-Subject: [PATCH 6.1.y] drm/amdgpu/vcn4: avoid rereading IB param length
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7DC606A31C;
+	Sat, 28 Nov 2026 08:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB7DC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aOKBJJL9
+ARC-Seal: i=1; a=rsa-sha256; t=1795854459; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lge2V1phD4GvM4gQNB8EGK7dF7ynTy2agpPqUcb1/lNKxUXH9y9xNedU/Pfi9zRYJKymsFWsPNkSHuAoFbpfUzWvC+16K7/VeUgdAw6DkglmBZeyegwdhgPtJR1Wh8cPKbaKHEoHmrmGER5YIIXMjJXOQ0ya+R9dgRFlGG5Ibkg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795854459; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=; 
+	b=dzTEpYfKssUTQtUU2BScP5VlOQwhmEApCQ1RBo4LRSkLQQe2rcAkVuWo2c9mwZeOMGNxnOuYDtpqAkXtHIrJnr40Gd60GTwgEo1WtWKeBroz0nTOpIny+dgTv+K4tgi2NKB3kYuUaseSw0oOV8tHfMiB49DF7AUKHu4LWQct9sU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=aOKBJJL9WEa0777gV9mFC04irkZOzoLx63WhnmTojZtyJW8wV69m2ULPbupODrLl9+NOLTLTrPyTgHI2xvBmKlzRp4UQyoqJkJ2U/6+KCrlis3VuXdqvrtRbZcS5y9bE2kmrk9ziTnhl3psZwudSY3+iFbqfUoRIDhYN469iZSs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795854456395164.46153556574347;
+	Sat, 28 Nov 2026 00:27:36 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Sat, 28 Nov 2026 09:27:07 +0100
+Subject: [PATCH] drm/sched: Sanitise wqueue_start/wqueue_stop/is_stopped
+ interleavings
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,124 +62,221 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261128-amdgpu-vcn4-61c-v1-1-0f4b00ae33c2@certik.com>
-X-B4-Tracking: v=1; b=H4sIAHqMCmsC/12NzQ6CMBCEX4Xs2UXbaBVexXjozwI12pIuEA3h3
- W315nG+zHyzAlPyxNBWKyRaPPsYchC7CuygQ0/oXc4gD1IJIS+on64fZ1xsOKISFrvGOXk2nTr
- JBvJqTNT519d4BVWL+g23H+bZ3MlOxVaKRjOhSTrYoSCm4KYYH1j4/u8Ftu0D9DmZo6oAAAA=
-X-Change-ID: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
-To: stable@vger.kernel.org
-Cc: Boyuan Zhang <boyuan.zhang@amd.com>, David Rosca <david.rosca@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795853434; l=3713;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=B+Yz49Bh1ZXTZrWyQ6EaWYVQ18dVN1NAYdlgp9oDZIo=;
- b=VN0w0FK7GEQeCtbfURpyQ6h84Y7Jk7uCkQ2EKL98dKjnG2GEnKXU+wE9OfX5/gMooCA/936Fu
- ZC29xmdLv1rBXJD1vt39OSwnqtJvnzrgM2R16xVVHW9TUr2I7MecZ12
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+Message-Id: <20261128-drm-sched-fini-race-v1-1-9803ee8aa8b4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNwQ6CMBBEf4Xs2Y22Jqj8iuHQbhdZk4J2izEh/
+ LtF9DYvmXkzg3ISVmiqGRK/RGUcCphdBdS74cYooTDYg62NsUcMKaJSzwE7GQSTI8YLmWDd2Xt
+ /qqEsH4k7eX+t13ZjnfydKa+qXyPxcyp3eauBd8pIY4ySm2o9iaK0/wfcfO2yfAC6GHh5sgAAA
+ A==
+X-Change-ID: 20261123-drm-sched-fini-race-9c1d2a8bbb76
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Luben Tuikov <luben.tuikov@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, stable@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
+drm_sched_wqueue_stop() will WRITE_ONCE 1 to the sched's pause_submit
+member. This member is checked (with READ_ONCE) in every
+drm_sched_run_job_queue() and drm_sched_run_free_queue() invocation,
+which is how the two work items drm_sched_wqueue_stop() cancels would
+usually get re-armed.
 
-commit 3b4082fabc67c9780b06eb959e59dd92fa79c0f0 upstream.
+However, this is of little consequence on SMP systems, where the effect
+of WRITE_ONCE is not guaranteed to be ordered with READ_ONCE calls on
+other CPUs. As a consequence, during drm_sched_fini(), a work item may
+become re-armed after its call to drm_sched_wqueue_stop(), and run into
+a sched->sched_rq that is now NULL, dereferencing a NULL pointer.
 
-Reuse the parameter length returned by
-vcn_v4_0_enc_find_ib_param() instead of rereading it from
-the IB.
+To fix this, add a pause_lock mutex which prevents queue starts and
+stops from interleaving. This lock also guarantees that the wqueue
+remains stopped during the drm_sched_fini() teardown.
 
-This avoids a potential TOCTOU issue if the IB contents
-change between reads.
+Additionally, use disable_work_sync during wqueue stopping to ensure
+that no previously stopped work item can be re-queued during the process
+of stopping the wqueue. work_tdr in drm_sched_fini() is also disabled
+rather than cancelled, so that no stray work timeouts can trigger
+anything of concern during teardown.
 
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
-Reviewed-by: David Rosca <david.rosca@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit dbb02b4755f8c1f3773263f2d779872c1c0c073a)
+Finally, use the smp stores/loads to set and read the pause_submit
+member, so that drm_sched_is_stopped() will observe the results of a
+start or stop operation in a properly ordered fashion, so that drivers
+which use this function don't need to worry about unexpected
+interleavings.
+
+The drm_sched_run_job_queue() and drm_sched_run_free_queue() functions
+consequently no longer need the (racey) drm_sched_is_stopped() check, as
+the work disabling achieves this in an atomic manner immune to TOCTOU
+bugs.
+
+Fixes: a6149f039369 ("drm/sched: Convert drm scheduler to use a work queue rather than kthread")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-This one went to 6.6.y in 6.6.148, but 6.1.y didn't have the VCN4 IB
-parser fixes yet at that point. Those came to 6.1.y in 6.1.191
-(d19dd814b5b7 and 92724364702f), so 6.1 now has the loop this fixes
-and the patch applies cleanly.
+We've been told of a NULL pointer deref stack trace in
+drm_sched_run_job_work() on systems running panthor during teardown of a
+GPU context. The affected customer reported that by disabling the work
+items in drm_sched_fini(), rather than cancelling them through
+drm_sched_wqueue_stop(), the crash would go away. The reason was that a
+job could persist beyond the wqueue_stop, since they can be re-armed by
+one of the other work items being processed on a different CPU.
 
-Tested on 6.1.193: allmodconfig W=1 build of vcn_v4_0.o, base vs
-patched, no new warnings, and the patched kernel boots under QEMU. No
-VCN4 hardware here, so the encode path itself wasn't exercised.
+Upon looking at the code I realised that drm_sched_wqueue_stop() was
+actually broken in several subtle ways that go beyond just changing
+which function of the workqueue APIs should be used.
 
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
+While I was tempted to get rid of drm_sched_is_stopped(), several
+drivers do use it. I think it's a potential TOCTOU footgun unless the
+driver itself makes sure that no start/stop is issued between the check
+and the code that is subsequently run to act on its result. But now it's
+at least sequentially consistent as well.
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 52 +++++++++++++++++++++++++++-------
+ include/drm/gpu_scheduler.h            |  1 +
+ 2 files changed, 42 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 83d997f8d500..5df81a21c522 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1719,14 +1719,17 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- #define RENCODE_IB_PARAM_SESSION_INIT			0x00000003
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 99252674e266..4662f024ad88 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -138,8 +138,7 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+  */
+ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
+ {
+-	if (!drm_sched_is_stopped(sched))
+-		queue_work(sched->submit_wq, &sched->work_run_job);
++	queue_work(sched->submit_wq, &sched->work_run_job);
+ }
  
- /* return the offset in ib if id is found, -1 otherwise */
--static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start)
-+static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start, uint32_t *length)
+ /**
+@@ -148,8 +147,7 @@ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
+  */
+ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+ {
+-	if (!drm_sched_is_stopped(sched))
+-		queue_work(sched->submit_wq, &sched->work_free_job);
++	queue_work(sched->submit_wq, &sched->work_free_job);
+ }
+ 
+ /**
+@@ -1153,6 +1151,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	init_waitqueue_head(&sched->job_scheduled);
+ 	INIT_LIST_HEAD(&sched->pending_list);
+ 	spin_lock_init(&sched->job_list_lock);
++	mutex_init(&sched->pause_lock);
+ 	atomic_set(&sched->credit_count, 0);
+ 	INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
+ 	INIT_WORK(&sched->work_run_job, drm_sched_run_job_work);
+@@ -1190,6 +1189,20 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
+ 	}
+ }
+ 
++static void drm_sched_wqueue_stop_locked(struct drm_gpu_scheduler *sched)
++{
++	lockdep_assert_held(&sched->pause_lock);
++
++	disable_work_sync(&sched->work_run_job);
++	disable_work_sync(&sched->work_free_job);
++
++	/*
++	 * Anything that observes pause_submit will also want to see the effects
++	 * of any of the previous memory operations.
++	 */
++	smp_store_release(&sched->pause_submit, true);
++}
++
+ /**
+  * drm_sched_fini - Destroy a gpu scheduler
+  *
+@@ -1212,13 +1225,15 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
  {
  	int i;
- 	uint32_t len;
  
- 	for (i = start; (len = amdgpu_ib_get_value(ib, i)) >= 8; i += len / 4) {
--		if (amdgpu_ib_get_value(ib, i + 1) == id)
-+		if (amdgpu_ib_get_value(ib, i + 1) == id) {
-+			if (length)
-+				*length = len;
- 			return i;
-+		}
- 	}
- 	return -1;
- }
-@@ -1736,14 +1739,14 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
- 					   struct amdgpu_ib *ib)
+-	drm_sched_wqueue_stop(sched);
++	/* Guarantee queue is paused for the entirety of the teardown */
++	guard(mutex)(&sched->pause_lock);
++	drm_sched_wqueue_stop_locked(sched);
+ 
+ 	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
+ 	wake_up_all(&sched->job_scheduled);
+ 
+ 	/* Confirm no work left behind accessing device structures */
+-	cancel_delayed_work_sync(&sched->work_tdr);
++	disable_delayed_work_sync(&sched->work_tdr);
+ 
+ 	/* Avoid memory leaks if supported by the driver. */
+ 	if (sched->ops->cancel_job)
+@@ -1303,9 +1318,9 @@ EXPORT_SYMBOL(drm_sched_wqueue_ready);
+  */
+ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched)
  {
- 	struct amdgpu_ring *ring = amdgpu_job_ring(job);
--	uint32_t val;
-+	uint32_t val, len;
- 	int idx = 0, sidx;
- 
- 	/* The first instance can decode anything */
- 	if (!ring->me)
- 		return 0;
- 
--	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx)) >= 0) {
-+	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx, &len)) >= 0) {
- 		val = amdgpu_ib_get_value(ib, idx + 2); /* RADEON_VCN_ENGINE_TYPE */
- 		if (val == RADEON_VCN_ENGINE_TYPE_DECODE) {
- 			uint32_t valid_buf_flag = amdgpu_ib_get_value(ib, idx + 6);
-@@ -1756,12 +1759,12 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
- 				amdgpu_ib_get_value(ib, idx + 8);
- 			return vcn_v4_0_dec_msg(p, job, msg_buffer_addr);
- 		} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE) {
--			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx);
-+			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx, NULL);
- 			if (sidx >= 0 &&
- 			    amdgpu_ib_get_value(ib, sidx + 2) == RENCODE_ENCODE_STANDARD_AV1)
- 				return vcn_v4_0_limit_sched(p, job);
- 		}
--		idx += amdgpu_ib_get_value(ib, idx) / 4;
-+		idx += len / 4;
- 	}
- 	return 0;
+-	WRITE_ONCE(sched->pause_submit, true);
+-	cancel_work_sync(&sched->work_run_job);
+-	cancel_work_sync(&sched->work_free_job);
++	guard(mutex)(&sched->pause_lock);
++
++	drm_sched_wqueue_stop_locked(sched);
  }
+ EXPORT_SYMBOL(drm_sched_wqueue_stop);
+ 
+@@ -1320,9 +1335,19 @@ EXPORT_SYMBOL(drm_sched_wqueue_stop);
+  */
+ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched)
+ {
+-	WRITE_ONCE(sched->pause_submit, false);
++	guard(mutex)(&sched->pause_lock);
++
++	enable_work(&sched->work_run_job);
++	enable_work(&sched->work_free_job);
++
+ 	queue_work(sched->submit_wq, &sched->work_run_job);
+ 	queue_work(sched->submit_wq, &sched->work_free_job);
++
++	/*
++	 * Anything that observes pause_submit will also want to see the effects
++	 * of any of the previous memory operations.
++	 */
++	smp_store_release(&sched->pause_submit, false);
+ }
+ EXPORT_SYMBOL(drm_sched_wqueue_start);
+ 
+@@ -1334,7 +1359,12 @@ EXPORT_SYMBOL(drm_sched_wqueue_start);
+  */
+ bool drm_sched_is_stopped(struct drm_gpu_scheduler *sched)
+ {
+-	return READ_ONCE(sched->pause_submit);
++	/*
++	 * Ensure drm_sched_wqueue_{stop,start}() && drm_sched_is_stopped()
++	 * gives a consistent view to any observer that ensures no concurrent
++	 * starting or stopping operation is ongoing.
++	 */
++	return smp_load_acquire(&sched->pause_submit);
+ }
+ EXPORT_SYMBOL(drm_sched_is_stopped);
+ 
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 3b0978fa8cf0..259960fd584a 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -627,6 +627,7 @@ struct drm_gpu_scheduler {
+ 	bool				free_guilty;
+ 	bool				pause_submit;
+ 	bool				own_submit_wq;
++	struct mutex			pause_lock;
+ 	struct device			*dev;
+ };
+ 
 
 ---
-base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
-change-id: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
+base-commit: bf57105b00e32d37b666c029c8c6b8708391da20
+change-id: 20261123-drm-sched-fini-race-9c1d2a8bbb76
 
 Best regards,
 --  
-Dickson Wu <dickson.wu@certik.com>
-
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
