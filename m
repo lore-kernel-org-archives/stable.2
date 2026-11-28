@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795864111;
-	b=Vz0M7TFIqix9IEFRcgaWBpc9OodtXZOhW0CCaR30bo0YruUmU+PxO0IuKMZP7uUFnjeQ
-	 SoHrGVYhGswu34ZjprTPKXCvxWGk/sMweE4Y7fzhnvlS/v25y895+YvjiE1HKTfWX1vc1
-	 zRRZFrqEk6iafsD70Dw8VnPSBE2bWJFj1Q9rBaKqvmEcQVbhv6VnlfC190hG+2QAgEA+I
-	 Sm4Hdj390i+Xv43LmfKJWu7mNRgU+Xz1PxqdSY2WRxp1Dm4Qzd+RyxFtjzVhyvOyfoNq8
-	 QwreQxyjh+Ch3Xs+CroSotM8QbjOGnXdu1pDI4BHRQBTD2C8M11Pkeh0x6Im+/2NsSA==
+	t=1795864548;
+	b=AG3wPOeHapE9z61+qMBvRqY2E6C1WdITMk54bzc/Y3SLC1MhRxi5eGxp84R6cT4HJgBl
+	 N7OEzkErnGuNIqcOsXCElRV6uN4Sbnwemg6LbbnO8n2rB8Ju8tz4YV7wX0m0t6bhws2IK
+	 vDl1qCUVqvRdwVwXlGHMY4tIq48g9GSZ+lrfmInUnatvqXuPVXGou/yYTxarbATGmO0eP
+	 1tw3COaTqCnEjCfnVyWK9Kzf8NBc/lDfA6PVtmDJT4lsCqh3Vx0M7xFQU/Iuru46ZLSK+
+	 j8Q8Jnirh7gtPyqgXf12INF53VHeZjYxU7hbSVKFEAb/LASG+tmHnOqz9+Z5MAleV6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795864111;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Gxe6Vf9z5cm1CQlIWPFagALfbnbQ8SzQPVE2V7uRDVI=;
-	b=RFETL4YYrgL+ViQIM7j80jb3q/93Ck2ygObAxbibAw0v+r6QZCtGX4mxHLPHBWiNUygK
-	 iJYAZgIJzpYhhoqo7HVKdzicz6HOwp43MLHXArrmZcJDkSutSetiE8E7/K/SLNyEy9fA/
-	 rucSPWmKUzpMVAh4dIXubmV0qwli1ab2vL6uMq4oyB8eLPEV4jXRoiciAxfQDEdK+IU8J
-	 1yQPw0ywOIMS9Jb7HXUtGqpbttGm34somBmlJ3psDC0L8PH/OblMa+G7Xn9Ij3A9wGFjE
-	 fYzoKYwyoSmgesxMf0VFWM8lY9iyt0q9saAQIfVL5RQ0ofEDOBYMLdMSHYusrWl3rzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795864548;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=PSol1rGMhWq/7bJkjDlmY/1qcUzcy40Z2uiSXVn7/WU=;
+	b=yqoB4LAoiGZuHzpT/9nvQ4c8l+VV9Sl8aEtsNkOJxe3MB1s3E0YYlJHaHPDmrhdRgKeK
+	 Uf0tO6aHIs2B/9zy+wg60fBpSqDkbc9Kx8AUsIhFJ/AQkn/y2nNgSIrJiPVPSr8D86W14
+	 6WjiuxDYzsjC1po5yybM9x0dfiHlracUG3wnKdhkjPX4NiMUFwiIqzfSt/cGbiXuafhrM
+	 QEbX5OBhNeqsb2DkC0CplBGr6cd9fsIvLIyHWjHj/cCTrgjkTOlBlTj3YOazn1zBqP8ue
+	 9DHpFjxaNxSCcHYSBRGH3jqECMPZK1p+vfstg2Jw7iyZunaH6FmGmcyhdlrZtdY01oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex.ru;
-	spf=pass smtp.mailfrom=yandex.ru;
-	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=LnHim0XK;
-	arc=none smtp.remote-ip=51.250.60.162
-Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [51.250.60.162])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="IGaoe/Uk";
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B07606A31C;
-	Sat, 28 Nov 2026 11:08:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5B07606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F67606A31C;
+	Sat, 28 Nov 2026 11:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F67606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=LnHim0XK
-Received: from mail-nwsmtp-smtp-production-main-62 (mail-nwsmtp-smtp-production-main-62.yp-c.yandex.net)
-	by forward102d.mail.yandex.net (postfix) with ESMTPS id 14D75C0116;
-	Sat, 28 Nov 2026 14:08:21 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-62 with ESMTPSA id C8iTWRpIjOs0-uBle5vIo;
-	Sat, 28 Nov 2026 14:08:20 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1795864100; bh=Gxe6Vf9z5cm1CQlIWPFagALfbnbQ8SzQPVE2V7uRDVI=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=LnHim0XK3rgPD7M2NXjJOY138EKMr77oYtple0aLbO8Cl61aUP5p0FcC/n/i9tMz+
-	 vkq4c8+84qE+Ss+6MblH7p89wmAO0FiW7ynJkdm8AxodSYlY0TqB5DMkR/uggdEkQI
-	 W58XNXVX6vgS/oVlLdTwzzlxKg9qjwno7t71vr1A=
-Authentication-Results: mail-nwsmtp-smtp-production-main-62; dkim=pass header.i=@yandex.ru
-From: Rostislav Maksimenko <Maildeltachat1@yandex.ru>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IGaoe/Uk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=PS
+	ol1rGMhWq/7bJkjDlmY/1qcUzcy40Z2uiSXVn7/WU=; b=IGaoe/UkJQ5RKtvstO
+	veRPQBylRs+vep8PDesc1PKCJhSAmX09njkYjCeNSu8jVL4k7uwioBcnz6Wkn5lq
+	rQdKDYU3dFeJQwBlL7KBC5euNCItIYm6a78M+9I8UKQhJ4qDI326TO274Bk1PslI
+	SYgP/1t5w/8HLEg9CHZ/ILANE=
+Received: from shaos.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgA3uXHEtwprSFzEIg--.52796S2;
+	Sat, 28 Nov 2026 19:15:17 +0800 (CST)
+From: shaos <shawnq1@163.com>
+To: brauner@kernel.org
+Cc: Jan Kara <jack@suse.cz>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Rostislav Maksimenko <Maildeltachat1@yandex.ru>
-Subject: [PATCH] Input: i8042 - add reset quirk for NEC VersaPro PC-VK22TGSCN
-Date: Sat, 28 Nov 2026 14:08:10 +0300
-Message-ID: <20261128110810.3347-1-Maildeltachat1@yandex.ru>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org
+Subject: [PATCH] minix: reject data zone overlapping inode table
+Date: Sat, 28 Nov 2026 11:15:16 +0000
+Message-Id: <20261128111516.3209948-1-shawnq1@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,57 +62,91 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgA3uXHEtwprSFzEIg--.52796S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWryrJr4xWrWDXFyrWr48WFg_yoW5Cr18pF
+	Wayr15Gr4kWFWUWa4I93yjqa4Sga18AFW7WrW8Xry8C3s8Kw4Iq34UKFyY9rWUKrsrA3Wj
+	vF1DKry8CF1UCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnsqXUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwV8imsKt8VGHQAA30
 
-On the NEC VersaPro PC-VK22TGSCN the internal keyboard and the Elantech
-touchpad intermittently fail to work at boot. atkbd reports:
+Hello,
 
-  atkbd serio0: Failed to deactivate keyboard on isa0060/serio0
-  atkbd serio0: Failed to enable keyboard on isa0060/serio0
+minix_check_superblock() checks that s_firstdatazone is within the
+filesystem, but does not check that it follows the inode table.  The
+inode table starts after the superblock and bitmaps and occupies
+ceil(s_ninodes / inodes_per_block) blocks.  If s_firstdatazone points
+inside that range, normal file-data allocation can overwrite raw inode
+records.
 
-and the AUX port is never registered, so the touchpad does not appear at
-all. Both devices work in BIOS and in GRUB, and i8042 status reads are
-fine (no "Can't read CTR" / "Reset failed"), so the EC-emulated PS/2
-interface simply does not accept commands until it is reset.
+On a crafted Minix V3 image with s_firstdatazone=5, uid 1000 wrote
+ordinary file data over the inode for an existing root-owned file.
+After unmounting and remounting, that file had mode 0104755 and size
+680.  Executing it changed the child from uid/euid/suid 1000 to euid 0
+and allowed it to read a root-only file outside the Minix mount.
 
-The failure is frequent: 22 of the last 47 boots in my journal show it,
-and in all 22 the AUX port is missing as well. Rebooting usually fixes
-it, which matches the EC not being ready when i8042 initializes.
+The trigger requires a privileged process to mount a crafted Minix
+image read-write on a mount that honors setuid bits.  After that mount,
+the attacker needs write access to a file on the volume.  The test does
+not use an unprivileged mount.  The s_firstdatazone=8 geometry control
+and the MS_NOSUID control do not escalate.
 
-Booting with "i8042.reset" fixes both devices: the last 13 boots with
-that parameter show no failure and a working AUX port, with no side
-effects observed. Add a DMI quirk for the model I can test. Other
-VersaPro models from the same era likely need the same quirk, but I have
-no unit to confirm that.
+HEAD commit:    8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
+git tree:       fe970b05333fb8e41da21e9e289f652abcc7cba7
+source version: v7.3-23088-g8d7fe9885c62f (Linux 7.4.0-rc4)
+compiler:       gcc 11.4.0, GNU ld 2.38
 
-Note that DMI_SYS_VENDOR "NEC" is already used in other kernel quirk
-tables (drivers/acpi/battery.c), it was only missing from
-i8042_dmi_quirk_table.
+The full console output and exact kernel configuration are available
+from me on request.  The reproduction package includes the C harness,
+image builders, payload, and initramfs.  The patched kernel rejects
+the s_firstdatazone=5 image with EINVAL and accepts the
+s_firstdatazone=8 control.
 
+The check compares the first data zone with the first block after the
+complete inode table.  It handles Minix V1 separately because its inode
+size differs from Minix V2/V3.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rostislav Maksimenko <Maildeltachat1@yandex.ru>
----
- drivers/input/serio/i8042-acpipnpio.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Signed-off-by: shaos <shawnq1@163.com>
 
-diff --git a/drivers/input/serio/i8042-acpipnpio.h b/drivers/input/serio/i8042-acpipnpio.h
-index 1b1c5d4..3014376 100644
---- a/drivers/input/serio/i8042-acpipnpio.h
-+++ b/drivers/input/serio/i8042-acpipnpio.h
-@@ -962,6 +962,14 @@ static const struct dmi_system_id i8042_dmi_quirk_table[] __initconst = {
- 		},
- 		.driver_data = (void *)(SERIO_QUIRK_NOLOOP)
- 	},
-+	{
-+		/* NEC VersaPro PC-VK22TGSCN */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "NEC"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "PC-VK22TGSCN"),
-+		},
-+		.driver_data = (void *)(SERIO_QUIRK_RESET_ALWAYS)
-+	},
- 	{
- 		/* Medion MAM 2070 */
- 		.matches = {
+Thanks,
+
+shaos
+
+---
+ fs/minix/inode.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/fs/minix/inode.c b/fs/minix/inode.c
+index 9fb938ec58689..943ea1515f95b 100644
+--- a/fs/minix/inode.c
++++ b/fs/minix/inode.c
+@@ -176,6 +176,7 @@ static bool minix_check_superblock(struct super_block *sb)
+ {
+ 	struct minix_sb_info *sbi = minix_sb(sb);
+ 	unsigned long block;
++	unsigned long inodes_per_block;
+ 
+ 	if (sbi->s_log_zone_size != 0) {
+ 		printk("minix-fs error: zone size must equal block size. "
+@@ -207,6 +208,17 @@ static bool minix_check_superblock(struct super_block *sb)
+ 		return false;
+ 	}
+ 
++	if (sbi->s_version == MINIX_V1)
++		inodes_per_block = MINIX_INODES_PER_BLOCK;
++	else
++		inodes_per_block = sb->s_blocksize / sizeof(struct minix2_inode);
++
++	/* The inode table must not overlap the first data zone. */
++	block = 2 + sbi->s_imap_blocks + sbi->s_zmap_blocks +
++		DIV_ROUND_UP(sbi->s_ninodes, inodes_per_block);
++	if (sbi->s_firstdatazone < block)
++		return false;
++
+ 	/*
+ 	 * s_max_size must not exceed the block mapping limitation.  This check
+ 	 * is only needed for V1 filesystems, since V2/V3 support an extra level
 -- 
-2.47.3
+2.34.1
 
