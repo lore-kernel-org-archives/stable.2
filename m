@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875219;
-	b=18vHYGndcrLb3jdhWlFkV2hZAbB/FOLL3HrlwqYPSFtCjqtBCadDL/6gZJqAiUzEFVvb
-	 Hj7rOEDIKENjl/xEWyMY47jdP3xBIy4GqmWzNu6M+7BN68xTAOixVq4sjueVnW60qoG+0
-	 mxiLcZsvYaTbwofK4bEBv892XVMNdCIqqtSFYXYk3bzxhpHsLxC3bu0E5kjskImNjx7F8
-	 aFqvdlnGDnGav0kqc4Hi6N6MQKvngvPSDxAanGQ8Y+oOW5IKjxOsDqArjhqTQnoQl3em0
-	 l+SOxqnUz/tqtktK9MC+zGvKMUwHJET3DsNCQtec1c/V0jur7xQbNCutcYFgwwd54IA==
+	t=1795875220;
+	b=D7YyUApjgDi7ZqXJWY1Uod/aDqDvD8O7ZpbIFrb99sRnGHPSjooT7d45dWSzBczBArYh
+	 weevEe2ZIvDcfEOjKi0Lj7Ooz4suuux+Vo5iqTN5yQG66VcNGjLzxzTmi0WuGVhQ/oeN+
+	 sgL0sAtv6uGhA0B13ogPDvadSy4wplcdljaFtXFa1be9DhfuhiWIa+zvRe3R2UlbrM3Gt
+	 LyyInZZYM1pFTLnBNOf+ZgR8Ao/6B+8B/PKLm63vYFdHHmBSfVK1yyJV1HdOLDzmrVoVR
+	 SpqfA+MCRexXAuQ+NUm/hV67HbzfCBFCDS5vlqpb/N7QmlyKB9nfDVmTbM5EC2+Er4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875220;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=4yN/GfDemWaVUfkwJzvu8EdIMFv74s+rOsCzvToeLYA=;
-	b=mLKDcvl+5FRUzyh1ncdJwl68XRDMIOGtzsBzg326W0ZiFT1iWwWi6yCiz8jQevLTukN6
-	 OF9iE7j8g4blW1w3kKRi1FXSQimDkxqgdkUbuI6SqdgdSPhfkG/6qqQgGu89r/y5Oe3mu
-	 nuRWEWSOGR7kspk3hMjbxVwbXc11baIcuUmzDppc5BZkzWw4NnUccIt9K2ALSKgTqKFCl
-	 ZtTK1mhEzSj4I5CXel436Oqp2YoeFE3rEGtqu+4nETqTvK0P4+ZpDLvmW/DDbE1ndVSDF
-	 nWg8OeOMAZ6Kvhn8CrTFqo1Pjq4sGWJS1yQnA54PrfdnLRms4Ftl6hDzBu/A8aEXZcw==
+	bh=MfbJlqAYuqKvbh4oLT4dnNJ370gx6Q2LecWWnOcU8gg=;
+	b=gckBJ1FYYqq3E6Zvh6Ui8j5FMd+3kMdFN21U58Kgmn9EdQuU9V6M4LQnQN402tiejWoB
+	 kqS+amaAU9W5IrPgGvBPJVJ162UvJIncNDZhfz+pLDv8YX3J3xFLgJe1TrWUgOTOg7I0r
+	 rvnTNHFg+ZNtoXbTJOgVzNt6CTZlJkhX6WFnDVmpsgJ6Rmjv8i+A/gFIhoLsH0HkZGIH6
+	 Rd0t8htpFrZl6+v7H3N1Ht7wPwTs+mejupIokTVkqLesg4v4bd9AySJB4QJ90AyC0i89o
+	 hGVM9rdJnje9mxPVpCHA9VhcaLeD99hbiP1F/OQsBpRIyLLIOcrbhip9hN9h7hS7mcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CZ/U4g68";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO5zEZ+1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E89606A31C;
-	Sat, 28 Nov 2026 14:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703A606A32A;
+	Sat, 28 Nov 2026 14:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZ/U4g68
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D241F000C1;
-	Sat, 28 Nov 2026 14:13:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO5zEZ+1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE8E1F000C1;
+	Sat, 28 Nov 2026 14:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795875219;
-	bh=4yN/GfDemWaVUfkwJzvu8EdIMFv74s+rOsCzvToeLYA=;
+	s=k20260515; t=1795875220;
+	bh=MfbJlqAYuqKvbh4oLT4dnNJ370gx6Q2LecWWnOcU8gg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CZ/U4g68Ho+12lkYFTfe+UFxTLDMoJyRaXWPhPfJJbZQlnc4gaKZVQ7OvGfsbjlOm
-	 wa8KzRmIk22nGrM2gthaGT6Qc+uVEDHyViB3yRg74b8mguBk5i8s/XIVmCKsXfB/HV
-	 uhaPNPg+XqAACfDnlGHOB8eTZZKUpwqsNK5g6mHx9yQLEHb1ol+039gdBlvV6OEdPx
-	 v1hXSP+LpNuH+UIpAFc8ZAc3eK3tlCu7C4zvyODASacxkzuaBGyZObq8xX88Leie6N
-	 IIm58aCXbv7cnO9sGcs2Lz1gJK0ymaND65AOna5sceuoQo+xHS/yzMD0/4TF1FlXpH
-	 R1ojWjYlYUUVw==
-Subject: Re: [PATCH v5 1/5] net/nfc: fix skb ownership on data exchange errors
+	b=YO5zEZ+1c4/CzlC5UYJ3zk0w3xEVn0YJRu3Ejo+G8fZ0dMyTZe1DUVfu2JvYRUN5M
+	 yLngGxUdpqt7mJVQKJrMtHielcP1OmIzbgrsj4A1tFS+afi82LeY+wTtzlxBm0XVwA
+	 rr41oq+6eXjDDfuThgkPaoY9mtOA0ZqBKIicp9lzvb3+nX8yt6aAWfSIoT/Ez0bBlf
+	 ih8dBPlBueCBB6IqRWy9GwCxVN3ig2gmwy9lDncxaOTC8Ww1OV0WoWcuFqtnb69T+W
+	 UW/H9oqc/iD6Ddt7kRbrGNHrv5Q7gWVx+NKlmWdoFqR6efhIU1jP4MsAi7jLrRSiTD
+	 2P3VGOkIFtaLg==
+Subject: Re: [PATCH v5 3/5] nfc: digital: complete DEP data exchange on
+ terminal errors
 From: netdev-bot+sashiko@kernel.org
 To: luob87709@gmail.com
 Cc: oe-linux-nfc@lists.linux.dev, johan@kernel.org, david@ixit.cz,
  kuba@kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 28 Nov 2026 14:13:38 +0000
-Message-ID: <179587521832.3135.10557167189631525290@kernel.org>
-In-Reply-To: <20261127134029.1813-2-luob87709@gmail.com>
-References: <20261127134029.1813-2-luob87709@gmail.com>
+Date: Sat, 28 Nov 2026 14:13:39 +0000
+Message-ID: <179587521936.3135.8436597074279524607@kernel.org>
+In-Reply-To: <20261127134029.1813-4-luob87709@gmail.com>
+References: <20261127134029.1813-4-luob87709@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -65,7 +66,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 (1) · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -73,165 +74,233 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch adds `skb_queue_purge(&hdev->rx_hcp_frags)` to
-  `nfc_hci_failure()` in net/nfc/hci/core.c.
-- [Low] net/nfc: Fixes trailers cite file-rename commits instead of bug
-  introductions
+- [Medium] The commit message calls the removed `if (rc)
+  kfree_skb(resp);` in digital_in_recv_dep_res() "redundant".
+- [Medium] The commit message says that after the change "data_exch->cb()
+  is always invoked" for DEP data exchanges.
+
+Pre-existing issues:
+- [Critical] This problem wasn't introduced by this patch, but the ACK-
+  PDU branch of digital_in_recv_dep_res() can be reached while RX…
 
 --
 
-net/nfc: fix skb ownership on data exchange errors
+nfc: digital: complete DEP data exchange on terminal errors
 
-This commit documents that a data_exchange_cb_t callback owns any
-non-NULL skb it receives, whatever the err value. It updates the rawsock,
-LLCP, HCI, NCI-HCI, loopback, microread, pn544 and st21nfca callbacks to
-free or consume the skb on error paths. It also makes HCI/NCI-HCI fragment
-reassembly splice rx_hcp_frags onto a local list under the queue lock, and
-purges partial fragments on error.
+This patch changes the terminal error branches in digital_in_recv_dep_res()
+to jump to the exit label instead of the error label, so data_exch->cb() is
+called. It also removes the trailing kfree_skb(resp) on error, because the
+callback now owns any non-NULL resp.
 
-> diff --git a/net/nfc/hci/core.c b/net/nfc/hci/core.c
-> index ba6f0310ffd7c..1b43f1e854071 100644
-> --- a/net/nfc/hci/core.c
-> +++ b/net/nfc/hci/core.c
-
-[ ... ]
-
-> @@ -833,6 +832,7 @@ static int hci_se_io(struct nfc_dev *nfc_dev, u32 se_idx,
->  
->  static void nfc_hci_failure(struct nfc_hci_dev *hdev, int err)
->  {
-> +	skb_queue_purge(&hdev->rx_hcp_frags);
->  	mutex_lock(&hdev->msg_tx_mutex);
+> diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
+> index 968547c306a5d..cd6eff01235f8 100644
+> --- a/net/nfc/digital_dep.c
+> +++ b/net/nfc/digital_dep.c
+> @@ -703,7 +703,7 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
+>
+>  			rc = digital_in_send_nack(ddev, data_exch);
+>  			if (rc)
+> -				goto error;
+> +				goto exit;
+>
+>  			return;
+>  		} else if ((rc == -ETIMEDOUT) &&
 
 [Severity: Medium]
-Can this purge drop the first fragments of a message that is still being
-reassembled, and cause the last fragment to be misparsed?
+The commit message says errors are routed "so data_exch->cb() is always
+invoked". Does that still hold after a retry like this one has been queued?
 
-nfc_hci_failure() is not only reached from the reassembly path. It is also
-reached from msg_rx_work through nfc_hci_event_received():
+All of these go through digital_in_send_cmd() -> digital_send_cmd():
 
-net/nfc/hci/core.c:nfc_hci_event_received() {
+  digital_in_send_nack()
+  digital_in_send_atn()
+  digital_in_send_rtox()
+  digital_in_send_saved_skb()
+  digital_in_send_ack()
+  digital_in_send_dep_req()
+
+digital_send_cmd() only queues the command and returns 0, so this path
+returns and waits for the next response.
+
+If the driver's send fails later, digital_wq_cmd() drops the command
+without calling cmd->cmd_cb:
+
+net/nfc/digital_core.c:digital_wq_cmd() {
     ...
-	default:
-		pr_info("Discarded unknown event %x to gate %x\n", event, gate);
-		r = -EINVAL;
-		break;
-	}
+	pr_err("in_send_command returned err %d\n", rc);
+
+	mutex_lock(&ddev->cmd_lock);
+	list_del(&cmd->queue);
+	mutex_unlock(&ddev->cmd_lock);
+
+	kfree_skb(cmd->req);
+	kfree(cmd->mdaa_params);
+	kfree(cmd);
     ...
-exit_noskb:
-	if (r)
-		nfc_hci_driver_failure(hdev, r);
 }
 
-It is also reached from nfc_hci_llc_failure() and from drivers that call
-the exported nfc_hci_driver_failure().
+digital_unregister_device(), by contrast, does notify the issuer:
 
-In the no-pending-command case, nfc_driver_failure() only calls
-nfc_targets_found(dev, NULL, 0), so the link keeps receiving frames after
-this.
+	if (cmd->cmd_cb)
+		cmd->cmd_cb(ddev, cmd->cb_context, ERR_PTR(-ENODEV));
 
-Consider a message larger than the LLC payload. nfc_hci_recv_from_llc() has
-queued the first fragments on rx_hcp_frags. Then, before the last fragment
-arrives, msg_rx_work handles an unknown event. The resulting call chain
-empties rx_hcp_frags:
+In that case digital_in_recv_dep_res() never runs again for the exchange.
+data_exch is leaked and data_exch->cb() is never called.
 
-nfc_hci_event_received()->nfc_hci_driver_failure()->nfc_hci_failure()
+For rawsock, this looks like the same hang the commit message describes.
+The sock_hold() taken in rawsock_tx_work() is never dropped, and
+tx_work_scheduled stays set.
 
-The window is the whole gap between fragment arrivals, so no tight race
-seems to be needed.
+This needs an in_send_cmd() failure from the driver. Examples are trf7970a
+returning -EIO, -EBUSY or -ECANCELED, or a port100 USB submit failure.
 
-> @@ -873,12 +876,19 @@ static void nfc_hci_recv_from_llc(struct nfc_hci_dev *hdev, struct sk_buff *skb)
->  	}
->  
->  	/* it's the last fragment. Does it need re-aggregation? */
-> -	if (skb_queue_len(&hdev->rx_hcp_frags)) {
-> +	__skb_queue_head_init(&frags);
-> +	spin_lock_irqsave(&hdev->rx_hcp_frags.lock, flags);
-> +	if (!skb_queue_empty(&hdev->rx_hcp_frags)) {
-> +		__skb_queue_tail(&hdev->rx_hcp_frags, skb);
-> +		skb_queue_splice_init(&hdev->rx_hcp_frags, &frags);
-> +	}
-> +	spin_unlock_irqrestore(&hdev->rx_hcp_frags.lock, flags);
-> +
-> +	if (!skb_queue_empty(&frags)) {
+Is a matching change needed in digital_wq_cmd(), calling cmd->cmd_cb with
+ERR_PTR(rc), to close this completely? If not, could the commit message
+be narrowed?
 
 [ ... ]
 
-> -		skb_queue_purge(&hdev->rx_hcp_frags);
-> +		__skb_queue_purge(&frags);
->  	} else {
->  		packet->header &= NFC_HCI_FRAGMENT;
->  		hcp_skb = skb;
+> @@ -847,7 +847,7 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
+>  					     ddev->chaining_skb,
+>  					     ddev->data_exch);
+>  		if (rc)
+> -			goto error;
+> +			goto exit;
+>
+>  		goto free_resp;
+>
 
-When the last fragment arrives after such a purge, the queue is empty. It
-then takes this else branch and is handled as a complete HCP message.
+[Severity: Critical]
+This isn't a bug introduced by this patch, but this branch is being
+touched. Can a remote target reach this ACK PDU branch while RX chaining
+is in progress, rather than TX chaining?
 
-The byte after the packet header is continuation payload, not a message
-header. HCP_MSG_GET_TYPE() and HCP_MSG_GET_CMD() would then decode
-payload bytes as the type and instruction.
+The only guard before the digital_in_send_dep_req() call is:
 
-The tail fragment would then either complete the pending command with the
-wrong data and status, or be queued to msg_rx_queue as a bogus command or
-event.
+		if (!ddev->chaining_skb) {
+			PROTOCOL_ERR("14.12.4.3");
+			rc = -EIO;
+			goto exit;
+		}
 
-The splice under rx_hcp_frags.lock keeps skb_queue_walk() memory-safe. It
-does not record that a reassembly was in progress, though. Is the commit
-message right that this makes concurrent error purges safe?
+This accepts any chaining buffer. During RX reassembly,
+digital_recv_dep_data_gather() stores the receive buffer in the same
+field:
 
-Before this patch, rx_hcp_frags was only purged by the reassembly context
-itself and by nfc_hci_unregister_device(). This cross-context reset appears
-to be new.
+	if (DIGITAL_NFC_DEP_MI_BIT_SET(pfb) && (!ddev->chaining_skb)) {
+		ddev->chaining_skb =
+			nfc_alloc_recv_skb(8 * ddev->local_payload_max,
+					   GFP_KERNEL);
 
-Would it be better to purge partial fragments only from the reassembly path
-in nfc_hci_recv_from_llc()? Another option is to track the reassembly state
-so that an orphaned last fragment is dropped instead of dispatched.
+nfc_alloc_recv_skb() reserves only 1 byte of headroom, and
+skb_copy_expand() keeps it:
 
-[ ... ]
+	total_size = size + 1;
+	skb = alloc_skb(total_size, gfp);
 
-> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-> --- a/net/nfc/llcp_core.c
-> +++ b/net/nfc/llcp_core.c
-> @@ -1636,8 +1636,10 @@ void nfc_llcp_recv(void *data, struct sk_buff *skb, int err)
->  {
->  	struct nfc_llcp_local *local = (struct nfc_llcp_local *) data;
->  
-> -	if (err < 0) {
-> +	if (err) {
->  		pr_err("LLCP PDU receive err %d\n", err);
-> +		if (skb)
-> +			kfree_skb(skb);
->  		return;
->  	}
->  
+	if (skb)
+		skb_reserve(skb, 1);
 
-[Severity: Low]
-Three of the Fixes: tags seem to point at commits that only moved or
-renamed files. They do not point at the commits that introduced the
-code being fixed.
+A target could do the following:
 
-30cc4587659e ("NFC: Move LLCP code to the NFC top level diirectory")
-only renamed net/nfc/llcp/llcp.c to net/nfc/llcp_core.c, and did not
-touch nfc_llcp_recv(). That function was added by d646960f7986 ("NFC:
-Initial LLCP support"). It started taking the skb directly, without
-skb_get(), in 1727cf937401 ("NFC: llcp: Fix Rx memory leak").
+  1) Reply to a DEP_REQ with an I-PDU that has MI set and the correct PNI.
+     The initiator allocates the RX chaining skb and sends an ACK
+     carrying curr_nfc_dep_pni.
+  2) Reply with a DEP_RES ACK PDU using that PNI.
 
-1c54795da05a ("NFC: st21nfca: Align st21nfca driver with other nfc
-driver") only renamed st21nfca.c to core.c and st21nfca_dep.c to
-dep.c. st21nfca_hci_data_exchange_cb() was added by 7974728094d3
-("NFC: st21nfca: Add ISO15693 Reader/Writer support"). The dep.c
-callbacks are already covered by the 1892bf844ea0 tag.
+All the checks pass, and digital_in_send_dep_req() then runs this on the
+RX buffer:
 
-97f18414af39 ("NFC: Separate pn544 hci driver in HW dependant and
-independant parts") moved pn544_hci_data_exchange_cb() unchanged from
-drivers/nfc/pn544_hci.c to drivers/nfc/pn544/pn544.c. The function
-itself came from f3e8fb552789, which is already listed. That makes
-this tag look redundant.
+	skb_push(skb, sizeof(struct digital_dep_req_res));
 
-This has no effect at runtime. However, the stable tooling uses these
-tags to decide how far back the fix should go, and rename commits make
-that range harder to work out. Could you replace them with the commits
-that introduced the code, and drop the ones already covered by another
-tag?
+Would this push 3 bytes into 1 byte of headroom and hit
+skb_under_panic() -> BUG()?
+
+There is a second issue. ddev->data_exch is only written in
+digital_send_dep_data_prep():
+
+		ddev->chaining_skb = skb;
+		ddev->data_exch = data_exch;
+
+It is never cleared, including when the exit label does kfree(data_exch).
+On this path it would be NULL or point to an earlier exchange that has
+already been freed.
+
+Even without the headroom problem, the queued command would carry a stale
+or NULL cb_context. Wouldn't the next digital_in_recv_dep_res() then call
+data_exch->cb() through freed memory or a NULL pointer, while the current
+exchange's data_exch is orphaned?
+
+> @@ -883,7 +883,6 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
+>  exit:
+>  	data_exch->cb(data_exch->cb_context, resp, rc);
+>
+> -error:
+>  	kfree(data_exch);
+>
+>  	kfree_skb(ddev->chaining_skb);
+> @@ -892,9 +891,6 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
+>  	kfree_skb(ddev->saved_skb);
+>  	ddev->saved_skb = NULL;
+>
+> -	if (rc)
+> -		kfree_skb(resp);
+> -
+>  	return;
+>
+>  free_resp:
+
+[Severity: Medium]
+The commit message describes this as dropping "the redundant
+kfree_skb(resp)". Is "redundant" accurate for the series as posted?
+
+The earlier patch "net/nfc: fix skb ownership on data exchange errors"
+changed rawsock_data_exchange_complete() and nfc_llcp_recv() to free a
+non-NULL skb when err != 0:
+
+net/nfc/rawsock.c:rawsock_data_exchange_complete() {
+    ...
+	if (err) {
+		if (skb)
+			kfree_skb(skb);
+		goto error;
+	}
+    ...
+}
+
+That patch does not touch net/nfc/digital_dep.c. Neither does "nfc: pn533:
+clear resp after queueing to avoid double free".
+
+So at both of those intermediate commits, the existing goto exit paths
+that carry a non-NULL resp with rc != 0 free resp twice. One malformed
+DEP_RES frame is enough:
+
+digital_in_recv_dep_res()
+  digital_skb_pull_dep_sod() returns -EIO
+  goto exit
+  data_exch->cb(data_exch->cb_context, resp, -EIO)
+    rawsock_data_exchange_complete()
+      kfree_skb(skb)
+  if (rc) kfree_skb(resp)    <- second free
+
+The same applies to these paths:
+
+  - the -EMSGSIZE check
+  - the NAD bit check
+  - the ACK PDU checks for the NACK bit, a PNI mismatch and a missing
+    chaining_skb
+
+The reverse case also breaks. If this patch is backported to stable
+without the ownership patch, the callbacks there don't free on error.
+Wouldn't resp then leak on every terminal error path, including the ones
+that already went to exit before this patch?
+
+Both patches carry Cc: stable, but this one only has Fixes: 7d0911c02fa2
+and no dependency note.
+
+Could this be squashed into the ownership patch? Alternatively, could the
+commit message say that this removal is required by that patch, and note
+the dependency for stable?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261127134029.1813-1-luob87709%40gmail.com
