@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875220;
-	b=D7YyUApjgDi7ZqXJWY1Uod/aDqDvD8O7ZpbIFrb99sRnGHPSjooT7d45dWSzBczBArYh
-	 weevEe2ZIvDcfEOjKi0Lj7Ooz4suuux+Vo5iqTN5yQG66VcNGjLzxzTmi0WuGVhQ/oeN+
-	 sgL0sAtv6uGhA0B13ogPDvadSy4wplcdljaFtXFa1be9DhfuhiWIa+zvRe3R2UlbrM3Gt
-	 LyyInZZYM1pFTLnBNOf+ZgR8Ao/6B+8B/PKLm63vYFdHHmBSfVK1yyJV1HdOLDzmrVoVR
-	 SpqfA+MCRexXAuQ+NUm/hV67HbzfCBFCDS5vlqpb/N7QmlyKB9nfDVmTbM5EC2+Er4g==
+	t=1795875222;
+	b=LRQ2f6xUQf/IyiE2ZbFTcny2v6CuihwdOXgTrTb/eE8PBTfg2ktE77hncL7ispkADJVT
+	 QSAUhPa6fNJ6JCH/NPvZK1uuOxpazSt1NVi1ndwL1vxnt8ekiXiaxBq09oZTltp+fA7SH
+	 Jrx9l40PpiAkUa+a2WX7UbJ5N8Cb/DaaVHSn/IGLsBUyUR3PGynhTtH+JP/GC2w72Za5H
+	 jKgqquefIbwC9d6zdx+RjXkJPGg+8yq1Zh6IF7fvIeDrKznflpC9TyRRvpyn/6/Lq8AeL
+	 d5CQGjEeQr4T9z8+uk8L/N2LJWS8ZkOYWxjgSnX/187QejGbgo+jCSjAURM2h35u29A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875220;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875222;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=MfbJlqAYuqKvbh4oLT4dnNJ370gx6Q2LecWWnOcU8gg=;
-	b=gckBJ1FYYqq3E6Zvh6Ui8j5FMd+3kMdFN21U58Kgmn9EdQuU9V6M4LQnQN402tiejWoB
-	 kqS+amaAU9W5IrPgGvBPJVJ162UvJIncNDZhfz+pLDv8YX3J3xFLgJe1TrWUgOTOg7I0r
-	 rvnTNHFg+ZNtoXbTJOgVzNt6CTZlJkhX6WFnDVmpsgJ6Rmjv8i+A/gFIhoLsH0HkZGIH6
-	 Rd0t8htpFrZl6+v7H3N1Ht7wPwTs+mejupIokTVkqLesg4v4bd9AySJB4QJ90AyC0i89o
-	 hGVM9rdJnje9mxPVpCHA9VhcaLeD99hbiP1F/OQsBpRIyLLIOcrbhip9hN9h7hS7mcg==
+	bh=LsodqXcZa0UHB181ZZOcveL5yhIK0evm2ZkAitBAPEI=;
+	b=2i/sgJZ28lDvzKTngs6w15jskmvwvd6qRApm34ST2RH6jzDyVn7n93LqgHXNElej/MW+
+	 /TsmEDfHkVJHQPwIdzKmVErCqTLwJrPoUZdUFZn6p45ZxiQpFSjhpkQn1BazyHbHzXYCt
+	 4Fj7ensOX7/jtbUP7ypbKdp8ToY4CdIS8rCfWVIR8OlAD4zwsn8/5tkQb6LjabtnSF8d7
+	 OtZNfCEsLhfjAbBq/E4yuxRS0jgYO+m7hcmXN2iCdL6UExNIoY+NuMhCCYHiPsYD/CB28
+	 ZhPlr7hs46rH57stgr6dhgIDL47b89J0dSxpirpuXBxdTQl+RCCcT0OMztXpX5QhC7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO5zEZ+1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nW0MJA8y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703A606A32A;
-	Sat, 28 Nov 2026 14:13:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7542B606A325;
+	Sat, 28 Nov 2026 14:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO5zEZ+1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE8E1F000C1;
-	Sat, 28 Nov 2026 14:13:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nW0MJA8y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08D11F00898;
+	Sat, 28 Nov 2026 14:13:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795875220;
-	bh=MfbJlqAYuqKvbh4oLT4dnNJ370gx6Q2LecWWnOcU8gg=;
+	s=k20260515; t=1795875222;
+	bh=LsodqXcZa0UHB181ZZOcveL5yhIK0evm2ZkAitBAPEI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YO5zEZ+1c4/CzlC5UYJ3zk0w3xEVn0YJRu3Ejo+G8fZ0dMyTZe1DUVfu2JvYRUN5M
-	 yLngGxUdpqt7mJVQKJrMtHielcP1OmIzbgrsj4A1tFS+afi82LeY+wTtzlxBm0XVwA
-	 rr41oq+6eXjDDfuThgkPaoY9mtOA0ZqBKIicp9lzvb3+nX8yt6aAWfSIoT/Ez0bBlf
-	 ih8dBPlBueCBB6IqRWy9GwCxVN3ig2gmwy9lDncxaOTC8Ww1OV0WoWcuFqtnb69T+W
-	 UW/H9oqc/iD6Ddt7kRbrGNHrv5Q7gWVx+NKlmWdoFqR6efhIU1jP4MsAi7jLrRSiTD
-	 2P3VGOkIFtaLg==
-Subject: Re: [PATCH v5 3/5] nfc: digital: complete DEP data exchange on
- terminal errors
+	b=nW0MJA8yt2Oq/PvWfW02oRhwcCr6slMH2qkxLs/c87z+kZ+VbtNIirAJlaOfj24uG
+	 ySvqjy76mfruqnOA8TEusfSXVVf6ekSBzkgXHLAF/PUx6MzOYe6COsCkVFz3kX3EBi
+	 l2ZPZkVJW7Xrk4YQIn0qJ4JHVqIvSSuZ513tsgWCHtC5KMeWk8SoWcJZ2dLFCSSSah
+	 T62Twp37bPzs3jQg7l68tuR0AFSPaHiJvlP8xJZQmLDe+PqAj33T25t5pwssUzZbeU
+	 CZW49Nk9FNCrT8xDwCcJDgzYUyZooc0K9jb5/vIdBsjOQA7UStUU0/aISYJS7tW1Ht
+	 4w1CsJ0Du6Ecw==
+Subject: Re: [PATCH v5 5/5] nfc: preserve NCI data status error codes
 From: netdev-bot+sashiko@kernel.org
 To: luob87709@gmail.com
 Cc: oe-linux-nfc@lists.linux.dev, johan@kernel.org, david@ixit.cz,
  kuba@kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 28 Nov 2026 14:13:39 +0000
-Message-ID: <179587521936.3135.8436597074279524607@kernel.org>
-In-Reply-To: <20261127134029.1813-4-luob87709@gmail.com>
-References: <20261127134029.1813-4-luob87709@gmail.com>
-X-sashiko-severity: Medium
+Date: Sat, 28 Nov 2026 14:13:41 +0000
+Message-ID: <179587522130.3135.16484405009456028236@kernel.org>
+In-Reply-To: <20261127134029.1813-6-luob87709@gmail.com>
+References: <20261127134029.1813-6-luob87709@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -63,244 +62,119 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 (1) · High: 0 · Medium: 2 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message calls the removed `if (rc)
-  kfree_skb(resp);` in digital_in_recv_dep_res() "redundant".
-- [Medium] The commit message says that after the change "data_exch->cb()
-  is always invoked" for DEP data exchanges.
-
-Pre-existing issues:
-- [Critical] This problem wasn't introduced by this patch, but the ACK-
-  PDU branch of digital_in_recv_dep_res() can be reached while RX…
+- [Low] The commit message understates how userspace sees the bug.
+- [Low] In nci_nfcc_loopback_cb() (net/nfc/nci/core.c), the `else
+  nci_req_complete(ndev, NCI_STATUS_FAILED);` branch for err > 0 is dead…
 
 --
 
-nfc: digital: complete DEP data exchange on terminal errors
+nfc: preserve NCI data status error codes
 
-This patch changes the terminal error branches in digital_in_recv_dep_res()
-to jump to the exit label instead of the error label, so data_exch->cb() is
-called. It also removes the trailing kfree_skb(resp) on error, because the
-callback now owns any non-NULL resp.
+The patch changes the status parameter of nci_add_rx_data_frag() from __u8
+to int. Before, the negative errno from nci_to_errno() was truncated into
+an unrelated positive value. With the change, the original errno reaches
+nci_data_exchange_complete() and the AF_NFC raw socket.
 
-> diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-> index 968547c306a5d..cd6eff01235f8 100644
-> --- a/net/nfc/digital_dep.c
-> +++ b/net/nfc/digital_dep.c
-> @@ -703,7 +703,7 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
->
->  			rc = digital_in_send_nack(ddev, data_exch);
->  			if (rc)
-> -				goto error;
-> +				goto exit;
->
->  			return;
->  		} else if ((rc == -ETIMEDOUT) &&
+> For userspace AF_NFC raw sockets, this corrupts the reported error: for
+> example, an NCI status error mapped to -EBUSY (-16) is truncated to
+> 240 and negated to SO_ERROR=-240 instead of reporting EBUSY (16).
 
-[Severity: Medium]
-The commit message says errors are routed "so data_exch->cb() is always
-invoked". Does that still hold after a retry like this one has been queued?
+[Severity: Low]
+Should this paragraph also describe what recv() returns on the raw socket
+before this patch? The wrong SO_ERROR value doesn't seem to be the only
+symptom userspace sees.
 
-All of these go through digital_in_send_cmd() -> digital_send_cmd():
+With the old __u8 parameter, -EBUSY arrives as 240 and gets passed down
+this path:
 
-  digital_in_send_nack()
-  digital_in_send_atn()
-  digital_in_send_rtox()
-  digital_in_send_saved_skb()
-  digital_in_send_ack()
-  digital_in_send_dep_req()
+nci_add_rx_data_frag()->nci_data_exchange_complete()->
+  rawsock_data_exchange_complete()->rawsock_report_error()
 
-digital_send_cmd() only queues the command and returns 0, so this path
-returns and waits for the next response.
-
-If the driver's send fails later, digital_wq_cmd() drops the command
-without calling cmd->cmd_cb:
-
-net/nfc/digital_core.c:digital_wq_cmd() {
+net/nfc/rawsock.c:rawsock_report_error() {
     ...
-	pr_err("in_send_command returned err %d\n", rc);
-
-	mutex_lock(&ddev->cmd_lock);
-	list_del(&cmd->queue);
-	mutex_unlock(&ddev->cmd_lock);
-
-	kfree_skb(cmd->req);
-	kfree(cmd->mdaa_params);
-	kfree(cmd);
+	sk->sk_err = -err;
     ...
 }
 
-digital_unregister_device(), by contrast, does notify the issuer:
+That stores -240 in sk_err. On the next recv(), sock_error() returns
+-xchg(&sk->sk_err, 0), which is +240.
 
-	if (cmd->cmd_cb)
-		cmd->cmd_cb(ddev, cmd->cb_context, ERR_PTR(-ENODEV));
+__skb_recv_datagram() only retries on -EAGAIN, so it returns NULL with
+*err = 240. rawsock_recvmsg() then returns that value as is:
 
-In that case digital_in_recv_dep_res() never runs again for the exchange.
-data_exch is leaked and data_exch->cb() is never called.
+net/nfc/rawsock.c:rawsock_recvmsg() {
+    ...
+	skb = skb_recv_datagram(sk, flags, &rc);
+	if (!skb)
+		return rc;
+    ...
+}
 
-For rawsock, this looks like the same hang the commit message describes.
-The sock_hold() taken in rawsock_tx_work() is never dropped, and
-tx_work_scheduled stays set.
+So userspace sees a successful read of 240 bytes with nothing copied into
+its buffer, and 240 can be larger than the buffer it passed in. The other
+mapped statuses behave the same way: -EBADMSG gives 182, -EPROTO 185,
+-ETIMEDOUT 146, -ECOMM 186 and -ENOSYS 218.
 
-This needs an in_send_cmd() failure from the driver. Examples are trf7970a
-returning -EIO, -EBUSY or -ECANCELED, or a port100 USB submit failure.
+The code change fixes this path as well. Could the commit message mention
+the phantom read so stable maintainers can see the full impact?
 
-Is a matching change needed in digital_wq_cmd(), calling cmd->cmd_cb with
-ERR_PTR(rc), to close this completely? If not, could the commit message
-be narrowed?
+> diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
+> index 3bbebb9505545..4a2326a337649 100644
+> --- a/net/nfc/nci/data.c
+> +++ b/net/nfc/nci/data.c
+> @@ -213,13 +213,11 @@ EXPORT_SYMBOL(nci_send_data);
+>  
+>  static void nci_add_rx_data_frag(struct nci_dev *ndev,
+>  				 struct sk_buff *skb,
+> -				 __u8 pbf, __u8 conn_id, __u8 status)
+> +				 __u8 pbf, __u8 conn_id, int err)
 
-[ ... ]
+[Severity: Low]
+This isn't a bug, but with this change the err > 0 branch in
+nci_nfcc_loopback_cb() can no longer run:
 
-> @@ -847,7 +847,7 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
->  					     ddev->chaining_skb,
->  					     ddev->data_exch);
->  		if (rc)
-> -			goto error;
-> +			goto exit;
->
->  		goto free_resp;
->
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but this branch is being
-touched. Can a remote target reach this ACK PDU branch while RX chaining
-is in progress, rather than TX chaining?
-
-The only guard before the digital_in_send_dep_req() call is:
-
-		if (!ddev->chaining_skb) {
-			PROTOCOL_ERR("14.12.4.3");
-			rc = -EIO;
-			goto exit;
-		}
-
-This accepts any chaining buffer. During RX reassembly,
-digital_recv_dep_data_gather() stores the receive buffer in the same
-field:
-
-	if (DIGITAL_NFC_DEP_MI_BIT_SET(pfb) && (!ddev->chaining_skb)) {
-		ddev->chaining_skb =
-			nfc_alloc_recv_skb(8 * ddev->local_payload_max,
-					   GFP_KERNEL);
-
-nfc_alloc_recv_skb() reserves only 1 byte of headroom, and
-skb_copy_expand() keeps it:
-
-	total_size = size + 1;
-	skb = alloc_skb(total_size, gfp);
-
-	if (skb)
-		skb_reserve(skb, 1);
-
-A target could do the following:
-
-  1) Reply to a DEP_REQ with an I-PDU that has MI set and the correct PNI.
-     The initiator allocates the RX chaining skb and sends an ACK
-     carrying curr_nfc_dep_pni.
-  2) Reply with a DEP_RES ACK PDU using that PNI.
-
-All the checks pass, and digital_in_send_dep_req() then runs this on the
-RX buffer:
-
-	skb_push(skb, sizeof(struct digital_dep_req_res));
-
-Would this push 3 bytes into 1 byte of headroom and hit
-skb_under_panic() -> BUG()?
-
-There is a second issue. ddev->data_exch is only written in
-digital_send_dep_data_prep():
-
-		ddev->chaining_skb = skb;
-		ddev->data_exch = data_exch;
-
-It is never cleared, including when the exit label does kfree(data_exch).
-On this path it would be NULL or point to an earlier exchange that has
-already been freed.
-
-Even without the headroom problem, the queued command would carry a stale
-or NULL cb_context. Wouldn't the next digital_in_recv_dep_res() then call
-data_exch->cb() through freed memory or a NULL pointer, while the current
-exchange's data_exch is orphaned?
-
-> @@ -883,7 +883,6 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
->  exit:
->  	data_exch->cb(data_exch->cb_context, resp, rc);
->
-> -error:
->  	kfree(data_exch);
->
->  	kfree_skb(ddev->chaining_skb);
-> @@ -892,9 +891,6 @@ static void digital_in_recv_dep_res(struct nfc_digital_dev *ddev, void *arg,
->  	kfree_skb(ddev->saved_skb);
->  	ddev->saved_skb = NULL;
->
-> -	if (rc)
-> -		kfree_skb(resp);
-> -
->  	return;
->
->  free_resp:
-
-[Severity: Medium]
-The commit message describes this as dropping "the redundant
-kfree_skb(resp)". Is "redundant" accurate for the series as posted?
-
-The earlier patch "net/nfc: fix skb ownership on data exchange errors"
-changed rawsock_data_exchange_complete() and nfc_llcp_recv() to free a
-non-NULL skb when err != 0:
-
-net/nfc/rawsock.c:rawsock_data_exchange_complete() {
+net/nfc/nci/core.c:nci_nfcc_loopback_cb() {
     ...
 	if (err) {
-		if (skb)
-			kfree_skb(skb);
-		goto error;
+		kfree_skb(skb);
+		if (err < 0)
+			nci_req_cancel(ndev, -err);
+		else
+			nci_req_complete(ndev, NCI_STATUS_FAILED);
+		return;
 	}
     ...
 }
 
-That patch does not touch net/nfc/digital_dep.c. Neither does "nfc: pn533:
-clear resp after queueing to avoid double free".
+The else branch was added in the earlier commit "net/nfc: fix skb
+ownership on data exchange errors". At that point, the truncated status
+coming out of this __u8 parameter was the only source of positive err
+values.
 
-So at both of those intermediate commits, the existing goto exit paths
-that carry a non-NULL resp with rc != 0 free resp twice. One malformed
-DEP_RES frame is enough:
+After this patch, nci_add_rx_data_frag() passes only 0, a negative
+nci_to_errno() value, or -ENOMEM. The other callers of
+nci_data_exchange_complete() pass -ENODEV, -ETIMEDOUT or -EIO.
 
-digital_in_recv_dep_res()
-  digital_skb_pull_dep_sod() returns -EIO
-  goto exit
-  data_exch->cb(data_exch->cb_context, resp, -EIO)
-    rawsock_data_exchange_complete()
-      kfree_skb(skb)
-  if (rc) kfree_skb(resp)    <- second free
+Could nci_nfcc_loopback_cb() be simplified to always call
+nci_req_cancel(ndev, -err) when err is nonzero? Leaving the positive
+branch in suggests that positive NCI status values can still arrive there.
 
-The same applies to these paths:
-
-  - the -EMSGSIZE check
-  - the NAD bit check
-  - the ACK PDU checks for the NACK bit, a PNI mismatch and a missing
-    chaining_skb
-
-The reverse case also breaks. If this patch is backported to stable
-without the ownership patch, the callbacks there don't free on error.
-Wouldn't resp then leak on every terminal error path, including the ones
-that already went to exit before this patch?
-
-Both patches carry Cc: stable, but this one only has Fixes: 7d0911c02fa2
-and no dependency note.
-
-Could this be squashed into the ownership patch? Alternatively, could the
-commit message say that this removal is required by that patch, and note
-the dependency for stable?
+>  {
+>  	int reassembly_len;
+> -	int err = 0;
+>  
+> -	if (status) {
+> -		err = status;
+> +	if (err) {
+>  		kfree_skb(ndev->rx_data_reassembly);
+>  		ndev->rx_data_reassembly = NULL;
+>  		goto exit;
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261127134029.1813-1-luob87709%40gmail.com
