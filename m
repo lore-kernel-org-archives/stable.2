@@ -1,63 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795826271;
-	b=EfqBadBxOfUpNZgAg5RHBuofR55P79W85NrUv9eOPJmuLw02jQCxMeYV4F1x0nqCybTF
-	 Ad8mE9ifnue01KcTKUmfUFarw+3GFzZL91zrCJn/n/YWokjkouCiRCLLWaFLJCzJKs1D6
-	 sWU7dE8C1ygzfVn/1EdZncdycmW3gU15NnZ0WGf8j7DEpIRDu3E1WLffark2M2HStPFgi
-	 OTDojBtpC6o4ZO0P1LTSsmr+D8/PZxQNlfzwMW4MJOGDBhLqiNLDMsw7g7URGr/jsYkbP
-	 ngBk6SAM0Eck29QBp6Ug+n7HeQqn2DyPlo5xc5yiXpTRF1FOnF9OmsxyKhlSH8wpV1g==
+	t=1795826288;
+	b=pUoMUhBDfvd2Ge0udavoAekRyXH7oyHLyYpJi2xC8rYX1tXK9zHi519ztnqXqf+B8Vx2
+	 Co/xlYw0XKCAKiF3vCbJudoFRGQCP8i2k/Y2Ga9G/qPa2UEKmwBGOP4iPUrbVH7dzOC3S
+	 7x1DBs3zABqdjlnIclFP7eTIZy9VtBagJ3EuLx6kKxCQ3t86Eszk5PV43bjkGItnTPbzN
+	 1IrdPCM67wzqJyQYVoM0O77/71JOv5pOyhXOSb/N3/nR1/Eq9H9xkcF5UZOGQJEXDqt7D
+	 qxFu/VLJOQUSKhBT2fiKDdt5RCqXdLI7mX7EiKeQaZww2IBADlh+fE3P7v/Gs2joBQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795826271;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=XHNSyP9vXiUABekrjWdiq3Cv7yHc1OpTTdfPh3CIO9c=;
-	b=hFpun7QtcLY26026x2A4CqWLJtTyqYhsNCFfkybz2Blvnyhz0S4mlAuXgZpgE+9jJyuL
-	 XXiU1hhODDBKCF0B1ruqvZWJsRe4Of3GWlBb6o0fGxdrTTy/nbcxuLdcpF7x4S3CQ3945
-	 /XxGc17d23qSfbYunt+VJ1FKC0+MDds5RlIwNZdytXvBY5eaOz4aFmwaz19Fi4LDk3B2s
-	 rEA1J7Hb8573Va9SLYZWnhuAuzBe9RbzGWd6qmkh4sDSl1k9Zkpa+y5VBXAWLfRk6vpBA
-	 0twDIBgpbsOvwk0g+C4tyoZDGh3osZlbUNBzwXLvn3EwAu0F3VkUiyDDY+O2z7gvYrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795826288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=YOL0rHwI3wzAxiSlMAGGk9NJU9DJm9wEtDs3FMJdkxM=;
+	b=Xeh7Ofxf+X4zQQObHeCsbL/3FEi/yZJtLWMtuCtfdwjd1ePLfkaY8Cm0yxSElGxniMno
+	 aeAJsmEwIHKIec8WSsXvdYbPDjQoJm/ymYkamF0HeTWIEhSEJxtYRzL/geVeHC33xcGjF
+	 62UoNBKc1+SsS7HiOsV9o5DQvVtVoYIpyfsRrmfU2MuuwSlAehdX4JX4ocsJw+lmSXTHx
+	 YJ7/tLUdFQUrmqC8I4IRkVuvU3z/pxAcDg9ylI9hjeye2VQm6s3HRnRQR3dFgFjwR5HZ+
+	 xzT4kfSIMxIJtwQeaVMZJzQxoH52dsXe+ZfHb47pZAbDFnHu86n5gDVAzrtFK0FUB8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=vO02KLo7;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86698606A31C;
-	Sat, 28 Nov 2026 00:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86698606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZKquqcb5;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC3F606A31E
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 00:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC3F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=vO02KLo7
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZKquqcb5
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso7359094a91.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 16:38:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=XHNSyP9vXiUABekrjWdiq3Cv7yHc1OpTTd
-	fPh3CIO9c=; b=vO02KLo7+e+v+hjpY1cqyiw6dzDCUArVlscqsVWwmXNTKBk1EQ
-	PmlvB4qyWlW6kAYLe+XSAvPOxpttprGInX5B8ks89WBmk2qT4OMatf7HyX8KwuNv
-	Xm34wLahJklqQDKYIvWu1JkEDmco+W7K44PBxeasX315wxYtjzA9ohmwk=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.233])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXkTVRIgprEugEAQ--.1728S2;
-	Sat, 28 Nov 2026 08:37:39 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: iris: fill in a default colorspace for decoded formats
-Date: Sat, 28 Nov 2026 08:37:37 +0800
-Message-ID: <20261128003737.1300698-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=gmail.com; s=20260707; t=1795826287; x=1796431087; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YOL0rHwI3wzAxiSlMAGGk9NJU9DJm9wEtDs3FMJdkxM=;
+        b=ZKquqcb553C1STK9QTgdXfRyAWUuYTT0NYDXAbFNELVbvDZVCnsYPo1TIdFhNon5XC
+         kg+l1yQya+4Eu5DNiTvrPG7CssM5yQFpVMgmNj5wsreMe0dXvFPd3fe11juBaBgNB3BM
+         dMyd2o7qTGDHVEem/5/uht7ZikH591ADQjGtfG9unKEU0KzXTHrcutyDa6X8I0oiJckz
+         DlXPu/49ZuqhLHOPnUDJG0VHqml3u3ymKLeUBnSB2+YPsEVQY8usntbthQCTds7BmZAi
+         b2E/Q7QRhBklENM9luDICJmLTN2PM0+S3OaVARAWjToxNsNm8tSKk/iUS8DFcqzubrby
+         SRmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795826287; x=1796431087;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YOL0rHwI3wzAxiSlMAGGk9NJU9DJm9wEtDs3FMJdkxM=;
+        b=hY4Sh/sbs+pkdfcQTnq4Xq6EtXvfkRAXgoaGeX/TO8qf8PAIinMJmIxKMVdX+d+ja2
+         krxvR0kg9Wj+00zTPU1qyG3PNcpLo5Dd8P05ikVqwxQnE4mRzLC7FuEqEiolyNSDC5Bl
+         a9TMINZWx/ZOWnuRKDYZdFUKciSw6okn/Z4kiVGeinEsKEhKmdCSS/emxP8qdbnSMhM6
+         gHsTqLw8ZnLZxMyuLG2qiqxVQqhyD+79C+NV790r7Da0RAcLJUeCpo+zNXVwek8klhX6
+         U/OVQve4wrXoTGyMVWuPelsiTm+G1N5lhazcgsx5jNzPhMBjwGusd7Cov35WahwAu0P5
+         XDKw==
+X-Forwarded-Encrypted: i=1; AL+hErFNGzXRnGXQXMPGZEbiNNOlZmJavVAJ8KK+2AkjfSGAxLQT2nFp//iw0WGTyWD0afGVygitI24=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ezhtKcNitsglARJE1FMyjqsNT8VPIvpU7FBy1poDdgjpQR8Qh
+	W/3ptz30r/MXZ6hymhm3au9lwuRfcVjmL8ShAa6nNgAyXGBCw9c/8ZxTreQR6w==
+X-Gm-Gg: AZFdTZdo6pet9SYAfeIrd80sle5RWFsOvbamrtthSG1qeq686b/zlLoyJZoKth5FyQ2
+	2iHbkHgDaL2GTfq5m8/Pcm4t31pf7a9OOI3fSWsNIbqKFpDH9Zs0wxAbHUYIx8NzzpRxdf4PIS1
+	kqEtuALutnJtxlvmwGmOqMdJ0paQD0XN8DPLOVd66tLhkcRSGEUED4LxqUQC9x4cWgZUiQQom2c
+	MI1iidbgdolzxBBs+iBVBiGLwecua4s/74vHn/P8kUU8Nblme5jAl4hQGJW1iAYMJJwLlpcJdpZ
+	r4N44cE3F8lfyPtFjwHa/mCpNYSCUnr3y4C1TiykG9O+Hq0Fzgo2pT7OJKxzHSRtOo4o6dMkcSE
+	AyZaQdBY1/CMHOGymkF0PVhFvkudErFPO3AupbtS5qOccy/S3eBPx1A40Ye8TBG8xIuvdwHJreb
+	HA/0Yh6GLiOwSp8966KBe9EcybrgqHncOUXgrN9Qxi40rP8vqPnj9HaRcrGEhZ26g0oxZtn6MXh
+	JpfCRRBev/9+xtda8wWcKBG2dZMAJmWGOtID37vOQbkzZu7WIK+fR0Lzha1YOQ6ByQb+rjijfYy
+	3UOXi5SADw85AHEJ4tm/fKyiq2f8lL+9Wag144Lgp48hWTUZlMd9J0FyCj+seT53FsFMMfvDJAG
+	jBy0LCZO4xK/G+AnJTwnLgxUgzjkqzBVDmQ==
+X-Received: by 2002:a17:90b:2f8c:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3b41c93fac6mr17486167a91.30.1795826287365;
+        Fri, 27 Nov 2026 16:38:07 -0800 (PST)
+Received: from localhost ([153.61.198.253])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40f4312dfsm42125157a91.3.2026.11.27.16.38.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 16:38:06 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 28 Nov 2026 00:38:06 +0000
+Message-Id: <DN6FAEWV4D25.2PLLOZNKR0L1X@gmail.com>
+Cc: "Jiri Pirko" <jiri@resnulli.us>, "David S . Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Willem de
+ Bruijn" <willemb@google.com>, "Simon Horman" <horms@kernel.org>, "Shuah
+ Khan" <shuah@kernel.org>, <linux-kselftest@vger.kernel.org>, "Victor
+ Nogueira" <victor@mojatatu.com>, <stable@vger.kernel.org>,
+ <syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com>, "shaos"
+ <shawnq1@163.com>
+Subject: Re: [PATCH net v5 0/2] net/sched: act_gate: bound the cycle time
+ and start time arithmetic
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Jamal Hadi Salim" <jhs@mojatatu.com>, <netdev@vger.kernel.org>
+In-Reply-To: <ACT-WEXM.v5.r0.20261127063407@mojatatu.com>
+References: <ACT-WEXM.v5.r0.20261127063407@mojatatu.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,126 +107,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAXkTVRIgprEugEAQ--.1728S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JrW5XF1UCryxCw47GFWUtwb_yoW7GrWfpr
-	1Fk395ZF4UXr17AwsxJw4Fq3Z3ZayrWry3CrZrG3yUCFs8uw1rWryvkF13uayUJrnxA345
-	AF12yrZ8Can8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxh
-	VjvjDU0xZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggA7sO
 
-v4l2-compliance fails the format ioctls on the decoder because the capture
-and output colour fields are left at V4L2_COLORSPACE_DEFAULT:
+On Fri, Nov 27, 2026 at 03:43 AM Jamal Hadi Salim <jhs@mojatatu.com> wrote:
+> Patch 1 bounds both attributes at KTIME_MAX and computes the next
+> boundary with ktime_add_safe(), so an unrepresentable expiry saturates in
+> the far future.  Patch 2 covers the accepted upper bound and both refusals
+> in tc-testing.
 
-  fail: v4l2-test-formats.cpp(414): !colorspace
-  fail: v4l2-test-formats.cpp(537): testColorspace(...)
-
-A decoder cannot know the stream's colours before it parses a frame, but the
-format still has to round-trip a valid, self-consistent set. Default to
-BT.709 limited range and keep the value when the client passes
-V4L2_COLORSPACE_DEFAULT back on S_FMT/TRY_FMT, so G_FMT -> S_FMT stays
-idempotent. The description parsed from the bitstream is still reported
-through the source-change path once it is known.
-
-Tested on a Snapdragon 8 Elite (SM8750) tablet with vpu35 firmware:
-v4l2-compliance -d /dev/video17 loses the eight format/colour failures and
-decoding is unchanged (H.264 and HEVC both decode with framemd5 identical to
-the software decoder).
-
-This is v2 of 2/3 of the series. Two patches are withdrawn:
-
-- 1/3 "media: iris: report a platform bus_info prefix" is a duplicate of
-  commit 1facae9bc3c1 ("media: iris: Fix bus_info prefix in
-  VIDIOC_QUERYCAP", Vishnu Reddy, 2026-09-29, Fixes: 94ef75095d5e,
-  Cc: stable@vger.kernel.org), which is already in mainline. My tree predates
-  it, which is why I still saw the failure; sorry for the noise, please drop
-  1/3.
-
-- 3/3 "media: iris: seed the crop rectangle when only CAPTURE is formatted"
-  does not apply to mainline anymore: in v7.4-rc3 iris_vdec_s_fmt() seeds
-  inst->crop from the user format in both switch branches
-  (iris_vdec.c:271-274 and :309-312), so a CAPTURE-only S_FMT no longer
-  leaves a 0x0 crop. Dropped.
-
-AI assistance was used to prepare this change; I reviewed every line, and all
-measurements above are mine.
-
-The *_DEFAULT initialisers themselves predate this: they came with
-38fc8beaba55 ("media: iris: implement reqbuf ioctl with vb2_queue_setup"), which
-brought iris_vdec.c in.  The ioctl path that stores and returns them untouched
-is b530b95de22c, so that is the tag below.
-
-Fixes: b530b95de22c ("media: iris: implement s_fmt, g_fmt and try_fmt ioctls")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
-
- drivers/media/platform/qcom/iris/iris_vdec.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-index 0dd33ff447bb..2238ef1a2794 100644
---- a/drivers/media/platform/qcom/iris/iris_vdec.c
-+++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-@@ -37,6 +37,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
- 	f->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
- 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_INPUT);
- 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
-+	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
-+	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
-+	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
-+	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
- 	inst->buffers[BUF_INPUT].min_count = iris_vpu_buf_count(inst, BUF_INPUT);
- 	inst->buffers[BUF_INPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
- 
-@@ -49,10 +53,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
- 	f->fmt.pix_mp.plane_fmt[0].bytesperline = ALIGN(DEFAULT_WIDTH, 128);
- 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
- 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
--	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_DEFAULT;
--	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
--	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
--	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
-+	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
-+	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
-+	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
-+	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
- 	inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
- 	inst->buffers[BUF_OUTPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
- 	inst->frame_rate = MAXIMUM_FPS;
-@@ -207,6 +211,19 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 	if (pixmp->field == V4L2_FIELD_ANY)
- 		pixmp->field = V4L2_FIELD_NONE;
- 
-+	/*
-+	 * A decoder cannot know the colour description of the stream before it
-+	 * has parsed a frame, but the format has to be self-consistent and
-+	 * must round-trip: keep the defaults when the client passes
-+	 * V4L2_COLORSPACE_DEFAULT back instead of clearing them.
-+	 */
-+	if (pixmp->colorspace == V4L2_COLORSPACE_DEFAULT) {
-+		pixmp->colorspace = V4L2_COLORSPACE_REC709;
-+		pixmp->xfer_func = V4L2_XFER_FUNC_709;
-+		pixmp->ycbcr_enc = V4L2_YCBCR_ENC_709;
-+		pixmp->quantization = V4L2_QUANTIZATION_LIM_RANGE;
-+	}
-+
- 	pixmp->num_planes = 1;
- 
- 	return 0;
-
--- 
-2.53.0
-
+For the series:
+Acked-by: Alexei Starovoitov <ast@kernel.org>
