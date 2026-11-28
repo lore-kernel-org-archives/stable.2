@@ -1,78 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795850234;
-	b=Ob6lkIk8+vlj5ThUWtqEYnjrIC2z58nEbJMCE7kMO5fSw7xJ3tzeLPYEhfApy4thn5Oq
-	 209+lo+GytqF7JLDVv+5fQZQN9KwIk/Qljplp4bwcDGTKAg/TGKghdk+jMZyx/yhNx30Z
-	 LaRusoE8NB9qQ98bhlYq4mnfIVQ9OswWh7L+9XYO4eGsTdXJOxbx1/zstS5IPZ6/POyya
-	 S9/QS1sxwqCCMs7yQfxtvTWOdemFj9nTeFvPntRMWYLiDqRMfMnZqNzEoEI1hC+R1TwhE
-	 XQOAoqkmozOnyRQZpCoMJqYyE5u7wuommZ3KPC2wwUrOwrNmvxtOaqxW/R5ao6ffIBw==
+	t=1795851041;
+	b=U3VWDzw7sule/CNV4Y0PsOPzde1+ArcMoYCUj71AIzeD9m9hnTBdRwpYmekxCaNOb9dg
+	 JKhmLPEXOFm04JOAbf10TiqhB4qaoRq+rP9Ld4gm4OU1j+IqB5b7XLmfDDd6WKczQdTYY
+	 mjC+AVFUKAV0wOQt30tVeRK+LpwM2HFeMXOFqaAMO5fPsErdOoGWeQ00yfrxwDOM+KKPS
+	 QN514Wyf/LfEPd238MDFryrq8q878V179A7MbCLMg8OkGZgNP0E4dW3E+jk4nDVsDU0sd
+	 8Z5ds4uk2Jid781LqX8q0rkDurFoROxwwFqTuIwn00wZ73+ujDQiSX98bClWEO9ikcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795850234;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lPRfmfNF6Iu0goISNYMZA+I07faHUJ3SbWyNgVkLHvw=;
-	b=iUz7f+y3csrW9wPbGwQNqfWk23o9InjtUNjU62vlhKCJC9IewCnP5w3FIMRXmhxoXlBH
-	 DFTk9H4hpU07qpXVFsVL1xfnhGgZoblH3XgZeSZ8Dk9uoEHyyU136VXTzIkPyaJabCSyn
-	 SK/tdEgEnIRDIwiF6rkz+dXNIJEVdFdy+jr0ckcTPBk0KBhx+se69AURwMs6ToIo++d4D
-	 Uh2XmpiBEkKxFww/NzUf0cFS2ptOcvfBCMQM3CbcG/nNp/orYlnE1qB8wNCeDKpBj43Jd
-	 hEBleyUr7ea9Pr7+8USj8o7HoYtobcVQ+y4mRMp+L8XZNA7wV0Qmwc0uDNFkGsUdCYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795851041;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ucXfR3cSDYhBuxi+l0VEG7NklGFt07n/EYwZpJ+2jUs=;
+	b=jmjF3QgndVlUNRWWxkuUCNKK09b3NKoVzuq720rCDcEzjIYgovumeD3YJX8oeIOL12vF
+	 UV2qyJzLNw0Bl+qugESUVY3GDPondsgHCqEzm3grtxddZQJQ2+Yu1bZoFxLpYPWFa3GPm
+	 MEfmYcMpv93A6PADFHg8TQ0yMVI3K7KW0TysobgV9AO1QulyMCfTjHiJOGzlFwWnwqnqd
+	 NCsL6uR6/thtC+rd8OZYRThZqFoHnMVEdiSy/2p0cspz2foJZ/Ti4jjNBfrmsuNsJqW8l
+	 xjbt7QCjf4efRJuiWvixEYOJLfXaFq1P6AwmgqZ+jRPU6mIOcbJId1xMv6W+/0Im7nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=KWpGTeMQ;
-	arc=none smtp.remote-ip=203.205.221.235
-Received: from out203-205-221-235.mail.qq.com (out203-205-221-235.mail.qq.com [203.205.221.235])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=BqOIyXzS;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mMSwV3eD;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787D0606A33C;
-	Sat, 28 Nov 2026 07:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787D0606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68D4606A327
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 07:30:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D68D4606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=KWpGTeMQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1795850223;
-	bh=lPRfmfNF6Iu0goISNYMZA+I07faHUJ3SbWyNgVkLHvw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KWpGTeMQcBa7Npwa39fP+eld2QqSVKmOZeTrMhnP/8gFv1S5c6w0UKK9iPN236cF2
-	 45AfWqJSpyou20BSrFw8eqPTM1ZlweG/dTHd9IeYa5aUVfLzyrzd0GuOZPMKtS/RzN
-	 1H5GNAoJ3ItgIZzgXGEr8cflobwGtMfmQ+pSism4=
-Received: from localhost.localdomain ([240e:3bb:3013:1841:8996:c946:cc49:aa8d])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 4419DCC0; Sat, 28 Nov 2026 15:17:01 +0800
-X-QQ-mid: xmsmtpt1795850221t0v87nkr5
-Message-ID: <tencent_39EF7AC456CEB2270310851AD0ECB4891206@qq.com>
-X-QQ-XMAILINFO: MCcbKzV4WGxBXNCluSBsbEm0BLuZIqLrA2WC2bmqYZrdJ1kgEKO8rPkqN2YNDa
-	 wGMgrvu1dRVO51nUuGcew84lfFirjwLDuWoRdvOled5AcYD2cbtMneaNi3umtEsdZfAPbZH3UBq+
-	 1o4YT6AcQfOYpJviRTBAS4mcSfs+zGYte48E+RJQUxnKBoq4jDM45g3Ms/QXpA3Ifyb4n5IdHZl+
-	 vItdw/Cf95RkbA0kmxWMjkIKdieeTV3BILBXiWxsSwmYQNJ3BiSpXCc7vpKgwG61+aSg3j+g36KR
-	 YBgvkKyQMKCJ/kGh2MypGbabKnTVJzogycAPMD0hKy1ddr0mrhggKH1D63GB+xB2bttLjN7gZYyO
-	 q+avw9xPiQoGhvEcTj8liRKxHPkpeWoe9jA+J25tAsm4gu7Vvd+H+R7fMe8sYrp3eZyUSWXhmPdP
-	 fKW0DI2IDINY6yge09HLKxGabjRbZJ59MbmH98t+IBzpKCOnrGd0ZRE7XXqgzWWbTl230qbsmwC/
-	 Zto2ZaBTMB3myvb0Czv/wZQkd18EEUGn/7uGba3U4M83oTEMhBr9eJ0HJxXGxyAZcnojdt+Mu+pW
-	 3nFpb1l62Cu0puM1BTXUz24SGwAo43dx1T7AU/xCPC3aSFxa71c4dHY+1Sgs995shI2rpE6Gh+Vl
-	 QSMr8Ql9ucvquNpqtA+ZrXfkdeHB7zNTyTzxw0EyOFM0YEgCiUe8t7LA4mVmyiRr/qnbcTb8J080
-	 /LZ4TXDYcUwCgVX98kjWuDYMdwmsex45M99aMBDqJCbf/KEGlhf8s671BnY2qq5D4tJzXnvppLZq
-	 aw/0LqRuMLBmwMLeIATZNESdP+w4t/aAvVyN/PSj+Fr7iB8UV0m9JdpdDZM/wMw3JznhF6UBZ+Nm
-	 MttM4Z+HNfH9e03jzS1Y71mcfAq3wM+yWqrcnxeKjThlQJUtMpUJgy1PKnHxyZ00MTFtt1+VzX8b
-	 dRvUntI9VR/TEIYNsdaNocqlb6mdZv+sTv8ExIEd7eqqrv1fKa7dFyOzJ/eoC5Y3aGeKYMlHez0W
-	 SI8ooKTf65QZKjwhA7lMvUXCBwgbW0NIidqXSC0YI1KgXYCTXR
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: memoriaru@foxmail.com
-To: heikki.krogerus@linux.intel.com
-Cc: linux-usb@vger.kernel.org,
-	badhri@google.com,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH usb v4] usb: typec: tcpm: exempt Soft Reset from the SOP' MessageID duplicate check
-Date: Sat, 28 Nov 2026 15:17:00 +0800
-X-OQ-MSGID: <1795912200.followup.tcpm-v4@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <1795204201.patch.tcpm-v4@foxmail.com>
-References: <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com> <awBIRnc9lBkdVhEK@black.igk.intel.com> <1795204201.patch.tcpm-v4@foxmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=BqOIyXzS;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mMSwV3eD
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E4053140031F
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 02:30:34 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sat, 28 Nov 2026 02:30:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1795851034; x=1795937434; bh=ucXfR3cSDY
+	hBuxi+l0VEG7NklGFt07n/EYwZpJ+2jUs=; b=BqOIyXzSa5f79sssz4nV58fyq4
+	BbKmIZXPXfikTK2q/bYCP3EwF4hDlgbxiUeK+4/5pA6iD5/KcEpdcSCeXzudPMcf
+	6ERnClR/pha+ADKLcyG7CyQ7hagp2lcjPWqksQTPktKP/wRZBugWhrv+l70ps7gd
+	qDEIzdVS8VQsahsLwbU+2suvRM/ER4NvZ9+AgXlfpJpV4ZisMGEelFJi+fEkm1mS
+	wDakYz1w52mbqxKGI3LCnjASZXYIItj8fxG6hnhWYhIut7rEGHDSMa8q8jkwf34f
+	L5eG1wf4JwV/Gyvl6pvnbVVRbSHxKL1ygMAxrj997/ZAIWkmur4sDSmRUYzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795851034; x=1795937434; bh=ucXfR3cSDYhBuxi+l0VEG7NklGFt07n/EYw
+	ZpJ+2jUs=; b=mMSwV3eDRWplMI/BR4NlyWbz2a3C9OYRhRUAl53gWn7qBFbxjDY
+	WhRi7i9KQQql8u6sPyvL2W+2e/LHxc6mfxbcIcqfWhm+6RO+GZhX8MQEnpNO/lzw
+	7un85R6z5SjXM40YN/rYJNe/YEZYqdlZpUTWYN5QDZ7iqqUXpHYwgfYZlIINeb5q
+	U2Lj6LhHlR6/Nw7RoMYgW+qwp4R8r34f8F45eh9jJqQDHKmyz2vZIhg4qUUgY2iQ
+	zEMoE0WqLsqey+sjtmZ8cdgmMvFEgRZ25PQ/SZbHVXxVi9Z/k+if5gkrmAfmDIQf
+	UsvNMCjNfVT/egXVfGHsWCIwnbihzJxFWTA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795851034; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:slCOzcLaRftciai7kQt5ia4LKmTO8bMo8Cwa1CXMCOPu9Fl
+	P8P4ZLdNneypq+rCkFt1IijHSS83A2sItvhiYpe2m6sC8eJ3r9QZQYIpa/D22i98
+	cZwPbtlUK+yJPdccU4v4/MkOIG77fC30CKp5TagQIALvE4y8RfOHDCOREgrC6KiO
+	v9picSTqfbW+SWZQUHSrGB67X+c7BDpQk4Zm3utYcrptzcxT74ZnWy3TNkqrP906
+	qVYzPfCJUzZ00OsVb5OnuC3zHj/vbqipaUewuM2Xs+MP1JR5xWrnjPXAyqICRnkd
+	w1bCOLqem2FETQ9baoMx0LApnvKVRzd2ba1xHBg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:t1xG/vO4VxUjcO8/e1m8t8+8oQnLwwPc4XSyq8TX5Fs=:WA8Z95GQHdnl0MllBz4e2MznzTsj7UYxkpGkxvpSspI=;
+X-ME-Sender: <xms:GoMKa92wAytwLI-lDlJfnE0KP9hgdVj7UyFQE3QgtLO_LUQpsp0MPQ>
+    <xme:GoMKaxm_Is1y8J3ja5dmUXe9GiK10XIueKEMP0JJbGZb-pTsJi1MMIrjtSI0tCldJ
+    4Wns_hEQiU6SfA5wEQpND7Me3RDvqc5io-SsVYjaVUARzSPDQ>
+X-ME-Received: <xmr:GoMKawjHTQZpn4_jWoogdYPDKw8d7Qt5jR1QoMtxLsDbvHTm_OM0MjBiE1PkHT1xa2wvfX2r5OHqHWV4nWYDvTv3TcI0yYw>
+X-ME-Proxy-Cause: dmFkZTFUzIRWWZC+1BU+ZkZPhw2fte17lLuJPHFZV4uMVtmN4au8GicGuZNVfy9wdPQDkT
+    ghL13mdoiVeFEHULpbXPdDxZMcCAAlSj9di5mXLv+VuiA/k5Auq17zVJCZK7xCqtOMJ6Mk
+    TsKigzs+W7CiX8TsD+34kDRUdeL4o/9rIyEWpQmFxgAhWyqH+gL1nJz1We1TV1zb3eSAnc
+    RuA/9YXg1DmGPxVBfHmq9I3i8QWTPd7b3aEZNwW6DaNhi9y/AjpKFGBqpmJGAAjPTbGS1o
+    tgSnoX+NsVTnSAM6wT8qBMSLEgQGJnUkT/uMq/g21bo4IzbhX5yPZ28G/Xb0Aw52nDx6Jb
+    61yR4L6omwARQLHc2hHut105vlYIW+mzDKDfsD7ipcirmMY0iGi/NIbfQxkbBbFSd7Awl7
+    EBSsDyBOTFimnvYLbMMOuW/cJFfOI/BXrKtXgBmZqjF3DtqROtCek6cQDNGbnH/0pD6fXq
+    B+IK8NvDjP1GfRmgHsDEKsnrjbcnONEgX9E74EWebvNMnHxbmHI1XkCqdHtSdjfLHxjNsd
+    CKWYh4Y/02wWjazF/xQLnZTJjwt13sTQ35hHDCaqQg+Lx2eBraX4poDN4yXYrTNKb1waxo
+    WFns2aytOWDKk0Q2iTiIdiT48ymZzQk+oNEcvpozun3IFsZh22YUqyet+0RA
+X-ME-Proxy: <xmx:GoMKawQ8xsJh2LMDw3PKWrQPJaHrX8X7hK_fZ4N3IsGZOg_bywkolA>
+    <xmx:GoMKay9tgwT74zI0fATYuz010ynRg_TK6dlsu193HZnCSTay7cufzg>
+    <xmx:GoMKaxM_zIi-P7da1Se1zrCO9sGo_qHYugwNNFsSxI0g_e2QAh7Ujw>
+    <xmx:GoMKazgsRP1hjbHWcti3OqgN58SnMzyxQtGBpVbotjTEdi8l06WtsA>
+    <xmx:GoMKa8MqJklW_rLW3aAR9xkRYmoHh_kt7flQeYrq01Im766yRJHC0Lf3>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 28 Nov 2026 02:30:34 -0500 (EST)
+Date: Sat, 28 Nov 2026 08:30:30 +0100
+From: Greg KH <greg@kroah.com>
+To: Henry Zhang <henryzhang62@gmail.com>
+Cc: stable@vger.kernel.org, jjohnson@kernel.org, quic_lingbok@quicinc.com,
+	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org
+Subject: Re: [STABLE REQUEST] wifi: ath11k: signal strength fixes for 6.6.y
+ and 6.1.y
+Message-ID: <2026112814-habitable-falsify-b2ab@gregkh>
+References: <CANTW0ypcrw2+BAqVKWQ6BOY2eUDK+D47aXuO1zuwZ1VaYwyvVw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,27 +123,49 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+In-Reply-To: <CANTW0ypcrw2+BAqVKWQ6BOY2eUDK+D47aXuO1zuwZ1VaYwyvVw@mail.gmail.com>
 
-From: Zhang Hewei <memoriaru@foxmail.com>
+On Fri, Nov 27, 2026 at 09:04:06PM -0800, Henry Zhang wrote:
+> Hi,
+> 
+> Please consider these two mainline commits for 6.6.y and 6.1.y:
+> 
+>   94f228ac4f5b ("wifi: ath11k: fix ack signal strength calculation")
+>   aadeee47e9d7 ("wifi: ath11k: modify the calculation of the average
+>                  signal strength in station mode")
+> 
+> Both are in mainline since v6.11 and in 6.12.y, but not in 6.6.y or
+> 6.1.y, which still add ATH11K_DEFAULT_NOISE_FLOOR to the ack signal and
+> to the average signal unconditionally.
+> 
+> On firmware that reports the signal as a signed dBm byte
+> (WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT), these paths treat that
+> byte as unsigned and still add the -95 dB noise floor, so
+> "iw dev <wlan> station dump" reports impossible positive values while
+> "signal" itself is right. Seen on a QCA6390 (fw 0x101c06cc) with an
+> Ubuntu 6.8 kernel, which has the same affected calculations as 6.6.y:
+> 
+>     signal:          -47 [-50, -51] dBm
+>     signal avg:      109 dBm
+>     last ack signal: 103 dBm
+>     avg ack signal:  47 dBm
+> 
+> 109 is 204 - 95, where 204 (0xcc) is -52 dBm, and 103 is 198 - 95,
+> where 198 (0xc6) is -58 dBm. Userspace that reads these values over
+> nl80211 gets wrong numbers. No connectivity problem was seen.
+> 
+> The average signal code was added by b205ce4c266c ("ath11k: support
+> avg signal in station dump"), so 5.15.y does not have that part; I
+> have not checked 5.15.y for the ack signal part.
+> 
+> - 6.6.y: both commits apply as-is.
+> - 6.1.y: aadeee47e9d7 applies as-is. 94f228ac4f5b conflicts only in
+>   the Copyright line of dp_tx.h; I can send a backport without that
+>   line if that helps.
 
-Hi Heikki,
+Please send tested backport series for all of these.
 
-Gentle ping on this one -- I understand things are busy.
+thanks,
 
-Two small follow-ups from my side:
-
-1. Greg's patch bot pointed out that the v4 patch mail lacked a version
-   changelog below the "---" line; that feedback is valid and I'll
-   include one in the next revision.
-
-2. On scope: the responder-side SOP' Soft Reset handling still cannot
-   tell which channel the reset arrived on (tcpm_pd_handle_msg() has no
-   SOP* type parameter), so a complete fix is a slightly larger series
-   than the current one-liner. Happy to prepare that, or a rebased
-   minimal v5 with the changelog added -- whichever you prefer. If you
-   would rather pick this up internally, that works for me too.
-
-Thanks,
-memoriaru
-
+greg k-h
