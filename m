@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795852179;
-	b=5bnsBUjeS1nFcLf2scyDRzknthNqQ0uJUqlw8qQ90NVyY4O8/N5DivOVANbUGavYqgsv
-	 MMLnHKm/vM2nI4uAoxJBgkamrmioOCKX/srcBXmfMX3bBOm30sJZbxGcAHZLVlYdIXIuf
-	 x91x3VlETMO2nQc12jYKLwk9IgnuWhUici8T3cqeh1DpACoS9AVxARAtUuLX1PsRBYy8+
-	 wwJPKrVfKHYHOUkrahVl2N0ES76W6qI1PeyianepOeHINY0HLiuBkUyp2Xw8cMySrlgdH
-	 TfaZ3VFvMiWvNTU/HYwBudVj8R+/tWfI6TpzBXQHkmuDrH8NNBn+CUeNt7RbKhxRdCw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852179;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Y2CkVKlJv9q8tIcTk64or8wHGvQhFgWI4FBCczrgvuk=;
-	b=KZ5PQ3ZJKGyIp76HYIcmIZFLAC/82u7A7eksE/kn7IIor4jM//2sXJMHscvX94eZZ370
-	 T5SV/Y3Bv0JIItE/eIiTOCF45hxi77L/hDl/Oq+r51grPRp0qxmeOBsK7h+bietFs7bYU
-	 Vc08ZXOn90l3/+xO1KUdIzx4dO0HBKPMsDHFyqOCslSUgBct3zZygRZu9WXdrqY/oXwoW
-	 DV41pUkZOr/W+FzUGFIWXmLGJmubOEVb+zySEaUTCyygIh18054816HFyTzEtE3Qw7/a+
-	 CTIFNfmyknUHSrlMEfHoY85sABe3yNTdS3S9PM7LFuYzGU4yRlKe7yQUA+jlJl0CL6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0vOHecQ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795853591;
+	b=HuT6iGLwMQovGopKyzQJcCGsoTOZnpGBVp2oDkZdOYdiJWqMRV1CyEv2nYtFIntCKiLP
+	 IG7ablLPWioTgnVSyzSRiafk40SZfBEE8Usnvxej+xBhS+eExhAN+8FgIsXDQljVrvOm8
+	 RCIra9UxR/64+SMdIsSUu/4KWX+nEAf8ma+U2kiIEfImtFkI0cBaigMXmRSuuDD5NixXk
+	 zGY/IRaoxkNuGqVuElOysNFdLo33luWEoYKoIi/v2Vgp6nK6Sz0BefjPiGyq+hrjlJncj
+	 3mFa95vIMaZZfyZBt8mwu6UMapxkai8I9ztup1Okjdnf4tVtiKwTnpJxv8FUHlbgdjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795853591;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
+	b=XqjOEBmWeSENGpfSLvF1U9+QyNnSkceBl9TRN0HUSHvLfS71tKVJ2A1lb6NnNeMKlepi
+	 RjQ/Pow22XZ/JGufA/13SMy6g9TCPu+qzvZ+04RwC+/9wY1aQl8qMO0DdGaEyNBinDWTb
+	 6z97yug4zIzoz2VOp5NAg/F8l2B+AH7AQzew9GI+DRdsm6RyZE/pM7FeBO7sBYFppXr3B
+	 T1hzdC6b6mxDQ2OXB+aPUqeFxXheyzsM7cfOEBgl1ZX6/H5HZMTHuuOHpulBI9zDdfMAK
+	 7G/w9clNQceuBIqvAORyuQlX+Mz2wTcg7DV8YAu3CWtVZ0yfpryJGlwsyrDrmrznOMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+WEAXCg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298E5606A31F;
-	Sat, 28 Nov 2026 07:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E91606A31F
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 08:13:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0vOHecQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268751F00893;
-	Sat, 28 Nov 2026 07:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+WEAXCg
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795853591;
+	b=k9HG8OqtAymflkXKSxHq45TXXKKBHyzeQcr7XAGOwHTkq3TcpXI3kpKSPVu5zX4mOMwq
+	 B8h7GjrBvfwRnhFpjkHtB01DblV+dSDCjNWfr3oxlPYegucCf9lbeGOnPDQx5s/6mXFuH
+	 C+Pq/iNmkDDAtJVGKIPOuXDYWxPyFNOjMdJiBdJLsMlidtNkSb+5tr3DMXlquoh1ZaWky
+	 QjTlVC/6k6NcWfANx5cWL74D5Tj/8HZvIN4tK5EgAvna0EDxXPEvMeIQLuOIUU2eCHUAK
+	 n/aFBeGFq3DalioXSyKNsrqmcy39UMHO8prZBu85Ou8AxQhTG5B2APyvsdvDf8Vu/VQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795853591;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
+	b=e2vnfhghuqeiVzOvkmzKq2RCJFIBXadA+qamGcEx/b9kJRCaZMfg3Dh85a4rpIzU+Zl1
+	 Tf8MybPjKpT+vhLGN0hH0ZkBwK3GRsbhBFgyzL6XiWXKze4FiqAHFXUpxzdfwKtHKRl/8
+	 7FITliNaer1rOQkUORAtVgpYdc4J8OqrPPkgh2oIuUc0RkgMN50HdkKWZ3HpTIbd1qOXt
+	 uV3fJNc7GGxTNeG4OcMIOOXlKTJRh+j69Woqsq2naZutNXNFDSuZrTqXd9xZloj+fJlt9
+	 UsESwBtHBSnrcH9ORRQ71i6dprkB18t3TUQav73kdOTxK1iyx05tNlZeFE9cwh10H/Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E08261F00893;
+	Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795852178;
-	bh=Y2CkVKlJv9q8tIcTk64or8wHGvQhFgWI4FBCczrgvuk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=I0vOHecQV/wHc5kazkWzvIkJy1qsJ4shaHWLmvJKjTL7VYHJYfkc+dv5XMexB9ZFz
-	 oJbZ9/F03jrJBIdwmc+KjAnT29rJ2L86YGtYNzcV4iM9zc18uKJQC3HnJdgrF7u6b2
-	 YcdsiwlgIg37hLa9Z6Km7aFnEc3fb6/TXP/D/QWctoP7ip5B1I7ofT33oV40Q1clGL
-	 m3UCOWuHzfdieEBcbgWrZ87z8K26ELNhT0M84XbrHljPNa2UX/LdF9ViGZa3TWERJ3
-	 F6cGt8E4mFxxtgcohgxNBE7TQCB+PshRzNDkl4TSho76xf+puWoVzTLVGG1hI3AgFD
-	 jzIP+vLd3l9HA==
-Subject: Re: [PATCH net] sctp: don't count pending-deleted addresses as
- survivors on bindx del
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: lucien.xin@gmail.com, marcelo.leitner@gmail.com, vladislav.yasevich@hp.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, edumazet@kernel.org,
- horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- stable@vger.kernel.org
-Date: Sat, 28 Nov 2026 07:49:37 +0000
-Message-ID: <179585217768.3135.9630756221208198819@kernel.org>
-In-Reply-To: <20261127065017.2922776-1-bsdhenrymartin@gmail.com>
-References: <20261127065017.2922776-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795853591;
+	bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=J+WEAXCgXaOnWN0apGtL38OtcelhoCtNZZ4uJbaL0KxS0d/1Tiijj0z28gQX+EG1H
+	 5QoCmMueaeIdxcvLnT5JukMEwQqZStE5zTkOBr8zoWh9kQZtjii2Dwm1FtKV26ij9p
+	 sqgGMVzq1ZQvWa1NgVelIqogTT6cX9bJp+GtQNYsM0ck5eMznH8G6bIikb3YYLTLoF
+	 VVuWKexs6EFy465torEVWw5U0KBmWCeknIEPZXe3AJdrXP5b9rArh5eBbCEeSoXJXU
+	 ScKjbTNitAitQSeLR4AlVxDhEbEVOEKdBrsxV9u6R9bJQcFjBV+f3uttRXhtGQn9bJ
+	 xlaba3b6qnT6Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 746FE4E02D;
+	Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Sat, 28 Nov 2026 08:10:35 +0000
+Subject: [PATCH 6.1.y] drm/amdgpu/vcn4: avoid rereading IB param length
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,183 +82,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261128-amdgpu-vcn4-61c-v1-1-0f4b00ae33c2@certik.com>
+X-B4-Tracking: v=1; b=H4sIAHqMCmsC/12NzQ6CMBCEX4Xs2UXbaBVexXjozwI12pIuEA3h3
+ W315nG+zHyzAlPyxNBWKyRaPPsYchC7CuygQ0/oXc4gD1IJIS+on64fZ1xsOKISFrvGOXk2nTr
+ JBvJqTNT519d4BVWL+g23H+bZ3MlOxVaKRjOhSTrYoSCm4KYYH1j4/u8Ftu0D9DmZo6oAAAA=
+X-Change-ID: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
+To: stable@vger.kernel.org
+Cc: Boyuan Zhang <boyuan.zhang@amd.com>, David Rosca <david.rosca@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795853434; l=3713;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=B+Yz49Bh1ZXTZrWyQ6EaWYVQ18dVN1NAYdlgp9oDZIo=;
+ b=VN0w0FK7GEQeCtbfURpyQ6h84Y7Jk7uCkQ2EKL98dKjnG2GEnKXU+wE9OfX5/gMooCA/936Fu
+ ZC29xmdLv1rBXJD1vt39OSwnqtJvnzrgM2R16xVVHW9TUr2I7MecZ12
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+From: Boyuan Zhang <boyuan.zhang@amd.com>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+commit 3b4082fabc67c9780b06eb959e59dd92fa79c0f0 upstream.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reuse the parameter length returned by
+vcn_v4_0_enc_find_ib_param() instead of rereading it from
+the IB.
 
-- [High] The patch only partly closes the bug class it claims to fix.
-- [Medium] The patch sends a second delete into the keep-last branch of
-  sctp_send_asconf_del_ip() (net/sctp/socket.c:863-896) while the first…
-- [Low] Two comments no longer match the patched code: - The header
-  comment of sctp_find_unmatch_addr() (net/sctp/bind_addr.c:429-431)…
+This avoids a potential TOCTOU issue if the IB contents
+change between reads.
 
---
+Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+Reviewed-by: David Rosca <david.rosca@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit dbb02b4755f8c1f3773263f2d779872c1c0c073a)
+Cc: stable@vger.kernel.org
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+---
+This one went to 6.6.y in 6.6.148, but 6.1.y didn't have the VCN4 IB
+parser fixes yet at that point. Those came to 6.1.y in 6.1.191
+(d19dd814b5b7 and 92724364702f), so 6.1 now has the loop this fixes
+and the patch applies cleanly.
 
-sctp: don't count pending-deleted addresses as survivors on bindx del
+Tested on 6.1.193: allmodconfig W=1 build of vcn_v4_0.o, base vs
+patched, no new warnings, and the patched kernel boots under QEMU. No
+VCN4 hardware here, so the encode path itself wasn't exercised.
 
-This patch makes sctp_find_unmatch_addr() skip entries that are already
-marked SCTP_ADDR_DEL. Two bindx deletes in a row, with unacknowledged
-ASCONFs, should then no longer be able to empty the association's bind
-address list. When no undeleted survivor is left, the keep-last handling
-in sctp_send_asconf_del_ip() is used instead.
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-> diff --git a/net/sctp/bind_addr.c b/net/sctp/bind_addr.c
-> index 31737f144c7f0..e20006b9f12e4 100644
-> --- a/net/sctp/bind_addr.c
-> +++ b/net/sctp/bind_addr.c
-> @@ -445,6 +445,12 @@ union sctp_addr *sctp_find_unmatch_addr(struct sctp_bind_addr	*bp,
->  	 * can't change.
->  	 */
->  	list_for_each_entry(laddr, &bp->address_list, list) {
-> +		/* An address already being deleted cannot serve as the
-> +		 * one remaining address.
-> +		 */
-> +		if (laddr->state == SCTP_ADDR_DEL)
-> +			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 83d997f8d500..5df81a21c522 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1719,14 +1719,17 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ #define RENCODE_IB_PARAM_SESSION_INIT			0x00000003
+ 
+ /* return the offset in ib if id is found, -1 otherwise */
+-static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start)
++static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start, uint32_t *length)
+ {
+ 	int i;
+ 	uint32_t len;
+ 
+ 	for (i = start; (len = amdgpu_ib_get_value(ib, i)) >= 8; i += len / 4) {
+-		if (amdgpu_ib_get_value(ib, i + 1) == id)
++		if (amdgpu_ib_get_value(ib, i + 1) == id) {
++			if (length)
++				*length = len;
+ 			return i;
++		}
+ 	}
+ 	return -1;
+ }
+@@ -1736,14 +1739,14 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_ib *ib)
+ {
+ 	struct amdgpu_ring *ring = amdgpu_job_ring(job);
+-	uint32_t val;
++	uint32_t val, len;
+ 	int idx = 0, sidx;
+ 
+ 	/* The first instance can decode anything */
+ 	if (!ring->me)
+ 		return 0;
+ 
+-	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx)) >= 0) {
++	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx, &len)) >= 0) {
+ 		val = amdgpu_ib_get_value(ib, idx + 2); /* RADEON_VCN_ENGINE_TYPE */
+ 		if (val == RADEON_VCN_ENGINE_TYPE_DECODE) {
+ 			uint32_t valid_buf_flag = amdgpu_ib_get_value(ib, idx + 6);
+@@ -1756,12 +1759,12 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 				amdgpu_ib_get_value(ib, idx + 8);
+ 			return vcn_v4_0_dec_msg(p, job, msg_buffer_addr);
+ 		} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE) {
+-			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx);
++			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx, NULL);
+ 			if (sidx >= 0 &&
+ 			    amdgpu_ib_get_value(ib, sidx + 2) == RENCODE_ENCODE_STANDARD_AV1)
+ 				return vcn_v4_0_limit_sched(p, job);
+ 		}
+-		idx += amdgpu_ib_get_value(ib, idx) / 4;
++		idx += len / 4;
+ 	}
+ 	return 0;
+ }
 
-[Severity: High]
-Can the SCTP_ADDR_DEL mark be overwritten while its delete is still
-queued?
+---
+base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
+change-id: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
 
-The new check relies only on laddr->state. However,
-sctp_asconf_param_success() sets the state back to SRC on a successful
-ADD_IP ack, without checking the current state:
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
 
-net/sctp/sm_make_chunk.c:sctp_asconf_param_success() {
-    ...
-	case SCTP_PARAM_ADD_IP:
-		...
-		list_for_each_entry(saddr, &bp->address_list, list) {
-			if (sctp_cmp_addr_exact(&saddr->a, &addr))
-				saddr->state = SCTP_ADDR_SRC;
-		}
-    ...
-}
 
-Take an association whose list is only A(SRC). The endpoint also holds a
-third address D, which is needed to pass the endpoint-level check in
-sctp_bindx_rem(). The reproducer in the commit message needs the same
-thing.
-
-  bindx ADD B
-    B is SCTP_ADDR_NEW, ASCONF1 (ADD B) sent
-  bindx DEL B
-    sctp_find_unmatch_addr() returns A
-    ASCONF2 (DEL B) queued behind ASCONF1, B marked SCTP_ADDR_DEL
-  peer acks ASCONF1
-    sctp_asconf_param_success() sets B back to SCTP_ADDR_SRC
-    ASCONF2 sent, peer holds the ack
-  bindx DEL A
-    B is SRC, so the new check doesn't skip it; B returned as survivor
-    keep-last branch skipped, ASCONF3 (DEL A) queued, A marked DEL
-  peer acks ASCONF2 and ASCONF3
-    sctp_del_bind_addr() runs for B and A, asoc list is now empty
-
-sctp_sf_do_asconf_ack() matches acks by serial number only.
-
-The next bindx ADD then reaches sctp_send_asconf_add_ip(). It takes the
-first entry without checking whether the list is empty:
-
-net/sctp/socket.c:sctp_send_asconf_add_ip() {
-    ...
-		bp = &asoc->base.bind_addr;
-		p = bp->address_list.next;
-		laddr = list_entry(p, struct sctp_sockaddr_entry, list);
-		chunk = sctp_make_asconf_update_ip(asoc, &laddr->a, addrs,
-    ...
-}
-
-Wouldn't this hit the same NULL af dereference in sctp_make_asconf(), and
-the same diag leak, that the commit message describes?
-
-Could pending deletes be tracked in a way the ADD-ack path can't reset?
-For example, sctp_asconf_param_success() could skip entries that are
-SCTP_ADDR_DEL. Or the survivor check could look at the queued and
-outstanding DEL params.
-
-[Severity: Medium]
-Is the keep-last branch really the same as the single-address case here?
-
-With this change, a second delete issued while the first DEL ASCONF is
-still outstanding goes into the keep-last branch of
-sctp_send_asconf_del_ip(), which does:
-
-			asoc->src_out_of_asoc_ok = 1;
-			stored = 1;
-			goto skip_mkasconf;
-
-sctp_process_asconf_ack() clears that flag on any error-free ack, even if
-asconf_addr_del_pending is still set:
-
-net/sctp/sm_make_chunk.c:sctp_process_asconf_ack() {
-    ...
-	if (no_err && asoc->src_out_of_asoc_ok) {
-		asoc->src_out_of_asoc_ok = 0;
-		sctp_transport_immediate_rtx(asoc->peer.primary_path);
-	}
-    ...
-}
-
-Take an association with [A(SRC), B(SRC)]:
-
-  bindx DEL A
-    ASCONF(DEL A) sent, A marked DEL
-  bindx DEL B
-    patched sctp_find_unmatch_addr() skips A, returns NULL
-    keep-last: pending = B, src_out_of_asoc_ok = 1, B marked DEL
-  peer acks DEL A, delayed only by normal RTT
-    A removed, pending B kept (no match), src_out_of_asoc_ok cleared
-
-That leaves the association with [B(DEL)] and src_out_of_asoc_ok == 0.
-
-sctp_v4_get_dst() then rejects every candidate source address, and the
-IPv6 version does the same:
-
-			if (!laddr->valid || (laddr->state == SCTP_ADDR_DEL) ||
-			    (laddr->state != SCTP_ADDR_SRC &&
-			    !asoc->src_out_of_asoc_ok))
-				continue;
-
-sctp_packet_transmit() drops packets when tp->dst is NULL.
-
-Keep-last relies on a later bindx ADD C to recover, by sending
-ASCONF(ADD C, DEL B). That ASCONF doesn't look like it can be sent
-either:
-
-  - C is SCTP_ADDR_NEW, so it can't be a source address without
-    src_out_of_asoc_ok.
-  - The transport reset block in sctp_send_asconf_add_ip() runs only when
-    asoc->src_out_of_asoc_ok is set, so it is skipped.
-
-Can the association do anything other than stall until the
-retransmission limits abort it?
-
-The clear-on-any-ack logic is older than this patch. Still, the commit
-message's "same as it already does for a single-address delete" relies on
-it.
-
-[Severity: Low]
-This isn't a bug, but the header comment of sctp_find_unmatch_addr() still
-says:
-
-/* Find the first address in the bind address list that is not present in
- * the addrs packed array.
- */
-
-With this change the function also skips SCTP_ADDR_DEL entries. It can
-return NULL even when an unmatched address exists.
-
-Should this comment be updated? The same applies to the "Find one address
-in the association's bind address list that is not in the packed array of
-addresses" comment in sctp_send_asconf_del_ip().
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261127065017.2922776-1-bsdhenrymartin%40gmail.com
