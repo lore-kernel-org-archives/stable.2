@@ -1,121 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795849754;
-	b=3CCZj8cDMaOdvDVUYvsOt/BnCoUfsVUxdnxYmEh4GD7foDlKgq53kqNBncKQhYoQx1cJ
-	 04+hS6EWrlyYsjRn57qqBilUxY5PeQpC4clA9aSKK5+af6Szrcx1h+INxynIdcWc3P/QR
-	 N1iAALRu8ZanUIS3Jr/deicqDNilE2DXU+JXTHrNaAu92D4OXq0xkKsezIzyNs11PuhmE
-	 0EpF56uw91MkBP7kwrIki9WULhCUeLAKSlck83fHiR/+RfMWBNiYqGKMehpUpg2QwJI9p
-	 OUsTRGa0yoivl4m7RzbE2+ZCgw8uzuF/GnaxOTI17XsC50wT4o8IVgUEytKS/1Lu5eQ==
+	t=1795850166;
+	b=5PI1CDgHZrfFt31YzS5etKqeHBICDs6UBesJsHg2GrooVVXHRKXImqcMZl2aLGKdPJ56
+	 +ryROMbU7Al2ig4iM8rXuZnDBjw/HLXg6QYfStnA3TrtRqm7mZwyZUTo3TTbF4uAfA6BH
+	 Vz7MRNECDNtg+rFnqVRoU0S0vvDb6LNYAiscVS+g0O3cikel2g/3r2sKEGnU9VmO6vqqD
+	 t6SmzTnsUJUdjD0eTD1VZUhk539yXduc0utZDB+Ki9yPGW4O5NYBGeUfJOVKE3dFs8CvS
+	 XSCR+MEK/CZPevdwCShulYWEzvDx5jiRb4YNKe+A4QvEr4sV4Ntlo6vypgBdjP6T+Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795849754;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+frJhA5zcIV6hnLz17sMj4USifPldAOiBN2xX/VQuJ0=;
-	b=P2tRkUy2h2jPw1+69Ehu3j4h9UCgCbwYwKn4OfB6T0NMuqr/vYILtOg+JtNEnqak1Tqj
-	 r6oemC6wJIevsLudhAIUy9BjjIEKMqPIJZb0JP/SlmoizYqbsld8MZWAZB5u9oRwzRjT/
-	 9/id5qq8hR3hQIYKaJozqai2lZOx8WnB9xtn5WgA+myckX5oAFpFtdunpIk0yiIVMUoev
-	 38TDfTwD0AGggZKWE65ov1EmD/xFUCVY+HZQQed1E17KornRchZaPN1uUHHCAmMJENIHV
-	 oTuNiCfQ/YN0WsHqCMj+xMPlGm6gjfNYoQtXbBtFbJSeoDcNMz632oNAbNb6DxHtq0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795850166;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=54W8KTLK5TfZwNOBXKWcoX2SzNwA1huYT2IQox7uzQw=;
+	b=bgtVc5/TwwNTWdd7Tc3T6DUVqE2LORuUYO+F/3CD/Iog375JbbeeWDypkQnRAjsjuUM2
+	 NJoEhnjwfCP6fEUBmw6rDLzaCFyIZ034ffGgJyuwHMjbRYS20lhW9RLfIcmxxb1eT1Uj3
+	 wllUtyHaBVDtD/bMuedrRnC++A9lvRt65j4+x5rt8zjQEHPeHOTojvgLJopPtz6+kpTpx
+	 rjjABqo2qRCj1qNQPi7zo58C86OZi0O8FgN9/fDZX/quva0BEyGHrwOu2Keiz2+m2Rgx7
+	 Y6xgBFJrOaNEypZLSpaZlOrP2uZU7us9HuCo4jsz/xW94Sugdj7Xbmi04rRBhb4cCCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sakamocchi.jp;
-	spf=pass smtp.mailfrom=sakamocchi.jp;
-	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=VGY3ixS3;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D02nf2W6;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g2/NUCQC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDDB606A31C
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 07:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDDB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0969D606A31C;
+	Sat, 28 Nov 2026 07:16:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=VGY3ixS3;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D02nf2W6
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 90360140031B
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 02:09:11 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sat, 28 Nov 2026 02:09:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1795849751; x=
-	1795936151; bh=+frJhA5zcIV6hnLz17sMj4USifPldAOiBN2xX/VQuJ0=; b=V
-	GY3ixS3CchDsdvzileLMnmX14a/AXcFpGR00GNOhDejoY8XM59gD0uftvI+A1YTZ
-	p1e+56yvxGc2ZG1Rc7yRxVD9+ZebNuSo4PEi5vmKC9erV5PcXrKzUqKpmOKCflRL
-	GTy5OIeWGSzUQNOKUorAx05CjomLIt/Hs7LZacoVa0xJ355KCQ/Rvu03d+pQxaK6
-	9MdGDdk0+QH6/q/PuGzXJS5MG816dLvqb3kmfJf/PZvSL5N7kHEUs+JF1t9rrjdH
-	6EDtQvxxJAV/XkseddhSbP/0u5eOp9CjYshYAjhASy1K1YREsesIQ+PucJ4LZo8e
-	ClVOLnZeTtac4062O66Pg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795849751; x=1795936151; bh=+frJhA5zcIV6hnLz17sMj4USifPldAOiBN2
-	xX/VQuJ0=; b=D02nf2W6huqSpNx1Rof1Us5vxnci74KAh4aN3ur9TbPkr4QMEVQ
-	SPasEIiDnIj1IrqVSemC7G3LzVvzP0ojuF06hD36lVrwyY+q3RX7cEv4RgioNIyo
-	UPwE6DZFklUkzsDRjdC2y/cQ7yCqeKtFDrdM4kUc94s3c6P7IVq1bwy/b/G5JSQx
-	PuMG/xPgV7tLA2i3lTfK/bf0Vi6TRC008D16FyrpyDRIUGLztLz8Cy0i2oC8CpHd
-	zOllt4H45cq7S48H6Xo/D3C3/GppUrgRgFKIwj/WuvMypHf4PrpMVe6hzIZR6yBs
-	GtTwIFDgPnIllsz7kNvTCCynwwePwz5Yo8Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795849751; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:p4ygSzdUdz06wT9oEcf9kGruGyqyKqqGZ40Wxm8qWc4UMgM
-	eAeN0lefXS4AUNFZqkbIIi1QlhWnry2wCmD1zJJd8WUDBTVHnYCO44mv8iZUvyy4
-	DfEvd1ozuiYKNAdqFOI86hgIK2qXdY/VS1DWR/vc8N2fcm4GWh5TXz8v8IJtOoPF
-	Gdf4P1+BnqjR0FGC1DxmZBWLcprc6eD/ZKOZLvqPDfUlSMB8hq+lODzBubinzXDU
-	PFdNF2hwbxpvIJlmt6Q/LOpXoIix1X0RiEiGyuq04FAdCkCgXRJWU948Jwj6oOh/
-	5w9rIL+0ZL6GtiHi2aroYcwVq/UGqOlrZmtaVEA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:4eIHAzxUDOZbubWuqbwViWAjn72C4pydkB4NbeRapdA=:faWgTroi3I2wGwABHClzoxA/B9fZ7VkTcZei+E0NV18=;
-X-ME-Sender: <xms:Fn4Ka5FXrAzTAgGTbhkJsrzVn_rfnYPIuwtnhDH_Ps5lRLU7cWpLUg>
-    <xme:Fn4Ka3r-ppey1wsokl8pf1RL78Zg-oBWJcNrdvdvaYdRLR7cIpSHrdal7_iVFFFds
-    ZyUM3F275zvP0lEDEbh8qnKnlRjxGT_yi5qUqzyE6oeKzdq_eQHXx3w>
-X-ME-Received: <xmr:Fn4KaybFqWUvEl1caU8ch8MSmYPNLFVH5sOsKFswH5fT81pZHefN4At8kpCyMKaSZkCxgXk8EqSvVbMFOuqLu6o_KE9b4uI>
-X-ME-Proxy-Cause: dmFkZTGeDN2v3u5ZZvh7XT2Ap623SiXr7ExrrNxlnUzkXyQ4MQmD5jwVQc2cRlZoEXOtNM
-    67x1FEbKTfEvpshQ5uxFn3Ws8UmhUaecGdkQww1AviRjV0yBTXQqA04YlcQyBZgRsIzWOT
-    x1JePIxxXdOmpYZJaRbJOEXVnnDKnDCzoD6iM/tgsoNRNy7iTY90H1dVdgjq4Cujco4KyT
-    UpzxMWUaC+RZhAQMuj3qs05tqsphebV4p7T+3SC069X4MxfT61k24uXBbuVliMRxUx5hSU
-    jl59Z5yQkxeONKqH7P2jBfB5+fQ80AlvdpC5MRfHVEVlOSCowlGPN8xxtN5vZi+vHz7vGS
-    N74wy7+4S9CF0WhXeNPWOFugYWaGys8n0YWsTENzmrc7PHuS71M4ILu+E0KQ15DzunLVcM
-    sxwwv7A5pscE3PGRPJmjiwmvXsTdeOEgkjKfSgS4tqnLoMWNQsOZsb1kckiwJDB86PHCxM
-    uVz4y+fDhpWTtkXPz/a7TaMxoAypdBoyTuzsHGQH0obpG23sRl4FTAXYwiqRbDPXuKwODH
-    VaxS8WYcjeKqli4WwV+ShNb/dljuJlpTYRxge9QnHMnXd1pKnZjvLzyskrtGyZac+ECjcp
-    87jJfskSXFh0S5V+qZhma6hExXuf76uF5wahneCSMqgp5K0FhQ9ZpQVkz4tw
-X-ME-Proxy: <xmx:Fn4KawU0oRK7rsdFqLMYqPVZBqh9qUEbPe8IL5SfZjZnGDJi51giIw>
-    <xmx:Fn4Ka78aBBxMlNYOi2ekgdigFf2phi0npLqlyzL8DbqXsm9ROMw8cA>
-    <xmx:Fn4Ka58BqeYZjmlEDTdTFiWgroRGbNySHK4nm9PdO3rZFYSiZ3WKQQ>
-    <xmx:Fn4Ka7RmQlksWp1RCKTexE6XKtsOZqhVEphycpfj6Z1iK3pujpmiSw>
-    <xmx:F34Ka8-zCdloXzVrcNza9ipTzRvNA-ZeOUirOMNIZv0iCo3aBF-tpcmd>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 28 Nov 2026 02:09:09 -0500 (EST)
-Date: Sat, 28 Nov 2026 16:09:06 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Maoyi Xie <maoyixie.tju@gmail.com>
-Cc: Clemens Ladisch <clemens@ladisch.de>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] ALSA: oxfw: bound the stream format entries to the
- response length
-Message-ID: <20261128070906.GA47735@sakamocchi.jp>
-References: <20261125121238.1602172-1-maoyixie.tju@gmail.com>
- <20261125121238.1602172-4-maoyixie.tju@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2/NUCQC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01AB21F00897;
+	Sat, 28 Nov 2026 07:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795850165;
+	bh=54W8KTLK5TfZwNOBXKWcoX2SzNwA1huYT2IQox7uzQw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=g2/NUCQCaaCOwM4InyuvCtBdKkzBTCLrVF4mhjcJgAHrs0PLZiWf3iwg/oaP1YpAa
+	 uhT2hi/XoUHSA1mZ7ty45SFT6s2rgHzjdx9K/E0KpkQ2R6wkz6FK1NxNyvNA7jFpB2
+	 FvRJcRA4g897QzJd/ix1xdGdom6/NKVJpeqThOXtDEc3Us0CIUZrdoec9lc11+zTap
+	 f086PKP9V8GHIrgnnLsSo+F6yWNrmb5T/XiZ2Ede1i+m1A/FdDWrWAH2VWQmM36c5o
+	 HHS6q3X2TpbrRYRemxtJsxf4DtWgwtYj7npiOlRpfkOskqI9F2E7g8k25ShEOiIZhU
+	 XJQplnXOHo4pw==
+Subject: Re: [PATCH net] net: ife: reject headers that would overflow the
+ network header offset
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: yotam.gi@gmail.com, jhs@mojatatu.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ victor@mojatatu.com, netdev@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 28 Nov 2026 07:16:04 +0000
+Message-ID: <179585016449.3135.6106864949030175850@kernel.org>
+In-Reply-To: <20261127063006.2908187-1-bsdhenrymartin@gmail.com>
+References: <20261127063006.2908187-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,102 +63,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125121238.1602172-4-maoyixie.tju@gmail.com>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Thank you for suggesting the change. I think the changes in the other two
-patches are good, however for this patch I have a concern about adding the
-new function.
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
-On Wed, Nov 25, 2026 at 08:12:38PM +0800, Maoyi Xie wrote:
-> snd_oxfw_stream_parse_format() takes the number of two-byte entries of
-> a stream format from format[4] and never sees the length of the
-> response. A count of 254 or 255 can read past the 512-byte response
-> buffer. An accepted format is stored with the length of its response
-> and parsed again later. A count that needs more than that length reads
-> past the copy.
-> 
-> Check the length of a response against its entry count before the
-> format is parsed or stored. Formats other than AM824 compound still
-> reach the parser and get -ENXIO.
-> 
-> Found with a CodeQL-based static analysis tool. Reproduced in a
-> userspace harness under AddressSanitizer. Not tested on hardware.
-> 
-> Fixes: 5cd1d3f47a63 ("ALSA: oxfw: Change the way to make PCM rules/constraints")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-> ---
-> I used an LLM to help write the harness and this patch.
-> 
->  sound/firewire/oxfw/oxfw-stream.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-> index 5e36d7153a7b..d8fe136369d8 100644
-> --- a/sound/firewire/oxfw/oxfw-stream.c
-> +++ b/sound/firewire/oxfw/oxfw-stream.c
-> @@ -484,6 +484,19 @@ void snd_oxfw_stream_update_duplex(struct snd_oxfw *oxfw)
->  	}
->  }
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] The patch does not fully close the bug class it claims to
+  fix.
+
+--
+
+net: ife: reject headers that would overflow the network header offset
+
+This patch adds a bound check to ife_decode(). It rejects IFE frames when
+the total pull plus the extra ETH_HLEN stripped by eth_type_trans() would
+push the network header offset past U16_MAX. The aim is to stop the u16
+network_header from being truncated, which later lets skb->data be moved
+to a wild address on the forwarding path.
+
+> diff --git a/net/ife/ife.c b/net/ife/ife.c
+> index 2ddf725d3389e..272e457517360 100644
+> --- a/net/ife/ife.c
+> +++ b/net/ife/ife.c
+> @@ -79,6 +79,14 @@ void *ife_decode(struct sk_buff *skb, u16 *metalen)
+>  	if (unlikely(ifehdrln < 2))
+>  		return NULL;
 >  
-> +/*
-> + * A format of AM824 compound has five bytes, followed by two bytes for each of its entries.
-> + * A response can be shorter than that. The parser rejects every other format before it reads
-> + * an entry.
-> + */
-> +static bool format_has_all_entries(const u8 *format, unsigned int len)
-> +{
-> +	if (len < 2 || format[0] != 0x90 || format[1] != 0x40)
-> +		return true;
+> +	/* The caller strips one more ETH_HLEN via eth_type_trans() and
+> +	 * then resets the network header, whose offset is a u16.  A
+> +	 * larger pull would silently truncate the offset and leave the
+> +	 * stack with a negative network offset.
+> +	 */
+> +	if (unlikely(skb->data - skb->head + total_pull + ETH_HLEN > U16_MAX))
+> +		return NULL;
+
+[Severity: Critical]
+Is this bound tight enough? It still lets the final network header
+offset be anything up to exactly U16_MAX. That leaves no room for the u16
+offsets the stack computes from network_header afterwards.
+
+After ife_decode() returns, tcf_ife_decode() in net/sched/act_ife.c does:
+
+	skb->protocol = eth_type_trans(skb, skb->dev);
+	skb_reset_network_header(skb);
+
+So network_header can end up anywhere in the range up to 65535. Then
+ip_rcv_core() in net/ipv4/ip_input.c stores into the __u16 field:
+
+	skb->transport_header = skb->network_header + iph->ihl*4;
+
+With network_header in [65516, 65535] and ihl=5, or a wider window when
+IP options are present, this sum wraps. The result is transport_header
+smaller than network_header.
+
+On local delivery, ip_local_deliver_finish() then does:
+
+	__skb_pull(skb, skb_network_header_len(skb));
+
+skb_network_header_len() returns the u32 value
+transport_header - network_header, which here is about 0xFFFF0014. In
+__skb_pull(), skb->len wraps upward, so this check never fires:
+
+	if (unlikely(skb->len < skb->data_len))
+
+After that, skb->data has moved about 4 GiB forward. Isn't this the same
+"negative offset pulled as an unsigned length" primitive the commit
+message describes? The difference is that it shows up on the local
+delivery path (ip_rcv -> ip_rcv_core -> ip_local_deliver ->
+ip_local_deliver_finish) instead of neigh_resolve_output(). The L4
+handlers (icmp_rcv(), udp_rcv(), tcp_v4_rcv()) would then read through
+the wild skb->data with an inflated skb->len.
+
+The sender seems to control the offset precisely. metalen is a u16 taken
+from the packet. The TLV walk in tcf_ife_decode() accepts any run of
+4-byte aligned unknown TLVs and only bumps the overlimit counter. That
+means ifehdrln can be stepped in 4-byte increments to land inside the
+20-byte IPv4 wrap window.
+
+IPv6 has the same u16 wrap in ip6_rcv_core() in net/ipv6/ip6_input.c:
+
+	skb->transport_header = skb->network_header + sizeof(*hdr);
+
+This happens when network_header is above 65495. On local delivery the
+pskb_pull() length check in ip6_protocol_deliver_rcu() appears to catch
+it, but the stored transport offset is still bogus.
+
+Would it be better to leave real slack below U16_MAX for the headers
+derived later, or to cap the IFE metadata length / total offset at a
+sane value, instead of only checking that the network header offset
+fits?
+
 > +
-> +	return len >= 5 && len >= 5 + format[4] * 2;
-> +}
-> +
->  int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
->  				enum avc_general_plug_dir dir,
->  				struct snd_oxfw_stream_formation *formation)
+>  	if (unlikely(!pskb_may_pull(skb, total_pull + ETH_HLEN)))
+>  		return NULL;
+>
 
-Could we perform the length check in snd_oxfw_stream_parse_format() instead
-of inserting format_has_all_entries()? The former is called immediately
-after the latter with your patch.
-
-> @@ -501,7 +514,7 @@ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
->  
->  		err = avc_stream_get_format_single(oxfw->unit, dir, 0, format, &len);
->  		if (err >= 0) {
-> -			if (len < 3)
-> +			if (len < 3 || !format_has_all_entries(format, len))
->  				err = -EIO;
->  			else
->  				err = snd_oxfw_stream_parse_format(format, formation);
-> @@ -662,6 +675,11 @@ assume_stream_formats(struct snd_oxfw *oxfw, enum avc_general_plug_dir dir,
->  		*len = 7;
->  	}
->  
-> +	if (!format_has_all_entries(buf, *len)) {
-> +		err = -EIO;
-> +		goto end;
-> +	}
-> +
->  	/* parse and set stream format */
->  	eid = 0;
->  	err = snd_oxfw_stream_parse_format(buf, &formation);
-> @@ -740,7 +758,7 @@ static int fill_stream_formats(struct snd_oxfw *oxfw,
->  	/* LIST subfunction is implemented */
->  	while (eid < SND_OXFW_STREAM_FORMAT_ENTRIES) {
->  		/* The format is too short. */
-> -		if (len < 3) {
-> +		if (len < 3 || !format_has_all_entries(buf, len)) {
->  			err = -EIO;
->  			break;
->  		}
-> -- 
-> 2.34.1
-
-Thanks
-
-Takashi Sakamoto
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261127063006.2908187-1-bsdhenrymartin%40gmail.com
