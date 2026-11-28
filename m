@@ -1,68 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875606;
-	b=HfQvVs2IyodUt1Ulpf6beJiZq0xRUXPGHscQh3MJVkYTk00oaiz9ATfCujpdEJ5nUmxS
-	 3aQlsMJF9+ZEcj8oSVaLBbqrPrUWC63JorP9ilyM9OWLNbp7t2xq5fV6TNDnkjDNX/Z1C
-	 AgXFPva8WH8JzZl1wgxZG9n6Fbwxy6e/Ep/9GLpgJgeBU0XICuDTPVHNpnk4HpgnqhxLI
-	 BCfha1nBgNylhfqxNzQxyvbC6zyWEhoOMx0l6EgLfTU9aPbFvyQadxYASxn2cz1nl6zNU
-	 S3RKkc4R0giZJSd5oKz4f/LSgRJX+kLn1l4CELhK+MESFgaiP9hoUbU40ZALRrTHT7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875606;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=p6RETe2n9nSFkgmwbwxPDMILbC3h00DQnWP3gt1J/Cc=;
-	b=Pw+sdfBGYcIOQtKSU+8ybsNOag//rRujtekeMvhL6uU1LmQ2JgyeM/I7uKHiSd8AhNnN
-	 BwibWeU9ceXU348dQ4GaGVUqmc5aZQxNjeDk4eP14/snaFU8rfC5eCEs83FG22xjhSFoN
-	 SLIadwNZeaB1CSFtHejGSQC1cam7T3GWjwrN1ChBUCHN4pFzsmrXDdki3R0ZxO9YtYk1l
-	 wS/NaVd8aKzJ/fHhDdAWX1jpG2MFMQkhjEtXBsbL/l5IWHVDicsKO31vYFFXUHDq41E46
-	 Q8bHT3ipc2ez4NJk1ww4ZVbW87GUgFI+yZ6+6jISAHYJnnlrDflMBLKZS/PWGkKTo9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1lZZ1+5;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795875627;
+	b=FqpDFrZyK0GwQx+3SjjZKna4DgN8ITxFaIjBYoa/T5WwLkwAM6+w11CEOxgmmjeuRJ8Z
+	 2NXUJ54LOAxokKuth42Ug/3Km+QdDoLFVFaMqa00GgQOgkuojAUr8ftgVENbBgkLxfj2j
+	 MdulB1BMCNuwv/yx7SqtMuU+Wfuk9AukxVQy4auwsdJe7kOh+bdEmhqs/+lDT1IV4oj3V
+	 p5CMx8Igqd8anaFeEsb4BRnCM6gnW6xEN60mkgNhrF6HNybtvkW27u9RjTnsOI1rJssUl
+	 cX7ahQNfzQnF4ENF1EkKPLGygPCKx4U2HdgA5eHnNQFnfb6aduSBj3ZD6pMDDZ0igiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875627;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=pawt8oGq6umaf6NmqEM5/lZJgIRl7sY1HdmBuiFOy9M=;
+	b=SDC2rbTfCRjvHOi9K4i/Y8Gwy3Xg6eaW9CfvwHFOH5JMbqGmn9Sg+IqUK1LMOK8brml/
+	 N9ek4y5+DUeoQwBfk0qRk0dy3q+N/cq88/pkK0g3LV75A7+LTpKetL2ZT8CM8lR+qrQK4
+	 0osXGtfNsegCelvrlQJB6W1cxIt0bL3akBAPUR6Ccbz6pXLPYtscVLaCNEgJNM0g5f62N
+	 hIu3dfJyPHbxdnrSrzrN4HO67nDvB7DZYLh0TSDlld/iMeFovy7eU6r4EUczuwdTFfHIK
+	 ZivcQQHswuP4hAn5w+uF6BKZtjR6bFgRxgzEB9TAL1a1p4x4+vDRPiW/w6qms6GbzLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHc9ywVD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EB0606A31F;
-	Sat, 28 Nov 2026 14:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E197606A31C
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 14:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1lZZ1+5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3311F000C1;
-	Sat, 28 Nov 2026 14:20:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHc9ywVD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795875627;
+	b=oKGZzBCLguwQpGObzLUStMdiF2s2pPjpoC/48+0tDzsgbq3ZReX5jZq1KKAxdJejD74W
+	 C2DSaCtN7eNK87c4PpZqXc54ODLdlSQyHdVKr7zuSUMmbqtVRe9hmy2lsY5/KJIjYXXh2
+	 iVms4zCY/lSxG9KuDH06gPUK62JSdE7p84KYaZK+LR9I9oCr9uIyhXzHGnGeqtsBheh37
+	 cBxE8B4+APvDdnW+1jxue+lD6xpJnVprx9/E/BpTBJKyd5+ufzCBqLw2KOHOKgaRlZQW3
+	 hzYIEOipTIzUh8Ww2/px6BggC/MxYO6LclZGDGYkwLWeeB06AYJCJFYcfavWipf8/Tg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795875627;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=pawt8oGq6umaf6NmqEM5/lZJgIRl7sY1HdmBuiFOy9M=;
+	b=smu3ef2Oa/hsmtI1Ac8x50Ux1+aCt2yj0g9h0NCNOz6oJFzenCi8vb5sJ0m6k72VjLPs
+	 /CTlBCGDm7GBoZ7vvrW0spTGAxrunj7cVN6yEVvVF79KcU9UuZtXF2pT2fOjNixC+LM3V
+	 dN10WaMdaIne1REmUN6vbB2MVYg4KUHzs/bq9Yt5EYkjpe5ybmbyKqrWg4iefEGjTclEY
+	 lzqpQMnFFobnT/EdvqENnoGMosfCRVm3eZcU7FcHTWozhB054joDewgANuGj04+8zw30v
+	 d1TO2vEVhULR0VfbXLHh9sNrg71FBZx1jIDGR0lWmbAT/Gfw/fOKEgjabD6lc1IchrQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EE1CF1F00893;
+	Sat, 28 Nov 2026 14:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795875605;
-	bh=p6RETe2n9nSFkgmwbwxPDMILbC3h00DQnWP3gt1J/Cc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R1lZZ1+5qbv/4e6EYQ1EuQ88gqj55hacUhJhSUdHikUvDIGnQ9reUDAB5COBBreMV
-	 HiUbgm01XKP8cTP37qjSoCQBYfezxXwFuIJ4cQ3jGSOVShcjKtAvcpoWLNZCh7eS9y
-	 DYfD49PJt7XKe70Kc8znYEt9exh4qHmXBnaafS4OxAjlqFiYLKe0NzPBP0TX151imb
-	 wtGXGprxf088A7aAclFYzvwqXs0ujaZM8mYe6XFgWN9wwFk+Jm/RsKe5lX4v9cdDQd
-	 s4j/dHWbNG3Rash9P8vauADDjt7C7L8CtsLrAwq8mpbqKhhrHyygNrW5VBzheNGPz8
-	 w/2PMvr1tPSsw==
-Date: Sat, 28 Nov 2026 14:19:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Ryan Walklin <ryan@testtoast.com>,
-	Andre Przywara <andre.przywara@arm.com>, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-sound@vger.kernel.org, stable@vger.kernel.org,
-	Marcus Cooper <codekipper@gmail.com>,
-	Philippe Simons <simons.philippe@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 0/1] clk/ASoC: sunxi: fix H616 audio PLL and codec clock
- rates
-Message-ID: <7350b432-a04c-451f-8a1a-045d3f3a597b@sirena.org.uk>
-References: <cover.1795815223.git.daniel@makrotopia.org>
+	s=k20260515; t=1795875627;
+	bh=pawt8oGq6umaf6NmqEM5/lZJgIRl7sY1HdmBuiFOy9M=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=VHc9ywVDN++YkBP/lQVuGZ78Re5OnHo4lP7DAHK2rLeWG69Ud8CPydv5l/n70C25c
+	 SYI7F5DH8RRpTQbQgoSyM9Ya9d/eOBsfjEpW6xAtP5NyZY1ccZsTQofjimElg3oSqk
+	 o08kloq9gF/SyLj3DS9sge09mh37w7u8VTSuHYkgvbGKHlIs8KdnhgQDoMOhedYSjo
+	 q04flNanap+fWKl+Ot9+tv1Y+rniwDyVeMbSm81M+BJZ/wCPpHbM55NHwb8lUdRSCa
+	 XDZqGpL9vhxUIxZ4bSmVjH8JPxAFcNNPwC9nBQdkm4t11iYF2qoxjYalx1RXz5gxko
+	 DIX450IRL1goQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 76A684E0F4;
+	Sat, 28 Nov 2026 14:20:26 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Sat, 28 Nov 2026 14:17:55 +0000
+Subject: [PATCH 6.1.y] nvme-tcp: sanitize request list handling
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,46 +82,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="layEJsjDVDBOgV60"
-Content-Disposition: inline
-In-Reply-To: <cover.1795815223.git.daniel@makrotopia.org>
-X-Cookie: I'm a Lisp variable -- bind me!
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261128-nvme-r2t-61-v1-1-2c1875964e5c@certik.com>
+X-B4-Tracking: v=1; b=H4sIAJLiCmsC/02NzQ7CIBCEX6XZs1uFRjS+ivHAz9ZiFBoWG5um7
+ 17Qi8f5MvPNAkzJE8OlWSDR5NnHUILYNWAHHe6E3pUM8iCVEPKMYXoRJplRCbTKud4dO3myHZT
+ FmKj3n6/tCqoV7Qy3H+a3eZDN1VSLRjOhSTrYoSKm4HKMT6x8//cA67oBfgNda6IAAAA=
+X-Change-ID: 20261128-nvme-r2t-61-c6ddfd5327c3
+To: stable@vger.kernel.org
+Cc: Hannes Reinecke <hare@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
+ Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, 
+ Jens Axboe <axboe@fb.com>, linux-nvme@lists.infradead.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795875474; l=2848;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=yxyohbLELQu0GqhP3UK8ZEJTUCvWETlmMB05ClrCXEs=;
+ b=bsPmz2p7CTmGGgLW7ptdKV62lGGGqAWVum9OVA+6XTBN47Fgh1ij0ARibbNbJ3lO/F2VngpLt
+ 5jZWI3zKvjfDs+Bb1A/U1UPXN6oBa3XZLY0v4XeXA/2Juf3fWOJ/uA+
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
+
+From: Hannes Reinecke <hare@kernel.org>
+
+commit 0bf04c874fcb1ae46a863034296e4b33d8fbd66c upstream.
+
+Validate the request in nvme_tcp_handle_r2t() to ensure it's not part of
+any list, otherwise a malicious R2T PDU might inject a loop in request
+list processing.
+
+Signed-off-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+[ adapted to 6.1.y: open-code absent llist node helpers ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+---
+This one went into 6.6.y and 6.12.y but never made it to 6.1.y,
+since 6.1 doesn't have init_llist_node() or llist_on_list(). The
+backport open-codes them as node->next = node and node->next != node,
+which is all the helpers do, at the same four sites as upstream.
+
+Tested on 6.1.193: W=1 build of drivers/nvme/host/tcp.o, base vs
+patched, no new warnings. Both kernels booted under KVM with nvme-tcp
+built in. Build and boot only - I didn't send a malicious R2T, so the
+new check itself wasn't exercised.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+---
+ drivers/nvme/host/tcp.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index d434c24e035d..b9abd25d9bff 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -386,7 +386,8 @@ nvme_tcp_fetch_request(struct nvme_tcp_queue *queue)
+ 			return NULL;
+ 	}
+ 
+-	list_del(&req->entry);
++	list_del_init(&req->entry);
++	req->lentry.next = &req->lentry;
+ 	return req;
+ }
+ 
+@@ -494,6 +495,8 @@ static int nvme_tcp_init_request(struct blk_mq_tag_set *set,
+ 	req->queue = queue;
+ 	nvme_req(rq)->ctrl = &ctrl->ctrl;
+ 	nvme_req(rq)->cmd = &pdu->cmd;
++	req->lentry.next = &req->lentry;
++	INIT_LIST_HEAD(&req->entry);
+ 
+ 	return 0;
+ }
+@@ -740,6 +743,14 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+ 		return -EPROTO;
+ 	}
+ 
++	if (req->lentry.next != &req->lentry ||
++	    !list_empty(&req->entry)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"req %d unexpected r2t while processing request\n",
++			rq->tag);
++		return -EPROTO;
++	}
++
+ 	req->pdu_len = 0;
+ 	req->h2cdata_left = r2t_length;
+ 	req->h2cdata_offset = r2t_offset;
+@@ -2376,6 +2387,8 @@ static void nvme_tcp_submit_async_event(struct nvme_ctrl *arg)
+ 	ctrl->async_req.offset = 0;
+ 	ctrl->async_req.curr_bio = NULL;
+ 	ctrl->async_req.data_len = 0;
++	ctrl->async_req.lentry.next = &ctrl->async_req.lentry;
++	INIT_LIST_HEAD(&ctrl->async_req.entry);
+ 
+ 	nvme_tcp_queue_request(&ctrl->async_req, true, true);
+ }
+
+---
+base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
+change-id: 20261128-nvme-r2t-61-c6ddfd5327c3
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
 
 
---layEJsjDVDBOgV60
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Nov 27, 2026 at 09:42:18PM +0000, Daniel Golle wrote:
-> The H616 CCU reports the audio PLL at half its real frequency since its
-> sigma-delta table was added, and the H616 codec support was tuned on
-> top of that, so the two errors cancel for the analogue codec. Other
-> users of the audio PLL run at the wrong rate: sun4i-spdif plays at
-> twice the requested rate once the codec has moved the PLL to its
-> sigma-delta setting, and an I2S driver for the Audio Hub that asks for
-> 24.576 MHz gets 49.152 MHz.
-
-Please don't send cover letters for single patches, if there is anything
-that needs saying put it in the changelog of the patch or after the ---
-if it's administrative stuff.  This reduces mail volume and ensures that=20
-any important information is recorded in the changelog rather than being
-lost.=20
-
---layEJsjDVDBOgV60
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsK4w4ACgkQJNaLcl1U
-h9AeuAf9G0qsxK6Y/sQ0f+9QCEUTP96FGYku7DdOZg2H7llUzXOXE2TqwowcOvsO
-LKpNWIHw9Z+rdh1kuqlVsyaJaUJcvK2zDol+/cKYXWnFixHCpMO5yyly45V9wXhX
-5woquNvg3DCV6XvGw5D0iAte6fD4/HuNh9yRTfzyMGA6UUoxFRRNUxN1N+FxY0mf
-/l81igCXEqTgZonnGRnQm/1WV31x7oNt1AiADDJj/aCtL/YOf5vcB9/JkwFhIZUb
-XmUSp/vfJ4lNdXnONWyVY9kz6AxHdAuQTOJNIseWnGOur9LqBopMLs8TD5soeslT
-4KLUrtT76f+UUGbzGExMdDpzaG96Sg==
-=O75m
------END PGP SIGNATURE-----
-
---layEJsjDVDBOgV60--
