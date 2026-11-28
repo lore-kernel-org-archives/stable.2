@@ -1,165 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.53.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795867981;
-	b=tDJhjfxmTW2pI/TfXvPulKxV8TT4XmeUDb9cxSg1HxOz12Ym9V/dagMZyShnQP7CV3mT
-	 QVP2uS9pPIESJJbcY1NSJnHR1TFMiMiUTFvOZtZIXbIBiVHXabglKEZ5x6Xdp4AIdYjIe
-	 LmHAaxY9h4mAJ5QY3Ai073ak9IQU9m8j3iCNyXEBinZvghKeR2Is8a854af2mprFdLI72
-	 mBjW/JkJoKb9T3RQwX+IKLuLht62ZwI9V7SYwJZ9Rn/Umfc+la5lFL/UaA1V+k5BeJjV6
-	 8RUpgopBi8QtLu8Iizcqi6ans0wg5Na/Z0Ve0bVHckkueJBRMSSkPenrSOgj1l9pzpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795867981;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eoRxH05gmoQhF/lAG3m32xdKxk3TArqjHSY+Nf27TxA=;
-	b=PokF9rmF9f+T7EJWGEqsP+Yu2T5MW/rfPaWp1t7t94uue9fU96tFCDPSs7q2azqmTiWq
-	 H6Mnl6IX736u4pAHNvUYCL8HAa/V7N3gqcmnKpi7DE220ZjRP6yQdnl8uQ1+Jf7IWnHZt
-	 j6kZVZH7hxabl/l+9/lzS9mbCDcI4beGAUykBiuCFMrbDzeukIbMtfNw69+7cGSmSZs3w
-	 r8ZG8yzKL0VE9WsJx6q0926Iws+Qsu4LSZi9pPlCuF40AxJqu0OZq3a8pC7UuiRXi/gw9
-	 LUrd5EC04y/klPgZKIXBRsutsXSXrwfrCngwJJF3vfiiYIWLcSR8jSJ2R23bEkD3lbg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hotmail.com;
-	spf=pass smtp.mailfrom=hotmail.com;
-	dkim=pass header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=qQSkhpS0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.53.55
-Received: from WA2P291CU004.outbound.protection.outlook.com (mail-polandcentralazolkn19012055.outbound.protection.outlook.com [52.103.53.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795868278;
+	b=LGv8/tpBMvj8lNfbdSkNxs64wx6eGZqMqWjD1g0M2vSUubA6P7BmNnppconyfYQrtgYI
+	 I6I5AfLI4KJOxm59EMMtFmD/Nvnouqkgr5ISEQPdHuDj82kcymjBpQgdSdbDAPT8OgWPg
+	 AGCClIuUtujdFv7aHBjwl3PY43g9NOMLPi2FUG8mIScFWNUSnjobPcO6LdThA94/a5dU7
+	 v+HO2J9OX/rwjEjF3QpeqUxkdOtz1MAij3mU/0OQbbCPzPk1rfyfILbI7s48cK9AyTRhZ
+	 z3+HG4KtKsycO7dlv+Su6hkmelQU7ESLCZGzNGviqnYouzQrnheL/MxtXGjuGhzZTVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795868278;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=nm/PsFJBYui06j3UcjnQSuEvasqzOT2qCIsgjBSze0M=;
+	b=lWfeERFkuKHD47HnjR6AeqZC6ajuLkQw9aTJaVTFWPRpQAjevarpoEpgJbvIqNLXlZwb
+	 ZJnXhalWjmqEKjpGwJ5A6k/8mPCFG/pt+XDhgddIZaLRJfPoMfonDW/sHmg46mHAOk50o
+	 yYGVbYCD/i6hoN5VZG5RCtreGeHobQjLm1hgRvXuoGWpm3/F2/ZS7F/cUHTbI18ke4tS9
+	 sD0F2nrwtihvLA/0cm1ki6ltz6poQwMXEXzpAwXvmWxQIPec/arWHR0AycCd4NEP7AQsq
+	 mbCPaAvwsin3FEMleXlTv2WCXYvMXrJFiLRpvnVHYPQAZQG3yB49bwzdPawq5PdBA0g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCUm79wU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA12606A31C;
-	Sat, 28 Nov 2026 12:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C350606A31C;
+	Sat, 28 Nov 2026 12:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=qQSkhpS0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QpcajqC3HSmSYqi8yKie473zqUuk5erOcOpWxo/SY79eBukSWneRT6i/FVirRjizyHnhcwEIJt3u7V8zI4YhIl49lckIIzER6vp6+Zl0RPCz65IvYVIfYCd3WIaJ+p3XEz75dmlW82kre3eQmVfkS3SLE1HQzkfY0hZdvOWtwBnJPl0hN6t4UeZ6wXpD2EwA/Z1howYS4p3RNUr/OCrpAyFeI/lJBFd5gHHfH/sBMfkVzHndKPzrJtOrGvVvVzyNKr8pFBVrokpq3q654/8uxed111mTTgnBQuvvVMzpRwLjZU3yT6dOTUuAZJxAamdCeQchLs3dkiyxHbWUWl5+yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eoRxH05gmoQhF/lAG3m32xdKxk3TArqjHSY+Nf27TxA=;
- b=bfCpqEgp8Ib8tG0TseHpK7dsW4/EQKF51YppsWMb8QJWyYksM8ABkH+vvul935VM/Am5zkgSFOdIGuPSQZQoVCUUekWpYjKiwiADOYPP9HqyodGbs7sUVOb5tKg1Z6jsnDOefXVv2SI3+J9uP++iEVYZz89GtQ5KJqZxqiVjhWGxuAaecz0izDnbxa9DL2l9lZaQ8zO00qjufeL3L2Mjo2/JT71iXyYlNHlAM7w08tT88/3GXC6VQzwKYqKJpMJDwtPRcYkYM7W7Oj0dFh7dyuTi4uIkjFqRR7Kdi0SBGlS9snZE6D2dBgAIXa7LXlsebQlbuVPdLAcY7J5/p99rtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eoRxH05gmoQhF/lAG3m32xdKxk3TArqjHSY+Nf27TxA=;
- b=qQSkhpS0md+t2/OkILqmIv7/Dq4iaBILxHS66dGY2EKYDuz1DL+xyqYh6D206bH9rRW9/dw52+8oqrwENS6HNYOjypDM9GAIiuDqiHgBn1B74YJlODkVfbNcCM5oG0Nfi38LA+6CtMSmr63omktN8rnejpV30xanbpdjsVOjoaKqPOiS5LkhDW5QrztZuFeWKJt3CzJ7xmpcRCtCGToa0DEFKUtZLhP12nZ48usIhtj7+DgSMVK9JxF8JkpnASdt4YAq8WI8Fdfrvve4Kmwq0nOLJwb7uNcEWIFxBvUh91XFT/EhbxijbqmZPI3TnwH6WuGyjl5WGmqdeaT/dRUqag==
-Received: from WA2P291MB0187.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:26::11)
- by WA0P291MB0174.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:c::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.6; Sat, 28 Nov 2026 12:12:58 +0000
-Received: from WA2P291MB0187.POLP291.PROD.OUTLOOK.COM
- ([fe80::996b:1617:ce96:404]) by WA2P291MB0187.POLP291.PROD.OUTLOOK.COM
- ([fe80::996b:1617:ce96:404%6]) with mapi id 15.21.0662.007; Sat, 28 Nov 2026
- 12:12:58 +0000
-From: =?utf-8?B?SGFiaWwgRXJlbiBUw7xya2Vy?= <habilerenturker@hotmail.com>
-To: =?utf-8?B?SGFiaWwgRXJlbiBUw7xya2Vy?= <habilerenturker@hotmail.com>
-CC: "arnd@arndb.de" <arnd@arndb.de>, "clemens@ladisch.de"
-	<clemens@ladisch.de>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>,
-	"syzbot+fc3a448093c17a792368@syzkaller.appspotmail.com"
-	<syzbot+fc3a448093c17a792368@syzkaller.appspotmail.com>
-Subject: Re: [PATCH v3] char/hpet: Fix missing TASK_RUNNING before put_user()
- in hpet_read()
-Thread-Topic: [PATCH v3] char/hpet: Fix missing TASK_RUNNING before put_user()
- in hpet_read()
-Thread-Index: AQHdeNIAcEgMjrKjnU+JKhj9cCZxtrdDcewA
-Date: Sat, 28 Nov 2026 12:12:58 +0000
-Message-ID: <20261128121257.9005-1-habilerenturker@hotmail.com>
-References: <20261120093145.134095-1-habilerenturker@hotmail.com>
-In-Reply-To: <20261120093145.134095-1-habilerenturker@hotmail.com>
-Accept-Language: tr-TR, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: WA2P291MB0187:EE_|WA0P291MB0174:EE_
-x-ms-office365-filtering-correlation-id: b9c06da8-d22e-4440-6386-08df4d48f0ec
-x-microsoft-antispam:
- BCL:0;ARA:14566002|51005399006|25010399006|16051099003|55001999006|8062599012|8060799015|38102599003|19110799012|31061999003|24021099003|21061999006|15080799012|40105399003|102099032|3412199025|440099028|1710799026;
-x-microsoft-antispam-message-info:
- =?utf-8?B?OEoxbXZMT1BMc05oYys4VjJZUFRKT0xGNXpHVk1ta2U2T0ZWcDFPd3FYeUZq?=
- =?utf-8?B?UGFrVjlRSys1NUh3M1hGbjVrWWcyczhtRm5oWDcyanVqZzVIclJscUw1VXp1?=
- =?utf-8?B?OUt0SEhnZGUwbWJ6UkN2eXFvVkxLaElZdkhKd1ByVzl1TGxsTnZialV4Snh1?=
- =?utf-8?B?RG56OHFrZ3FuUjFFWUxjSlkycnhsRVEzc05rcU9zaUQ3dGlGdW9qUzBIYVg2?=
- =?utf-8?B?alVEK2xZOWhESk9XUHlha0kwTFd2bnZJa1ZNa0NhSkphZGhNTjJzQzU1ZzNp?=
- =?utf-8?B?bStScExLUCtWR3FxYXBHdGN3bm1zcGlDQkFZSVdlSmw3M2lTQm5tdmxsdDMx?=
- =?utf-8?B?WVlxV2E3aGJIYkF0TzF5ak1CanhEdGRaOVcwY2lqMzNvQjEydkZOWG1tQ3pr?=
- =?utf-8?B?cWNUUHlHcWpHYnNXTy9NV0VWVXZ6YjRjZ2Zna0JNamJuaVRmT0VLVlYwZWFY?=
- =?utf-8?B?MWR0ZHhoaytDYWFCVklNemZ5TWFkYXppMXJRSEtDWm1lRFZhZzZBQkJwTVN0?=
- =?utf-8?B?T1NGZ3BoWnlsNEcyZWVJZkNVL0NOeHV3S0FLNUxSVFpodFdDdXk2RVlRc0xP?=
- =?utf-8?B?MHpkV21iRDBEaGcyMVh5bzFNVlFOUTJPRzlPV24vWXl6OTRxNmVyeFZmL1J2?=
- =?utf-8?B?U1EvRmlsSXpOTnRDSlkySzk2SWJtQmtTcGlkMzhNaFN5aXhGMmFwV0t4K0E4?=
- =?utf-8?B?S1d5OFJJSTBxOEN2UnJIeTR5UjkrR25tN3I0TERIblhKNjhTd1pxU0taVDFM?=
- =?utf-8?B?R285L3ZvVkFPbjZVWHFtK1U4TzlrcHNPS0dSTDRVOGdBZ0dlU1gyQWpJbXF5?=
- =?utf-8?B?YVg4bmR2TlJnWmhJZ3M0QjBTVXB1VjYvK3RJTm5aSUlrbmlaazVnSC8vS3BV?=
- =?utf-8?B?dE5pNGFXYlR5UFRFUko4ZEdEUmNNdk92T04ySE9WSmdSQlR0b0U1bDREczBX?=
- =?utf-8?B?YXZZUjkvRENlRTdsRWVlSEc3WGRCcHVuUWgzYUpGdXgzeVRFNWZmd1Z0WlZr?=
- =?utf-8?B?WjA1eFpNeW9PU0FQL1h4bE1KM2FGSVRQdURiaEFTczJLZTNtanZleVUvYmda?=
- =?utf-8?B?SUhUcFVQUGU4Z2ZCVmlyRlNpTStlK0NKS3RRMWN1VUtlTG8xWmEvcHpzSmV0?=
- =?utf-8?B?WlF4VjN2TXdLYjgvZ2FORjl2VW5HRHRweDJobDVCZnZqcEtDS2RZM2FURXZ1?=
- =?utf-8?B?QXNTM2dpSThPZHZaTmRzREgzZVFQRDMrZHJ2M0Jva3UzRzRSUDNqRnZ0RnVG?=
- =?utf-8?B?dGlTNVNvN0NuNU5DS0RWemNHLzlRSFJqRzUyQ0dpcm9MSmJ1VURlSEFKTVB0?=
- =?utf-8?B?cm9LZ1d1b1hWTEpqZTZXYjFRaVhhdWFZRE14L1ptR0Zma1o2M1FOWEx3NFFs?=
- =?utf-8?B?M1BwVUpsaVZiOHpHSlJwVGxqUW93dUpmQkF4aHEvaXJKdzcyTXNQQ0lIeFRr?=
- =?utf-8?B?aDE5OXlRc05Tck8zVGEwN3o3a2NueCtFN2FXcnZWSzVLVWd4eHJpMFEvNnZN?=
- =?utf-8?Q?5SftnQ=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bWM4bmp0TVgyMFZkTHU2K0lVTnBSVXNjZzNnRUdDNnVhTEFRV2xMQjlZVHlY?=
- =?utf-8?B?bXhDS2FzUy8zK3BUU3djS1ZidS9OejB0eEJVbDRac2dzVldjbks2RFhhT0Y2?=
- =?utf-8?B?QVpNeHJrTzdURlRhb2xzZ2xpSDR5UXlDYWNaQ2lhdlgrbExLQmFDRm5LU1d6?=
- =?utf-8?B?RmdkNnFmR25VVjdBVUVWQXNjUmFUSEdGclRkUjViTHp2RWd0V1RkQllTRkpq?=
- =?utf-8?B?Mkp4RnBZR28vTTVrOWNDLzhKOU9QdTdLaUNOQ2YrZ3RGa0ttZ2ZtTjlOTUdJ?=
- =?utf-8?B?K2JyUmJNbEltSERmd1ZXMG8zSHVrT2EyM2daM1ZWVnpKMlhkTkJtaDMyYkg4?=
- =?utf-8?B?TytQTnJVMjVSR2kxa3J4T3VNTnpmcGdmZzZRakdwZ05iaThJNzNFZGUzdDBp?=
- =?utf-8?B?TkNNUU1mVkI4emJJL1pBK2Y3dXF2ZnNjM1B2WlJ2dVBwQXV1SlF4MVVCQ0R5?=
- =?utf-8?B?a3dJcUswQ20rMnVhR2Fsa2VHTWJvLzlSWHBoOEtKZ203Y0RPcDNFbzA3alJa?=
- =?utf-8?B?MkNYTXJadWhIeGUzSW9DSDN2VS9wdDdrMkpNeTZtaUFlaFFIb1dQZTk3T2lI?=
- =?utf-8?B?eUMzRnFDaGVFZWZhSmZJMXorWWVTT2tUdVFCbkJwTkZvelhxcVlKYVJNR2xZ?=
- =?utf-8?B?dml1V0UrTjlzQnE4cHlhZ2tWUStsVHkxYU56SEt6cWV2N1pjaWZvbWIrWllt?=
- =?utf-8?B?UkI4dHlFQUcxM1JXL3FTKy80QUxrN2lOWXdubHNPRFNvM2pCUmVHMy9UVGtj?=
- =?utf-8?B?TEx3TDRBUDZvdHZkWVhEWVFJN0IrcG1qYlNBZEZHc2ViV1pjckFnL21vUks2?=
- =?utf-8?B?T05JVUcvU1FrUlNkblUyekorN0Exb3pKT3FKdUc4ZDU1MWk1R2NuNW53Z2pw?=
- =?utf-8?B?YkI4QXZ5ZTk1dEZDUDBSdnpDWVZJb3p1elNVUk54cTBHNjhGZTg3WEg4dC93?=
- =?utf-8?B?THFJRzNIcXdxdUxQdjdNbzBLQ29QMjJSaDQ4VXludTg2ZCs4dzFhZmNlbTN0?=
- =?utf-8?B?dVdGdDU2M2crYnZNL2xRSm9LdzQwTzBBdERZeG01NkVxMFVlV1R5d0kyS0gw?=
- =?utf-8?B?SDhjM01UY0pLTkNxKzhlUFBpOHI5SXFkalJoNVdOcnRhd2V0R0NJbEtxT0Mv?=
- =?utf-8?B?Tk1oZGZrdVR4SG05YXA4WGdDb2JlYkNIOUlncGJybW5BSm9CQWl4bVlKTFVj?=
- =?utf-8?B?eDViNGowSEFyTm9uaHBwb0dqYTNCK3hWd1RKNERYUEY4aTBlUktQZUVBNnU0?=
- =?utf-8?B?VnYyVWtNMytFQ3RCSkFKT1laUWs5QjFCNXQrQUpoU29Fa09Yd3MwNHhvaVAz?=
- =?utf-8?B?Wk15QnBLVzRjYzlhZTdqMFpiQUVSVWhFWGkzZWpnRGd6aWh6anNjQlB6SjlB?=
- =?utf-8?B?VXcvbzFMMk11dDZzZmdjVVBoVG5PL3dsSVZhWjNmdis4RjRNVlFQdGdsZ2JD?=
- =?utf-8?B?UEtta0JheERCSDRQU0NINUdSaTFBOVZKM3lxbStQZ1c4UlNrMEZ3Z3A0WUM2?=
- =?utf-8?B?YmpUU1JyU1dMSnRuNkxhZGFHWVQyRlZ6QWdtaUtpM3RUZEpGeVZBczFtbHYw?=
- =?utf-8?B?cWZMWVhEWXBqdzk0M2dvL0U4ekxhL2tRSThOTWVwM0RWMk1JNjNtTkxpSXFL?=
- =?utf-8?B?WjZRenZwYnF2WWIwR3AwZ0kzUVgvdGhBR3hLcjBCSUMyakhFeWhDS0dDd295?=
- =?utf-8?B?MFMycUczSmorUnhFUDlDaUdDejZxZWNiQjJuYXRPcjdrSlRUR1N0c0N0clBn?=
- =?utf-8?B?cXc5S3VuWHRSYnRSWjVIdzNVQlJUTmgrdENkbGZYZ2NDVHpNa1RINGVmelhE?=
- =?utf-8?B?QTAwUzZ3ZXlXZURocjFmY1MzMUN3dkdXYW8raG5DNUErSTdwakpVV09rWktz?=
- =?utf-8?Q?/Jp22tYvOrBuO?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCUm79wU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1AC31F00899;
+	Sat, 28 Nov 2026 12:17:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795868277;
+	bh=nm/PsFJBYui06j3UcjnQSuEvasqzOT2qCIsgjBSze0M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mCUm79wUL38qosU+954EAGAZrPnGOzzk46SKCfudC+EjRJnjqRK1+5vQuCzXtFCFT
+	 sx07Rry0mPzRjHcEqQpDLcMa90NRBdYfcth3bXsNANEsaMM0CfXG84JzNkL8HRgrGu
+	 rAfrYErMvt3OdC15a7hx1nmLQg69xsktJw0IPEBnwzEQ5nGq18WKtIYVpMDr1VbXVo
+	 oazL1VeoUWmT7yUYSzREmnKUOKo/qlTlGymutd6cmqxbsRZEAd6W4XaZ5Qj0lYc28P
+	 PNDyWBLQu4IlGIQnlJR2hec1DW6gu1UOtHuUpUcjURCsvQsgmV/IeP5JsITxPw6RgG
+	 yofcRXO6DsI0A==
+Subject:
+ Re: [PATCH net] net: ethernet: ti: cpsw_ale: serialize ALE table accesses
+From: netdev-bot+sashiko@kernel.org
+To: manuel.janocha@amperfied.com
+Cc: s-vadapalli@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-omap@vger.kernel.org, netdev@vger.kernel.org, kuniyu@google.com,
+ stable@vger.kernel.org
+Date: Sat, 28 Nov 2026 12:17:56 +0000
+Message-ID: <179586827652.3135.4662043469697713881@kernel.org>
+In-Reply-To: <20261127-cpsw-ale-lock-v1-1-a72772d9a5ae@amperfied.com>
+References: <20261127-cpsw-ale-lock-v1-1-a72772d9a5ae@amperfied.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
-Content-ID: <B9EB979C5193844481E78C072230149D@POLP291.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -169,17 +64,236 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-2112e.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: WA2P291MB0187.POLP291.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9c06da8-d22e-4440-6386-08df4d48f0ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Nov 2026 12:12:58.4287
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA0P291MB0174
 
-SGkgR3JlZywKCkp1c3QgYSBnZW50bGUgcGluZyBvbiB0aGlzIHYzIHBhdGNoLgoKUmVnYXJkcywK
-VMO8cmtlcgo=
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 2
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] netcp calls the ALE VLAN helpers with interrupts disabled, but
+  those helpers now use spin_lock_bh()/spin_unlock_bh().
+- [Low] The changelog says that ndo_set_rx_mode() 'runs under
+  netif_addr_lock_bh() of one port only and never took RTNL', and…
+- [Low] The new ale->lock serializes table sequences that use
+  writel_relaxed()/readl_relaxed() in cpsw_ale_read() and…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  cpsw_ale_control_set() (drivers/net/ethernet/ti/cpsw_ale.c) still does…
+
+--
+
+net: ethernet: ti: cpsw_ale: serialize ALE table accesses
+
+This commit adds a spinlock to struct cpsw_ale and takes it with
+spin_lock_bh() in all exported functions that access the ALE table. The
+table is reached through the shared index and data registers. The goal is
+to stop table corruption seen on am65-cpsw when ndo_set_rx_mode() runs
+without RTNL after IPv6 multicast joins stopped holding RTNL, and
+cpsw_ale_add_vlan() is split into a locked wrapper and an unlocked
+__cpsw_ale_add_vlan() helper.
+
+> This did not matter as long as the callers were serialized by someone
+> else. Both ports of a CPSW switch share one ALE, but the port VLAN
+> and address operations run under RTNL, while ndo_set_rx_mode() runs
+> under netif_addr_lock_bh() of one port only and never took RTNL. Since
+
+[Severity: Low]
+Is this accurate for all ALE users?
+
+For the legacy cpsw and cpsw_new drivers, commit 0b8c878d1173 ("net: cpsw:
+Execute ndo_set_rx_mode callback in a work queue") already addressed the
+same Fixes: commit, and it was also tagged for stable. There,
+cpsw_ndo_set_rx_mode() only schedules work, and the work takes RTNL before
+it touches the ALE:
+
+drivers/net/ethernet/ti/cpsw.c:cpsw_ndo_set_rx_mode_work() {
+	rtnl_lock();
+	if (!netif_running(ndev))
+		goto unlock_rtnl;
+
+	netif_addr_lock_bh(ndev);
+	...
+}
+
+cpsw_new.c uses the same pattern. So in those two drivers, the rx_mode ALE
+accesses are already serialized against VLAN and address operations by
+RTNL.
+
+The users that still reach the ALE table from rx_mode without RTNL seem to
+be am65-cpsw and netcp. am65-cpsw does it through
+am65_cpsw_nuss_ndo_slave_set_rx_mode(), which calls
+cpsw_ale_set_allmulti(), cpsw_ale_flush_multicast() and
+cpsw_ale_add_mcast() directly.
+
+Could the changelog name the affected drivers and mention the earlier cpsw
+fix? Could it also explain why a library-level lock was chosen over the
+RTNL work approach used there?
+
+> context (RTNL, workqueue, ethtool, system suspend). None of them runs
+> in hard interrupt context, and a sleeping lock cannot be used because
+> of the atomic callers. The register accesses under the lock are plain
+> readl()/writel(); the regmap of the ALE is only used for the version,
+
+[Severity: Low]
+Is the "plain readl()/writel()" description correct? cpsw_ale_read() and
+cpsw_ale_write() use the relaxed accessors:
+
+drivers/net/ethernet/ti/cpsw_ale.c:cpsw_ale_write() {
+	...
+	writel_relaxed(idx | ALE_TABLE_WRITE, ale->params.ale_regs +
+		       ALE_TABLE_CONTROL);
+	...
+}
+
+Documentation/memory-barriers.txt says readX_relaxed()/writeX_relaxed() do
+not guarantee ordering with respect to locking.
+
+The fix relies on one CPU's final ALE_TABLE_CONTROL write, or its index
+write plus data reads, reaching the ALE before the next lock holder's
+accesses. With relaxed accessors, that ordering comes from architecture
+behaviour and not from the documented contract. On ARCH_HAS_MMIOWB
+architectures, only the non-relaxed accessors call mmiowb_set_pending().
+
+Outside COMPILE_TEST this driver only builds for ARM/ARM64, and the arm64
+unlock probably orders these Device stores in practice. The hardware test
+also passed. Should the changelog be corrected? Alternatively, should these
+helpers use writel()/readl(), or at least use writel() for the final
+ALE_TABLE_CONTROL write?
+
+> The lock covers the table (index and data registers) only. The
+> read-modify-write of the ALE control registers and the policer index
+> registers are separate and left alone.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can the unlocked
+read-modify-write in cpsw_ale_control_set() lose port state updates in a
+similar way?
+
+drivers/net/ethernet/ti/cpsw_ale.c:cpsw_ale_control_set() {
+	...
+	tmp = readl_relaxed(ale->params.ale_regs + offset);
+	tmp = (tmp & ~(mask << shift)) | (value << shift);
+	writel_relaxed(tmp, ale->params.ale_regs + offset);
+	...
+}
+
+ALE_PORT_STATE and ALE_PORT_MACONLY_CAF are both in ALE_PORTCTL[port]. On
+am65-cpsw, the rx_mode path runs without RTNL and rewrites that register on
+every call:
+
+am65_cpsw_nuss_ndo_slave_set_rx_mode()
+  am65_cpsw_slave_set_promisc()
+    cpsw_ale_control_set(common->ale, port->port_id,
+                         ALE_PORT_MACONLY_CAF, 0);
+
+Other paths write ALE_PORT_STATE in the same word:
+am65_cpsw_nuss_mac_link_up() and am65_cpsw_nuss_mac_link_down() from the
+phylink worker, and am65_cpsw_port_stp_state_set() under RTNL.
+
+A possible interleaving:
+
+CPU0 (rx_mode)                      CPU1 (mac_link_up)
+readl(PORTCTL) -> STATE=DISABLE
+                                    readl(PORTCTL)
+                                    writel(STATE=FORWARD)
+writel(STATE=DISABLE | CAF=0)
+
+This would leave the port disabled in the ALE while the driver thinks it is
+forwarding. All ingress would then be dropped until the next link or STP
+transition. That is the same symptom this patch fixes.
+
+ALE_CONTROL looks similar. cpsw_ale_timer() sets the AGEOUT bit from
+softirq, while the promisc paths modify BYPASS and P0_UNI_FLOOD in the same
+register.
+
+An unprivileged IPv6 multicast join can now trigger rx_mode without RTNL.
+Would it make sense to serialize cpsw_ale_control_set() as well?
+
+> diff --git a/drivers/net/ethernet/ti/cpsw_ale.c b/drivers/net/ethernet/ti/cpsw_ale.c
+> index 9304405c9581a..dc550142ed822 100644
+> --- a/drivers/net/ethernet/ti/cpsw_ale.c
+> +++ b/drivers/net/ethernet/ti/cpsw_ale.c
+
+[ ... ]
+
+> @@ -681,6 +699,19 @@ int cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask, int untag,
+>  	cpsw_ale_write(ale, idx, ale_entry);
+>  	return 0;
+>  }
+> +
+> +int cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask, int untag,
+> +		      int reg_mcast, int unreg_mcast)
+> +{
+> +	int ret;
+> +
+> +	spin_lock_bh(&ale->lock);
+> +	ret = __cpsw_ale_add_vlan(ale, vid, port_mask, untag, reg_mcast,
+> +				  unreg_mcast);
+> +	spin_unlock_bh(&ale->lock);
+
+[Severity: High]
+Can this spin_unlock_bh() run with hard interrupts disabled? netcp calls
+the ALE VLAN helpers from inside an irqsave section:
+
+drivers/net/ethernet/ti/netcp_core.c:netcp_rx_kill_vid() {
+	...
+	spin_lock_irqsave(&netcp->lock, flags);
+	for_each_module(netcp, intf_modpriv) {
+		module = intf_modpriv->netcp_module;
+		if (module->del_vid) {
+			err = module->del_vid(intf_modpriv->module_priv, vid);
+	...
+}
+
+netcp_rx_add_vid() does the same for module->add_vid(). For both the gbe
+and xgbe modules, the call chains are:
+
+gbe_add_vid() -> cpsw_ale_add_vlan()
+gbe_del_vid() -> cpsw_ale_del_vlan()
+
+Both ALE functions now take ale->lock with spin_lock_bh(). That includes
+the -ENOENT early return in cpsw_ale_del_vlan().
+
+On non-RT kernels, __local_bh_enable_ip() then triggers
+lockdep_assert_irqs_enabled(). With CONFIG_TRACE_IRQFLAGS it also wraps
+do_softirq() in local_irq_disable() ... local_irq_enable(). So hard IRQs
+get re-enabled and pending softirqs run while netcp->lock is still held.
+That allows re-entry into netcp code that takes the same lock, such as
+netcp_set_rx_mode().
+
+This looks easy to reach. netcp sets NETIF_F_HW_VLAN_CTAG_FILTER, so with
+8021q loaded, every NETDEV_DOWN goes through:
+
+vlan_vid0_del()
+  vlan_vid_del(dev, htons(ETH_P_8021Q), 0)
+    netcp_rx_kill_vid()
+      gbe_del_vid()
+        cpsw_ale_del_vlan()
+
+netcp_rx_kill_vid() does not filter out vid 0. Creating any VLAN on a
+netcp interface likewise reaches cpsw_ale_add_vlan() under the irqsave
+lock.
+
+The changelog says the other callers run in process context and that netcp
+was only compile-tested. It doesn't seem to cover this IRQs-disabled
+caller.
+
+Would spin_lock_irqsave() work for ale->lock here? The other option would
+be for netcp to stop calling into the ALE while holding netcp->lock.
+
+> +
+> +	return ret;
+> +}
+>  EXPORT_SYMBOL_GPL(cpsw_ale_add_vlan);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261127-cpsw-ale-lock-v1-1-a72772d9a5ae%40amperfied.com
