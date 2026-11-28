@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795861598;
-	b=grHIyx107e+X3iplvyk3Wuo9S2eaO/lzR84FO+t26LwsE51xVr8D47COx5+diryDYbMB
-	 2FkNZx2MjXKXlocQ9+T1e3d2LuivPZj4lbApNZFvAHoHQK/3G0nxfSjTKeQobSZACiJRl
-	 WA5AtcisB1JaiGdUOTzq8xCuTd1qM90Ad/nGeNIEkBM6w4A3xTykRIA8fgqH1DQmCCIuq
-	 Op1p6CisQguxNtRg69K3DG4SzKT8e6Tqw53w/N7htFow6fV1nlbt96iAmM9crSwTctTi8
-	 rlSjXCmtQpEcQs60kiPTt1pLdaGc6A4+Vz/lsAnW4ke3nDr86i4BzkzjP0lqll43W3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795861598;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=s5XPCW/Mh4CUSluI/t+qX99JFhZuAox+me2UHy1901k=;
-	b=jvRT9hVzPTfZhztrierZpjtLqBGj36kN8E5ZUVj3exyZhze/+YHoOJAlaw1dxyxWOklr
-	 hkgNw+HbWpLV3Bj5ZstpAZwk43tgMYCMQyTGj+UWxfDQ051QHopz+t6OtFgM4G90aPZFt
-	 isYCLwuCIAyenQ/1GI1vC9nXlsOIs+uUtQg0jcZPZSGafwH8BZ/EbLhmfLBlp1iR45zOJ
-	 0to8rKd6Pov2yA9mlq4dMCjoMN4CbKEQekOX2tpY8HW2jqC0E6tdgEDuF0bxqSiz6C+dT
-	 ddaV/6qqZPgW3R44IpnbCmCyFHS308ctnfjP/43hKh4nvsPy11/+yyoP6AB7BbToGVQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="ZhXNU2/i";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.23
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795862029;
+	b=EKIh1tbqrT/vbzpwQ2d7KZaQ8/+zqYzFKlhC8ni+paXKOBiDhWKvrkf9NdeT+m9HaDVn
+	 51UHyUVq3AUK5Bl9IMgqHJsSF2ydGTu5xLmDgJ5OfE2cW2tiJsmu01uDRyHWsHCO4g5zE
+	 gHUV0abXhhDQwHODx+JUIVEB/LSLZKxF4KYCZp797AHkCA94nhiyZYmdsE3dJ7t5c7AM8
+	 HEH22zik6LKcf+0k/2cV+PMrq2TMcBH2aZxrRczlZ2me7SXUt7e6y+UcDAjaSPQ7FvuEz
+	 h2JS7H6FMT2aHoo4NCzN3BE0RLWFv3fR2qR7SK6brjd017GW8CjfChbUHQkjaAsB4xg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795862029;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AHvYKHq95D+qAXx/ZpNwF1YDR0GRXaHoHUy1ieoCmCI=;
+	b=20aaEMkcQdZ2Uaf1Rj1+5sNoObymqV9PGqL2n52PwDmPqq1bJ5c3w44wK/Zg+cADN4wD
+	 AwgWTsnm+6upuUYD1bKrVY9rXc4zlVDxix4I7QMeeohTIKcS+sfynmRFwCb1MOacdCung
+	 z63wkUCgEjUpoMVTRLJ0+8mUsQCPOIbdoh8gQKS0vGGKDd2wpdsUS5ijwzxsvmD8F5C+T
+	 cRh1mA7Ct72S//4JLbPtv3v9AGlWg/UIkRdH2Wt/S07ThdFfgeSbFRMfJ6bU8wEKxmEZg
+	 /iBBJRP55fp4JNWv47+Fy/mVMDHDo3nlZdrpL5TAmpJIVkTMO8ZqKaTM3BW6ao3KbIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=e2W4lw6v;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8947B606A32F
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 10:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8947B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9738606A31F
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 10:33:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9738606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZhXNU2/i
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UgWsDtgrOkHuqGeSPFoMdUNRNy5F7aQdZG+xrNkldSwZm3xKH8lY0mbWD+W9XzXhSrR5XHJq8eCVpVIDPM+PyXPhj99gAK7Mb2Doeu3D+lkSG6jCOyaoRaxR0MD+x9weWH+EtDz1/xZutYypS7QomgsRIfbOWU6IatxKMNn5VMfUpyqH6J+aRAjVlTWKjJYV6zQHoHSIO2bRhBaXSilgADld4riyfxDAEeCrbB0+4PfJpyHEjIZhMysatXITHqNIob5lPnqWi0WPP2rVRuiQbiQacq6MXi/DJxV5EDQGrC0e+YscvqKIZ8RGZ1JG4MfWk2Kpu0WCaNIqsHc1pwTf9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s5XPCW/Mh4CUSluI/t+qX99JFhZuAox+me2UHy1901k=;
- b=nbOdIbnnFbXNgxvf8HPtLcR9+qe6N1KxZX9L38BaSaRtkvuUcYdYsN2MHLOdz26oRkXf4urRYnb2FCBqgDrK0yTsSx6l1InUiiHGTYravAL09k208KbeLKKRFEgDIDfsZknYkic4i20lPXaQtlQ2hVXmK0DiyqNRdV5cDJIDq8yALtdTC9lrCEuIQjXIvNgFdW6NpsqUcuEGjn401buWBe2JEkP0+prGee0KxBZ+eIGn1dsRjZ9jb8a1fmgsXmJVEK5/PLZ6sFi2FpBXqNi23HNiKsTO1ANyOkF/x3lTBPmcMcxaSVYa65vfrt+XOAkacgpyG9URXgODov3OvxJeuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s5XPCW/Mh4CUSluI/t+qX99JFhZuAox+me2UHy1901k=;
- b=ZhXNU2/iYQeHDhc69lhVbuT820tHaDXDar5cubHCGwXBZLf0lgk9p5fEGrTM4My2B3ieIOmAvUGV8D/jcvN1SD+zG8OI0EWT+gxA8ztfuZkxFGIjteWO7G6Ocezq8NOYnc3s68D0cBd3kUM+Pk78tKZfvt87Fd+QbwIP7OgHqgRgfgPKJUOBcLSc5CHCZnonKXdDfraG7OMtBvZpvajyU2xnBTZUzACjnQ9F6DU6cgBVx894G+gVppQAMiwyVo9gApmKqdxjapmmsChTboKyTxAyuu+zPLJkuQRlgHQeDlZjiSQiqsHQz5ZC/2eSgthnyMMTEncGUsKFHjNhy2Ombg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by IA1PR12MB6113.namprd12.prod.outlook.com (2603:10b6:208:3eb::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Sat, 28 Nov
- 2026 10:26:34 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0662.007; Sat, 28 Nov 2026
- 10:26:34 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: stable@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Kuba Piecuch <jpiecuch@google.com>,
-	fangqiurong <fangqiurong@kylinos.cn>,
-	Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
-	sched-ext@lists.linux.dev
-Subject: [PATCH 7.1.y 8/8] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
-Date: Sat, 28 Nov 2026 11:23:51 +0100
-Message-ID: <20261128102535.655465-9-arighi@nvidia.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261128102535.655465-1-arighi@nvidia.com>
-References: <20261128102535.655465-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI3PEPF00004EA5.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::45b) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=e2W4lw6v
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f1e5d7450so820493885a.2
+        for <stable@vger.kernel.org>; Sat, 28 Nov 2026 02:33:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1795862028; x=1796466828; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AHvYKHq95D+qAXx/ZpNwF1YDR0GRXaHoHUy1ieoCmCI=;
+        b=e2W4lw6v95tCcg1Vkwlnk4Dv0h1zAJzs9oyxGnURqDy9ElwtavGEaG15l9vEoVGek9
+         tAPPm4H2aoSmu4h5EJFayN9mWiWQUaSY5S7tosTA/OX68C9Kyh5CU0EtRjYuEZ15LBA+
+         xjBVnY7O1oHIedrv93liO87v6oBKPrLe7iGRE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795862028; x=1796466828;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AHvYKHq95D+qAXx/ZpNwF1YDR0GRXaHoHUy1ieoCmCI=;
+        b=aMTbWzdr7IczkM+oV3zoI+RCj8xSV+z47ItMl4R4Klhetx7aCioUDmEVdj7b0qcZUR
+         QeI31o7icdMmE2cblucb4pyGl40l08KHk3g53SAN6n9qcQNUoGkVo3eDFkgc6KbsdrsF
+         an1v7Pt6eGeMLzq+asECkqLtxZ7BOzo9/stKWrJZBO1ovkkfbJjjUuNRZFGJjTU2rGZY
+         reIcJ+VL0bfbp8RrCSQkarH2+Bs6iTBm3+bsx/8eF9XflSBXEFJLqzfJgBJLgtqrYUnd
+         e9bpqUhOw+cd3OSifmAGgiSB3aAleGl840JknHRrPOtza9SQRhrf6jxvEDcu+G5Eyztm
+         ybSg==
+X-Forwarded-Encrypted: i=1; AL+hErFq7opVODG0rmZ/ECpAvPFRurpFLXKs57HS8SkemSJP/reQ1+Kxz45O31/J149Tp8pu2Dssx+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9x+y0aeqjLPIMnObke/1/47MGNKLBVHImy3qiiQAXxlnOSCKLF
+	pSGwslsiaNn+0it/tHZtGScFfnF7RKUGv0JHazIQJyFEjHF4Nuz1wjAHQmneuKs1Dw==
+X-Gm-Gg: AZFdTZf5cpRBkc1X497rRPqTuo2EdV8JsPhtaqLYLMyJBRlH0z2V0pjIVsGMy+UlU+0
+	TLdIDHrZz+psZ9Kyl7GsqLexoW+ZqotoX53SIbEVhvZSuzNc7BC1lLA90WdR/RIACX1/m7+dYON
+	e7TLFmXaqYnXehXyQd3D/4L/rST1Og7GmSZPG+GWX8GnLspm2RGKJFN7xMmEXBgJgwKxCkkWz6u
+	rrapDBBANrnKSPJg8cq1wQRHDUlkwE052BRdudzD+r5l14Ncpmv2wUHz3mwTxcHiNKbz0E+Ty7R
+	zfajgD0u8bkgz8jfCh9L05dHO7zw4PmAJLSRVgCHiFLrepqd8xo5iEv35NVXhcjL5HrIUmPnLA1
+	poRyiMNL0c3RcBXLLLni2UigUJZB48S5kMeNN4Y9AkoKI9zPkiUonCHZofQSy8TzX0J6R7Ly5oo
+	q+VG3Wn9G4nf6lb9uL+u/2blQ1SkxWTYH6wzG5FJXS0XyFby02Ad9E2SSSNuT/KW5u+tMap86Mf
+	WnQdmgwfqxQDG2ION3Gt1hs94G98Dmz52a+MupWH/WTLdWbFi/rWU7vbuuKjAaYnhFdODo1PIGs
+	Cmztcoxjrqlz29UoSVTOlzBbc5nif0bX77Imf//cdVIm13d4BTIhaE9SKNyaJBhwA6wkRkDg9fQ
+	89KXn
+X-Received: by 2002:a05:620a:3722:b0:949:472f:226e with SMTP id af79cd13be357-949bab15455mr5419372385a.71.1795862027745;
+        Sat, 28 Nov 2026 02:33:47 -0800 (PST)
+Received: from majuu.waya ([184.147.180.207])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3f5c31sm2053970085a.30.2026.11.28.02.33.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Nov 2026 02:33:47 -0800 (PST)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-rt-devel@lists.linux.dev,
+	wenxu <wenxu@ucloud.cn>,
+	stable@vger.kernel.org,
+	Victor Nogueira <victor@mojatatu.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net] net/sched: sch_frag: guard against same-CPU re-entrancy
+Date: Sat, 28 Nov 2026 05:33:33 -0500
+Message-Id: <QDISC-R0QC.v1.r0.20261125082538-1@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,103 +106,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|IA1PR12MB6113:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4de6a23-ab97-4401-2585-08df4d3a1396
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|11063799006|261009223027099003|18002099003|22082099003|3023799007|56012099006|10067099003|261102123227099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261021121427099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	WB5hpIesiX15A/CL+VpjFJXlbjfih4V9KJYwcvC+VeI33/K7VepXuhsuFXzJG5jXKIIwOLineGl3Yzp6JHVNAX711XIXfHdKcb05PvPURHSEtEU1EsQ6BFVn1Pmjun2a1iFzeHrrUK21x/GmkKE3l/V4RZkIUqXClcBa2YqbeC3VH7xDc8hxFyV/CC0zGaJI9RQ21D0M4g5j3+TpLyQhUUrhFvOoqKLnv+WiwC/QFucq/+5pRtk3RNbtoGsUtonX4hZNr+oKTel0+Uy4ByNCAMWsYZHeUV8r0gFb2902jv2NR1CrCPEEJ4cq1sVxJEvXLmmr7bjWNoJPj2YDn0wF5k/rNOY3VGxSFT48xfd3DcSDQNrePhbPHocNZmHqoYMNgffLwDkttbEBsB3KVJ1AhqkcG50FThkr89H5dv0EhuaPRuHn66ceGd+Okb0HfcWK4h3vBY07vYSvmAH8Ucp979X3EYZHnAIJR2Fx59f56n9ihvTHE2k0lXnSCljKbcihyRUVQbPcNy3auaP39qW868Al+nBxNdj9aT5lZhY39gHRsEWtDqU7qe0MivByrUd4Qc9pfku6ryYPUPKD8PStklMVf+pwj5AFNVjlIVvBlqXUx833PSPlvmVMmtjLvj2KAvRMESetKiUr5Qu792Z08PgnO5HNdmtkOqjj2DrRhOU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(11063799006)(261009223027099003)(18002099003)(22082099003)(3023799007)(56012099006)(10067099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cmHv7h2nss0FEHbq7u6WzMuhDAoTwTjD9yBzI7HL6keVCNfHqQvmWdXcQWKU?=
- =?us-ascii?Q?INUMRSbboLqRUgCwcU7/NvqdHCLtddnTtjxcIWnh9fH7+s2NT+yHXjLq8aP1?=
- =?us-ascii?Q?bSGQPaK7O4Nev5WyRQXKcOlr5v9sIfMWW/Ullpa6u9Wtga1tKFm8S9E6hRLG?=
- =?us-ascii?Q?xzqIQgWbyAj2vIop9szv6ZsvLaRmwGHgaFJSJy749Q1z3hcnaghM66aSBhm5?=
- =?us-ascii?Q?vylROGlFbBjUPIuxPqonTzdebPz+jDPWL0y6YQxU5E5zjcptwo2WAfVVij3N?=
- =?us-ascii?Q?u8VFmTLfWJda1rQyZ1QEJ5lH7AWIUlMO4iSmrf+pOVWlWZfMzNrq9HUPzXb2?=
- =?us-ascii?Q?PwNO8q1Xr9OMIbSAld+XCQj5X8jLGcFmwzo7AEZTSMrvDM0SvYrFc17HmgI3?=
- =?us-ascii?Q?SzaFmrsp4MGM4mq2T7eE3AzXlClxw2GojfAhdfk4hZ8dIBBkFPjlDw8gpinJ?=
- =?us-ascii?Q?S8UEHI6XKBCSZsrykxOqKSrfxLbyNdc58ligORBa7PnLFmk7wckbaIIrFKXQ?=
- =?us-ascii?Q?9TjLw7VQAFP/T/0xWZjmqw2krt5nEzgBKxa1KKrRkZYUWmjkN+4bfPH7EqNX?=
- =?us-ascii?Q?IMPsuasWj0S6syMb5vc6Nu7KwPvu7adnjiA04JDkxfg6291Yo2mqDO/SlR95?=
- =?us-ascii?Q?7KoSuq9leYSgD0KG3MXeQp4GHOF2TlNzyfTEUcYJYWHS8KNlVnul9mTYcIi2?=
- =?us-ascii?Q?bwlPTvZ6HdQSGHzY4eHHMzEYcrr0CmzMFUFQozRdiKpTo0r6m5U0K/oeWBDM?=
- =?us-ascii?Q?ageCVH+uG4W1uq4HSbcoVPH7khG6ynvuzIFYriuPJ1VZVxA9qnLKyXO9kafn?=
- =?us-ascii?Q?XZWz7WisKpC/A/8Zo/2mrCNW7W2zr1VPCvDbmfHGqzTUdOe3wCm/mvpsyzpp?=
- =?us-ascii?Q?zvEPkKrkGD014OETHCVw8XJLik184i9YiNRlgyRWexlX2DH3DTcYAlbUYiIf?=
- =?us-ascii?Q?/bZ3G0TiE7FpW9k9lvAcA6SrDLtYy84F4qjHo4q656kdUyx/YEKyKVCKu5iS?=
- =?us-ascii?Q?BdGwpILMGxLDI7RsQO5cVjgL4PYej7Wit9qxKIKkE/m/x7HAfsxLA/AgbBWa?=
- =?us-ascii?Q?0/ynUNisZ3kNvEoWnknEx0JBDTkXZBDrMPz7k+K2dZW01e7oCH7gHS4Ilpxg?=
- =?us-ascii?Q?9wcrw5yBUWVKRdI3Z7jDlOypjZS4WDWnSaFbQbjbjE3eBr5AaEjCEWoz0Bjy?=
- =?us-ascii?Q?wgqtLJvdNOYUeX6iOzekyYrHDg7GXwChdvuZhJgrDuf4JNtk1k432KjuAou/?=
- =?us-ascii?Q?2y/Gwk+euTQ8Q3BoWBDuM/OOHYnMvMFEJObju0ml0siYcOsoTCaemJhm6eg4?=
- =?us-ascii?Q?odAb9MZjb05zCO7G+9FceOoHWrJA1XiamgvdTREijwavxAtIADiEthL4kX6x?=
- =?us-ascii?Q?8tAUZ6ARjR3NKQE48SQpYfGeRDDXhKvNU0sZp7NohCzk4V22yzfQvBfaIM33?=
- =?us-ascii?Q?srCl5siQIXZd3myLzjv86Pysj244zvxm7La9gJZZjKn4UuziOdBEZ6NW6eJN?=
- =?us-ascii?Q?vBPvM2cIagtGI6TSR2xjDGibRbaDVZ491JUSUgrfD7HiwfdEiSE+UNpOYsHD?=
- =?us-ascii?Q?kDZMWUszfxsxC76A3DGg2fBECxRE9WZlusCRv01H1KcTZi3W5bSP1uLbp9jB?=
- =?us-ascii?Q?iijmVJCJYP/Ec7laqFCsyqWEmbmhGDlPqgJhiz5PjtGvRa5w1sTT9oKYYxd5?=
- =?us-ascii?Q?GKaHlVG4UzQhBpocroeMtzySzkvjIwPAzkBxQIwIUnx6Od8Y?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4de6a23-ab97-4401-2585-08df4d3a1396
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 10:26:34.3268
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zmEw2uTCUbfvNDLDpZF52qZH/4DeX9zaD0w4oh1qjZDOsi4plrx8NGjs59uWVUre5neJXD6O9P/hpN4gulehyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6113
+Content-Transfer-Encoding: 8bit
 
-From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+This is a followup of commit 975b5b067f52 ("ipv6: sr: restore network
+header before routing and forwarding") as reported by Sashiko. That change
+fixed the negative L2 length that could reach sch_fragment(); this patch
+addresses a separate pre-existing bug in the same fragment path.
 
-commit 564405c424f49d70b13debe7fe5b550234ad6b84 upstream.
+The issue:
+sch_fragment() holds the per-CPU local_lock_nested_bh across
+ip_do_fragment()/ip6_fragment(). Their sch_frag_xmit() callback calls
+data->xmit(skb), which may re-enter TC egress (cascaded act_mirred
+redirect to a qdisc that calls sch_frag_xmit_hook() again on the same
+CPU). Re-entering re-acquires the per-CPU bh_lock:
 
-Tasks in SCX_TASK_READY are attached to a scheduler but outside the ext
-class, such as RT/DL tasks, or non-SCHED_EXT tasks under a partial
-switch. The scheduler's BPF code can still update their dsq_vtime and
-slice (for instance, via ops.cgroup_move() as done by scx_flatcg).
+- on PREEMPT_RT this is a real spin_lock, so the same-CPU recursion
+  self-deadlocks;
+- on non-RT the inner call overwrites the shared per-CPU sch_frag_data
+  (dst, cb, xmit, l2_data), so when the outer fragment loop resumes it
+  uses the inner call's stale state.
 
-Because __scx_disable_and_exit_task() currently breaks out of the state
-switch for SCX_TASK_READY without calling scx_reset_task_fields(), these
-fields are not cleared when the task leaves the scheduler. If the task
-is subsequently moved to another cgroup/sub-scheduler and later switches
-to SCHED_NORMAL, the new scheduler's ops.enable() sees stale dsq_vtime
-from the previous scheduler's clock.
+With the lockdep detector built in, the recursion reports itself as:
 
-Call scx_reset_task_fields() in the SCX_TASK_READY case of
-__scx_disable_and_exit_task() to ensure SCX-managed fields are properly
-reset when leaving the scheduler.
+ ============================================
+ WARNING: possible recursive locking detected
+ 7.3.0-rc7+ #44 Not tainted
+ --------------------------------------------
+ python3/20084 is trying to acquire lock:
+ ffff8e80bd7b44d0 (bh_lock#2){+.-.}-{3:3}, at: sch_fragment+0x288/0x560
 
-Fixes: 5771e79e461e ("sched_ext: Reset dsq_vtime and slice when a task leaves SCX")
-Signed-off-by: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[arighi: Reset the fields directly in the older ext.c exit path.
-There is no scx_reset_task_fields() helper in this tree.]
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+                but task is already holding lock:
+ ffff8e80bd7b44d0 (bh_lock#2){+.-.}-{3:3}, at: sch_fragment+0x288/0x560
+
+  Possible unsafe locking scenario:
+
+        CPU0
+        ----
+   lock(bh_lock#2);
+   lock(bh_lock#2);
+
+                 *** DEADLOCK ***
+
+ Call Trace:
+  <IRQ>
+  sch_fragment+0x291/0x560
+  sch_frag_xmit_hook+0x74/0x90
+  tcf_dev_queue_xmit+0x1f/0x30
+  tcf_mirred_to_dev+0x2da/0x560
+  ...
+  sch_frag_xmit+0x169/0x260
+  ip6_fragment+0x8dc/0xa70
+  sch_fragment+0x33f/0x560
+  sch_frag_xmit_hook+0x74/0x90
+
+The Fix:
+Prevent same-CPU re-entrancy by recording which task owns the per-CPU
+fragment state. A deeper call must not re-use the outer call's per-CPU
+state, and it must not transmit the skb: sch_frag_xmit_hook() has
+already determined that the skb exceeds its recorded fragment MRU. Drop
+it and return an error instead.
+
+Owner identity, not nesting depth: on PREEMPT_RT a second task that
+reaches sch_fragment() on the same CPU waits for the real spin_lock and
+then works on its own state, so only the task that already owns the
+state is the recursive one. A depth counter would refuse that contender
+too, and reporting -ELOOP for it would be wrong.
+
+Conditions to recreate the bug:
+  # Minimum privilege: CAP_NET_ADMIN in a user-owned network namespace,
+  #   e.g. via `unshare -Urn`; nothing outside that namespace is required.
+  # Build with CONFIG_DEBUG_LOCK_ALLOC=y for the recursive-lock splat;
+  # on PREEMPT_RT the same recursion is a hard self-deadlock instead.
+  ip link add vetha type veth peer name vethb
+  ip link add vethc type veth peer name vethd
+  ip link add vethe type veth peer name vethf
+  for i in a b c d e f; do ip link set veth$i up; done
+
+  # outer: reassemble the fragments on ingress, then redirect to vethc
+  tc qdisc add dev vetha clsact
+  tc filter add dev vetha ingress matchall action ct zone 1 \
+      action mirred egress redirect dev vethc
+
+  # inner: the refragmented egress re-enters sch_fragment() on the same
+  # CPU while the outer call still holds the per-CPU lock
+  tc qdisc add dev vethc clsact
+  tc filter add dev vethc egress matchall action ct zone 2 \
+      action mirred egress redirect dev vethe
+
+  # then send a multi-fragment IPv6/UDP datagram out vethb (the zone-1
+  #   ct reassembly sets cb.mru so the redirect enters sch_fragment()).
+
+Fixes: 20d677d389e7 ("net/sched: Use nested-BH locking for sch_frag_data_storage")
+Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260827092345.2301937-1-fouriezhang@tencent.com
+Link: https://lore.kernel.org/netdev/20260827092345.2301937-1-fouriezhang@tencent.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- kernel/sched/ext.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/sched/sch_frag.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index b2bb60ff78d39..c5124279ebb38 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -3724,6 +3724,8 @@ static void __scx_disable_and_exit_task(struct scx_sched *sch,
- 		args.cancelled = true;
- 		break;
- 	case SCX_TASK_READY:
-+		p->scx.dsq_vtime = 0;
-+		p->scx.slice = 0;
- 		break;
- 	case SCX_TASK_ENABLED:
- 		scx_disable_task(sch, p);
+diff --git a/net/sched/sch_frag.c b/net/sched/sch_frag.c
+index 75ee52750919..980f1490b027 100644
+--- a/net/sched/sch_frag.c
++++ b/net/sched/sch_frag.c
+@@ -17,6 +17,7 @@ struct sch_frag_data {
+ 	unsigned int l2_len;
+ 	u8 l2_data[VLAN_ETH_HLEN];
+ 	int (*xmit)(struct sk_buff *skb);
++	struct task_struct *owner;
+ 	local_lock_t bh_lock;
+ };
+ 
+@@ -98,10 +99,19 @@ static int sch_fragment(struct net *net, struct sk_buff *skb,
+ 
+ 	if (skb_protocol(skb, true) == htons(ETH_P_IP)) {
+ 		struct rtable sch_frag_rt = { 0 };
++		struct sch_frag_data *data;
+ 		unsigned long orig_dst;
+ 
++		data = this_cpu_ptr(&sch_frag_data_storage);
++		if (READ_ONCE(data->owner) == current) {
++			kfree_skb(skb);
++			return -ELOOP;
++		}
++
+ 		local_lock_nested_bh(&sch_frag_data_storage.bh_lock);
++		data = this_cpu_ptr(&sch_frag_data_storage);
+ 		sch_frag_prepare_frag(skb, xmit);
++		WRITE_ONCE(data->owner, current);
+ 		dst_init(&sch_frag_rt.dst, &sch_frag_dst_ops, NULL,
+ 			 DST_OBSOLETE_NONE, DST_NOCOUNT);
+ 		sch_frag_rt.dst.dev = skb->dev;
+@@ -111,14 +121,24 @@ static int sch_fragment(struct net *net, struct sk_buff *skb,
+ 		IPCB(skb)->frag_max_size = mru;
+ 
+ 		ret = ip_do_fragment(net, skb->sk, skb, sch_frag_xmit);
++		WRITE_ONCE(data->owner, NULL);
+ 		local_unlock_nested_bh(&sch_frag_data_storage.bh_lock);
+ 		refdst_drop(orig_dst);
+ 	} else if (skb_protocol(skb, true) == htons(ETH_P_IPV6)) {
+-		unsigned long orig_dst;
+ 		struct rt6_info sch_frag_rt;
++		struct sch_frag_data *data;
++		unsigned long orig_dst;
++
++		data = this_cpu_ptr(&sch_frag_data_storage);
++		if (READ_ONCE(data->owner) == current) {
++			kfree_skb(skb);
++			return -ELOOP;
++		}
+ 
+ 		local_lock_nested_bh(&sch_frag_data_storage.bh_lock);
++		data = this_cpu_ptr(&sch_frag_data_storage);
+ 		sch_frag_prepare_frag(skb, xmit);
++		WRITE_ONCE(data->owner, current);
+ 		memset(&sch_frag_rt, 0, sizeof(sch_frag_rt));
+ 		dst_init(&sch_frag_rt.dst, &sch_frag_dst_ops, NULL,
+ 			 DST_OBSOLETE_NONE, DST_NOCOUNT);
+@@ -129,6 +149,7 @@ static int sch_fragment(struct net *net, struct sk_buff *skb,
+ 		IP6CB(skb)->frag_max_size = mru;
+ 
+ 		ret = ip6_fragment(net, skb->sk, skb, sch_frag_xmit);
++		WRITE_ONCE(data->owner, NULL);
+ 		local_unlock_nested_bh(&sch_frag_data_storage.bh_lock);
+ 		refdst_drop(orig_dst);
+ 	} else {
 -- 
-2.56.1
+2.43.0
 
