@@ -1,74 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795858444;
-	b=m24LsfkNVwHWG3Vh/DCaU6iBvKA+MZ+QUTPzJfQ4iTmmKap082QrB7QQfydLVMtBZ4Ti
-	 xy8FrSfPK1kQnZtK+JUE5jEP8vkX0b5XqJDgI9S1f9a8jCxrF8FHuqBkgXMorvI7hKcTs
-	 k+jffyV3hiZBQtx5hRln2PYg0dsmoIJTBkAR/4yVRyCYZjFrGlMlAixxyFe1Ev8ua3Dqz
-	 3x5q6Zi0veo3X3kl8y/rkp45SmQQRSjtDsbcbyul3l4gtOS38qs82rEQnXBOA1KN4SRaQ
-	 K2flBCpHpE5nEvTRbW3YAFVjJADyQc5h/pc3wD94QTR/RiYLNCSrCEs2XViMXkK6jYw==
+	t=1795858535;
+	b=AZmigVmdK4eUIvw7AmZqi/tJw30w8i23B7yGHI/eJzmxVEaO1cGPcqmfieQl9s9hBKoc
+	 PK/JKquUNx96Sx9F8DJbxLkJeLY4GZLpCvlzt/2fsBHOZkZggI0x+KdqZS/P8nPwX8W/e
+	 kj5E3x/aKS3G8eaASE8//zipgDDwZc1jI6oe6ULAmw4rHtZXhuMk5focxVfCNxp6ig6Oo
+	 5zPFYZufMbj9Ka8+boUu211lQfyg9Mb/lRQzegI1FKPo6OU86REEMwxIwHW6pf445Ykvd
+	 3oo7+2nPJgRJvTrFaEeHNL6hNgn5bWuFmM+PHIx/E+JjLmCKkFKeC7OE5W/2Xh2wg9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795858444;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=u+0ihA5DMPlMVfQI34XhLEoABffe8P8SEDqNF7Wa5hM=;
-	b=o1s/u4jBtBG/s6hkdYv4EhV/ZDdq5dSWCMz6I6zXbfJKuLYN08FP0dUwxzF0vBJZ8x/n
-	 ZCyXkbvv7gtlGQrT/FJgow7F6aR0QDqcwcnqWxXdW+uO9yLllAoYekgnEJT2SFtfNvIgp
-	 9qsQMu8T8H+gtQWo1LQqUp00Yh/sX358FAzcQl2dzjY7JRC7co3wS2dxbQWB3C9ZeG/wi
-	 3+TqP4RBgBhFtvHo32qp17eXPlYGYJdAmlvumpvJoc7gVk+3JKpqkludus9LEFm5Bvg7h
-	 fs1NWzNLe1sCnkKfTIHaETe+THlZJ7hGgPrBdjH+qQR4zIRj/7gXA4ktbVwhjjpdrUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795858535;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zicrRBvId4YvApKpJm48X0ZTwOkVDAdh8E0wrt9dEMg=;
+	b=gldJy9ksLXlOxccWDOlhiEs620n6PjjNsqaFq8SPfj8Jf6+vzBCexN21X7DPhu2CKmYT
+	 ed81Z2RURwcUhxKofNdvnDHXMQx17rLKu9p+YHF57H96tg9Pzi4nfUtYVeFstKYSww1aO
+	 QZ05GC30nGQCdRRX1pYKlSXs/+gG6HKD5r01cicJ6IjadFP/XvmBZXPjud7AOvwQULmGS
+	 fTm9XZ1LSXn0J/WWd10qLsodV1I8cfavp58aE+8b/kqmVZzmP5X/OB3ilAV5gfpNnibSc
+	 6ior9INSJ0aDCmp7JLVVoFFLcTIH/y81qVWs5QKWkON305gq2lwELTKjFd3aAi5NayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P7wtle0f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=RmL6cBI2;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tx31jsWF;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18F8606A31C;
-	Sat, 28 Nov 2026 09:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9122D606A321
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 09:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9122D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P7wtle0f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0D01F00893;
-	Sat, 28 Nov 2026 09:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795858444;
-	bh=u+0ihA5DMPlMVfQI34XhLEoABffe8P8SEDqNF7Wa5hM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P7wtle0f3UftnbhoQIC3mhRtfjN6U2eAEDarR2ZpqR2EgdlC4Cr/asNnQtuK7iEgj
-	 zMV/JKPtgzRIxiYvwVVpJWoCCQMtXVPyk/8LWig/6L5yrfH0ootOf5T4JCK4/cjtq/
-	 SC5Rr3I7uZCbFEFi+QZwhCFRAlmwb/6JaEAgmRa46HpHl6q/jwXkR5bVBTLa0rgFmu
-	 iyw7BdzVMCS5fp0NCliBP7A4AhZGmoIfvs+9RkY7Fdqt/tyD+ZwgooCl853KqJC5aP
-	 8QbGV8wRVj4f0dmuD3TTXvpKaFF9GggUCKomtXa6Cpeqtkbnb5bJ6uDYShy4mjn8HP
-	 liIPwpa8M2eEQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xXEoj-00000004NJB-3Set;
-	Sat, 28 Nov 2026 09:34:01 +0000
-Date: Sat, 28 Nov 2026 09:34:01 +0000
-Message-ID: <86se0lxpti.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	kernel-team@android.com,
-	fuad.tabba@linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] KVM: arm64: Use CNTPCT_EL0 for hyp trace clock
-In-Reply-To: <20261127212743.1139739-1-vdonnefort@google.com>
-References: <20261127212743.1139739-1-vdonnefort@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=RmL6cBI2;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tx31jsWF
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id AD47B7A0558
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 04:35:33 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Sat, 28 Nov 2026 04:35:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1795858533;
+	 x=1795944933; bh=zicrRBvId4YvApKpJm48X0ZTwOkVDAdh8E0wrt9dEMg=; b=
+	RmL6cBI2He6Co4g89wDHUOeavPsLzAgAFAvFSnh7pdsbPkLCcrpAihTkuTDCK+n3
+	un9fm5VNsGnCyH6MsS76w5KzdhXuXM1kAF1kcdLhGYBJkHXCoyPQShsTVE7WEALO
+	sCShVZv0Ee5i+XTL0hkBap256Q/YikyluFxMj88t6ECyXCQZUwEm9AfEc0C9BvEu
+	Gq61osyj0DJK+iA4n9FOVHwVeFRnhzGwGhGvuxtVmiUrfs16hTkZ+Ad5hHYgvKFj
+	IYYOE3ZBXGGTKPgWcR1k9XzbNncbgTHHKY9tre6l22wD50Z1dd4EHbO5SQsnFObJ
+	FwXb2VCTgky1thCoeVpN+g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795858533; x=
+	1795944933; bh=zicrRBvId4YvApKpJm48X0ZTwOkVDAdh8E0wrt9dEMg=; b=t
+	x31jsWFMsoUo5dwgDYNCw0zekt3Qem1ueANY36yvulvO3dHHVMfPHqnhdby6F7gD
+	8bJ14kf2GqdLfpicgm5fhCYoJDiVsTekqYEIUp5AFZ9cxOBFhP+L7MKSDFvX+7jv
+	mju2fLdm3J+TrCBls98fz3psuXSfM7OKFptzWDVg5eUp9QWcnwd99sG2TSEEtwbD
+	rIZTj8kKm2tmBsZ6ygU8VHZsJps1ha5vlvsCogiYfL2gt1RyNXZQSY+Ifmw8uaxo
+	/9nEYodeyOD2ESxwxeqs0+klQkWLi6P+sAnO1PA5ncSrLuB/BiVZcNvymXB+Osu3
+	d1Eq4zsE2Aig6CPd1io7g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795858533; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:W2nO8uX4/R2erktOrMXB0Y0dQZ5CVOGiiYzX8+ntU0T7fmj
+	SfhYmJXqsRFh2I73lsMi9lxKR82SWeg0ZDaDDrweBCkVJmpZgAt7opRPhYYi7EOR
+	z6NYR58iMVMi8gdHK2SXcT3ZfvI+T7qiCdjCT+V7y7nJkU1UzMEynMmoohx/Op1s
+	lSDTTNoG1Xro83zK0oPoHhHcHHbTNPK0OMNf3F8kRjh9z6AbiLiCUwwdxFS2hX6B
+	5o7agBTzRHm1u0TIT+qUbaW2yrXDIHM0MeaLsV7/VzoGql09sIeAE5lt7dvZ8t9q
+	/gv3DsDIhm6TpOiSJztqeIJUKPn6kmjvRBK0Hjw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:014xzjofYLyKTC2FEPI6l3AJteYL+UWlSylf2/3rwnU=:+TuYX39J9MK5GgWXhfX/MUZpw+eI50zC8N8dm6MRU0w=;
+X-ME-Sender: <xms:ZKAKawiU7OLMAGLs0nyYtpHMFDbYXnwkF80_85K_7S9BlVSWIhWgRw>
+    <xme:ZKAKa06GHW-LUIvF5AmE73L5KbB6FBEad7Ga33rWgVXbt-JRHUVrL4RKeM_5HNUnf
+    bJm4mqg4ivOL4pWNHyj1VfIA2QGNdbF2iamPKfXH0qhiwvPo4o_QBTs>
+X-ME-Received: <xmr:ZKAKazkqOFOPeNu63yp0SpkR64bsUrl7bxWY7zmS8eABuMF01GGiIaPGgi5XE5uS-UOnYKRAZiyDxilit9bo1pXZdMIkL-zX>
+X-ME-Proxy-Cause: dmFkZTGMV3CUim2foI4ZzGFCcoTLNyXZ5phHEtfa29Af+kPYAcEX6mgKV460NgQY1JflaC
+    AdpzyxlAuM5K3J55EGFMpNp6mHJ5kC6agKoTrbpgF/pjYbyTL9qOILlmwDpNPS4PD7Fpcs
+    mA6CY3h5GhMbYdN3rt9hRLhyOc8PDEoff6FDl2EUZo1aTv72qNhd7rZtQ4Catg08VxkU8L
+    +bvS+W5mWk1nyTDoW82JYyLmjmBX48vAWUhYmN8tLWr0KkRCG945CQXre26LhAMybC1bPJ
+    LYexQqWt5MBIr5lu90NdCW2Y+JOJuHKN1DKgP1MXy76ZutknLgeqkHHo1TrqDwEUyA6aZl
+    wfT132sjzOHmDrEaj318nLw5TKhCQykQUZaYXKbrFDH6ok0nQGH5igHCZjLEvXPqNOf9ti
+    eUtgrI/+4r/m/RGZq/iIo/CCTNPLAIyJoptC0/yEh8gmFhF/jL0n+HvK2vRRzsLdZ0P4I2
+    OadUnGxDTuWTFXMfMgzgubP8tPrXHbuYYZX8pJ6ToZbuHV3wXeeTCNlr1M4tgBLVVjUF5B
+    YuB2fLEj0pjfrQJINkF7MmIAfqmOAwBW7fhXW3cAe3Cf2J8kL5JtHpNJfdcW1pQQsJLdon
+    6E9P2sWwn9ZOl3CFkqQr6pDBV6XdIOgd8L3Du+Sm9UgiQ7RIJB3xK4ZS947w
+X-ME-Proxy: <xmx:ZKAKa1Ma2JKdUMLE4lVrPKonrMIpuqugEmKjxX0_XGFE0qC6LDgfoA>
+    <xmx:ZKAKa1qAmWc1BlYHiylL0cBc6nq31z-BxTZdiBosUAdwmlI5nBkn8g>
+    <xmx:ZKAKa-sYACVBfoEPYTZw1-_sN9nsFEAKJWOrvAWgXONmt3pUUVCu5w>
+    <xmx:ZKAKa57f26Pcu9cUYWVdw9MAKFr41nuPk-FVODp58Qc7vspI6NlUSg>
+    <xmx:ZaAKa_1UyzaRavElIPs_71OTGqCi4aIDQibHm9EGw_zRas8urBR4Xq-h>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 28 Nov 2026 04:35:30 -0500 (EST)
+Message-ID: <aa7d8770-787e-44c7-a3fc-20ebc3db8af2@pobox.com>
+Date: Sat, 28 Nov 2026 01:35:28 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,72 +118,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, fuad.tabba@linux.dev, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/318] 5.15.227-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261127052515.841545444@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261127052515.841545444@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 27 Nov 2026 21:27:43 +0000,
-Vincent Donnefort <vdonnefort@google.com> wrote:
+On 11/26/26 9:25 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.227 release.
+> There are 318 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> trace_hyp_clock() reads the virtual counter (CNTVCT_EL0). Under nVHE
-> (and pKVM without hVHE), loading a guest with a non-zero offset applies
-> that offset to CNTVCT_EL0, corrupting the trace timestamps. Use
-> CNTPCT_EL0 instead.
-
-pKVM mandates CNTVOFF_EL2 being 0. Has that changed?
-
+> Responses should be made by Sun, 29 Nov 2026 05:24:50 +0000.
+> Anything received after that time might be too late.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: b22888917fa4 ("KVM: arm64: Sync boot clock with the nVHE/pKVM hyp")
-> Reported-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> ---
->  arch/arm64/kvm/hyp/nvhe/clock.c | 2 +-
->  arch/arm64/kvm/hyp_trace.c      | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.227-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
 > 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/clock.c b/arch/arm64/kvm/hyp/nvhe/clock.c
-> index f3e2619db4e4..ea4412e6737c 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/clock.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/clock.c
-> @@ -54,7 +54,7 @@ u64 trace_hyp_clock(void)
->  	u64 bank = smp_load_acquire(&clock->cur);
->  	u64 cyc, ns;
->  
-> -	cyc = __arch_counter_get_cntvct() - clock->data[bank].epoch_cyc;
-> +	cyc = __arch_counter_get_cntpct() - clock->data[bank].epoch_cyc;
->  
->  	if (likely(cyc < clock->data[bank].cyc_overflow64)) {
->  		ns = cyc * clock->data[bank].mult;
-> diff --git a/arch/arm64/kvm/hyp_trace.c b/arch/arm64/kvm/hyp_trace.c
-> index b9404496f977..06d6bd7aeac7 100644
-> --- a/arch/arm64/kvm/hyp_trace.c
-> +++ b/arch/arm64/kvm/hyp_trace.c
-> @@ -510,8 +510,8 @@ int __init kvm_hyp_trace_init(void)
->  			per_cpu(timer_unstable_counter_workaround, cpu);
->  
->  		if (IS_ENABLED(CONFIG_ARM_ARCH_TIMER_OOL_WORKAROUND) &&
-> -		    wa && wa->read_cntvct_el0) {
-> -			pr_warn("hyp trace can't handle CNTVCT workaround '%s'\n", wa->desc);
-> +		    wa && wa->read_cntpct_el0) {
-> +			pr_warn("hyp trace can't handle CNTPCT workaround '%s'\n", wa->desc);
->  			return -EOPNOTSUPP;
->  		}
->  	}
+> thanks,
 > 
+> greg k-h
 
-This is a bad idea. Virtualising the physical counter is extremely
-expensive, while the virtual counter is basically free. On top of
-that, nVHE is a dried up turd we shouldn't invest any effort into.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). (Also briefly
+boot-tested on an Apple MacBook Air 2017.)  Working well, no regressions
+observed.
 
-I can see two options: disabling trace on nVHE altogether (my
-favourite one, because let's face it, *nobody* is using pKVM on that),
-or reset CNTVOFF_EL2 to 0 across the read of the counter when on nVHE.
-
-	M.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-Without deviation from the norm, progress is not possible.
+-Barry K. Nathan  <barryn@pobox.com>
